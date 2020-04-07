@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import RecipeListItem from "./RecipeListItem";
 import axios from "axios";
+import { Row, Col } from "antd";
 
 const RecipeList = (props) => {
   const [recipes, setRecipes] = useState([]);
@@ -8,7 +9,7 @@ const RecipeList = (props) => {
   useEffect(() => {
     axios
       .get(
-        "https://api.edamam.com/search?q=chicken&app_id=29f808e6&app_key=172c8533603f02665a8920e3ee1ea944"
+        "https://api.edamam.com/search?q=chicken&app_id=29f808e6&app_key=172c8533603f02665a8920e3ee1ea944&from=0&to=1"
       )
       .then((resp) =>
         resp.data.hits.map((recipe) =>
@@ -18,11 +19,11 @@ const RecipeList = (props) => {
   }, []);
 
   const content = (
-    <div>
+    <Row style={{ marginTop: "150px" }}>
       {recipes.map((recipe) => (
         <RecipeListItem recipe={recipe.recipe} />
       ))}
-    </div>
+    </Row>
   );
   return content;
 };
