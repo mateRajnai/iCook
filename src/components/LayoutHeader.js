@@ -11,7 +11,6 @@ const LayoutHeader = () => {
         zIndex: 1,
         width: "100%",
         height: "100px",
-        backgrounColor: "2CCCD1",
       }}
     >
       <img
