@@ -9,6 +9,7 @@ export const RecipeProvider = (props) => {
   const [query, setQuery] = useState("");
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
 
   const search = (userInput) => {
     if (userInput !== query) {
@@ -26,13 +27,22 @@ export const RecipeProvider = (props) => {
   };
 
   useEffect(() => {
-    if (recipes.length > 5) {
+    if (recipes.length > 3) {
       setLoading(false);
     }
   }, [recipes]);
 
   return (
-    <RecipeContext.Provider value={{ search, recipes, loading, setLoading }}>
+    <RecipeContext.Provider
+      value={{
+        search,
+        recipes,
+        loading,
+        setLoading,
+        selectedRecipe,
+        setSelectedRecipe,
+      }}
+    >
       {props.children}
     </RecipeContext.Provider>
   );
