@@ -3,6 +3,8 @@ import { Layout as AntLayout } from "antd";
 import LayoutHeader from "./components/LayoutHeader";
 import LayoutFooter from "./components/LayoutFooter";
 import "antd/dist/antd.css";
+import RecipeContent from "./components/RecipeContent";
+import MainContent from "./style/MainContent";
 
 import RecipeList from "./components/RecipeList";
 
@@ -10,7 +12,9 @@ const Layout = (props) => {
   return (
     <AntLayout className="layout">
       <LayoutHeader />
-      <RecipeList />
+      <MainContent>
+        <RecipeContent />
+      </MainContent>
       <LayoutFooter />
     </AntLayout>
   );
