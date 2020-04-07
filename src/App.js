@@ -1,12 +1,10 @@
 import React from "react";
-import "./App.css";
-import RecipeList from "./components/RecipeList";
+import Layout from "./Layout";
 
 function App() {
   return (
     <div className="App">
-      <h1>iCook</h1>
-      <RecipeList></RecipeList>
+      <Layout />
     </div>
   );
 }
