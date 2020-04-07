@@ -6,8 +6,6 @@ import "antd/dist/antd.css";
 import RecipeContent from "./components/RecipeContent";
 import MainContent from "./style/MainContent";
 
-import RecipeList from "./components/RecipeList";
-
 const Layout = (props) => {
   return (
     <AntLayout className="layout">

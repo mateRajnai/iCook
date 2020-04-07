@@ -19,7 +19,7 @@ const RecipeList = (props) => {
   }, []);
 
   const content = (
-    <Row style={{ marginTop: "150px" }}>
+    <Row style={{ margin: "10px" }}>
       {recipes.map((recipe) => (
         <RecipeListItem recipe={recipe.recipe} />
       ))}

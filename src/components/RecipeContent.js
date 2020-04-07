@@ -1,6 +1,7 @@
 import React from "react";
 import { Row, Col } from "antd";
 import RecipeFilter from "./RecipeFilter";
+import RecipeList from "./RecipeList";
 
 export const RecipeContent = (props) => {
   return (
@@ -9,7 +10,7 @@ export const RecipeContent = (props) => {
         <RecipeFilter />
       </Col>
       <Col span={16}>
-        <h1>Recipelist</h1>
+        <RecipeList />
       </Col>
     </Row>
   );
