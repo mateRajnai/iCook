@@ -10,21 +10,23 @@ export const RecipeProvider = (props) => {
   const [recipes, setRecipes] = useState([]);
 
   const search = (userInput) => {
-    setQuery(userInput);
+    if (userInput !== query) {
+      setQuery(userInput);
 
-    Axios.get(
-      `https://api.edamam.com/search?q=${userInput}&app_id=${API_ID}&app_key=${API_KEY}`
-    ).then((resp) =>
-      resp.data.hits.map((data) =>
-        setRecipes((prevRecipes) => [...prevRecipes, data.recipe])
-      )
-    );
+      Axios.get(
+        `https://api.edamam.com/search?q=${userInput}&app_id=${API_ID}&app_key=${API_KEY}`
+      ).then((resp) =>
+        resp.data.hits.map((data) =>
+          setRecipes((prevRecipes) => [...prevRecipes, data.recipe])
+        )
+      );
+    }
   };
 
   console.log(recipes);
 
   return (
-    <RecipeContext.Provider value={{ search }}>
+    <RecipeContext.Provider value={[{ search }]}>
       {props.children}
     </RecipeContext.Provider>
   );
