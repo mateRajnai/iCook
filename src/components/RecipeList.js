@@ -8,7 +8,6 @@ import { Row } from "antd";
 const RecipeList = (props) => {
   const { recipes } = useContext(RecipeContext);
   const { loading } = useContext(RecipeContext);
-  const { setLoading } = useContext(RecipeContext);
   let content = null;
 
   if (loading) {
