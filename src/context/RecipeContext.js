@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import Axios from "axios";
 
 export const RecipeContext = createContext();
@@ -8,9 +8,11 @@ export const RecipeProvider = (props) => {
   const API_KEY = "172c8533603f02665a8920e3ee1ea944";
   const [query, setQuery] = useState("");
   const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const search = (userInput) => {
     if (userInput !== query) {
+      setLoading(true);
       setRecipes([]);
       setQuery(userInput);
       Axios.get(
@@ -23,10 +25,14 @@ export const RecipeProvider = (props) => {
     }
   };
 
-  console.log(recipes);
+  useEffect(() => {
+    if (recipes.length > 5) {
+      setLoading(false);
+    }
+  }, [recipes]);
 
   return (
-    <RecipeContext.Provider value={[{ search }]}>
+    <RecipeContext.Provider value={{ search, recipes, loading, setLoading }}>
       {props.children}
     </RecipeContext.Provider>
   );
