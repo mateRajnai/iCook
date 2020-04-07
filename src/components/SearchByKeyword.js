@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Input } from "antd";
 import Axios from "axios";
 
@@ -7,17 +7,14 @@ const SearchByKeyword = () => {
 
   const API_ID = "29f808e6";
   const API_KEY = "172c8533603f02665a8920e3ee1ea944";
-  const [fetchedData, setFetchedData] = useState([]);
 
   const searchRecipes = (value) => {
     Axios.get(
       `https://api.edamam.com/search?q=${value}&app_id=${API_ID}&app_key=${API_KEY}`
     ).then((resp) => {
-      setFetchedData(resp);
+      console.log(resp);
     });
   };
-
-  console.log(fetchedData);
 
   return (
     <div>
