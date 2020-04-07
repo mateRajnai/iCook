@@ -6,10 +6,10 @@ import RecipeList from "./RecipeList";
 export const RecipeContent = (props) => {
   return (
     <Row>
-      <Col span={8}>
+      <Col lg={8} md={6} sm={6}>
         <RecipeFilter />
       </Col>
-      <Col span={16}>
+      <Col lg={16} md={18} sm={18}>
         <RecipeList />
       </Col>
     </Row>

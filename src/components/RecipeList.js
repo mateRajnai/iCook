@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import RecipeListItem from "./RecipeListItem";
 import axios from "axios";
-import { Row, Col } from "antd";
+import { Row } from "antd";
 
 const RecipeList = (props) => {
   const [recipes, setRecipes] = useState([]);
@@ -19,9 +19,9 @@ const RecipeList = (props) => {
   }, []);
 
   const content = (
-    <Row style={{ margin: "10px" }}>
+    <Row justify="center" style={{ margin: "10px" }}>
       {recipes.map((recipe) => (
-        <RecipeListItem recipe={recipe.recipe} />
+        <RecipeListItem key={recipe.recipe.uri} recipe={recipe.recipe} />
       ))}
     </Row>
   );
