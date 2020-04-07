@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "./Layout";
 import "./App.css";
-import { RecipeProvider } from "./RecipeContext";
+import { RecipeProvider } from "./context/RecipeContext";
 
 function App() {
   return (
