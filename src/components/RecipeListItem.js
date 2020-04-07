@@ -1,24 +1,33 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Card, Row, Col } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 import ListItem from "../style/ListItem";
+import { RecipeContext } from "../context/RecipeContext";
+import { useHistory } from "react-router-dom";
 
 const RecipeListItem = (props) => {
+  const { setSelectedRecipe } = useContext(RecipeContext);
   const recipe = props.recipe;
-  const showRecipedetails = () => {
-    console.log("click");
+  let history = useHistory();
+
+  const selectRecipe = (event) => {
+    event.stopPropagation();
+    setSelectedRecipe(recipe);
+    const id = recipe.label.toLowerCase().replace(" ", "-");
+    history.push(`/recipe/${id}`);
   };
 
-  const addToBookmarks = () => {
-    console.log("bookmarks");
+  const addToBookmarks = (event) => {
+    event.stopPropagation();
+    console.log("bookmarked");
   };
 
   return (
     <ListItem>
       <Row justify="center">
         <Col sm={24} md={24} lg={18}>
-          <Card title={recipe.label} onClick={showRecipedetails}>
+          <Card title={recipe.label} id="RecipeCard" onClick={selectRecipe}>
             <Row gutter={[32]}>
               <Col>
                 <img src={recipe.image} alt={recipe.label} height={100}></img>
