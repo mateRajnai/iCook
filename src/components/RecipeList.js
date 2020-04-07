@@ -1,30 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import RecipeListItem from "./RecipeListItem";
-import axios from "axios";
+import { RecipeContext } from "../context/RecipeContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHourglassHalf } from "@fortawesome/free-solid-svg-icons";
 import { Row } from "antd";
 
 const RecipeList = (props) => {
-  const [recipes, setRecipes] = useState([]);
+  const { recipes } = useContext(RecipeContext);
+  const { loading } = useContext(RecipeContext);
+  const { setLoading } = useContext(RecipeContext);
+  let content = null;
 
-  useEffect(() => {
-    axios
-      .get(
-        "https://api.edamam.com/search?q=chicken&app_id=29f808e6&app_key=172c8533603f02665a8920e3ee1ea944&from=0&to=1"
-      )
-      .then((resp) =>
-        resp.data.hits.map((recipe) =>
-          setRecipes((prevState) => [...prevState, recipe])
-        )
-      );
-  }, []);
-
-  const content = (
-    <Row justify="center" style={{ margin: "10px" }}>
-      {recipes.map((recipe) => (
-        <RecipeListItem key={recipe.recipe.uri} recipe={recipe.recipe} />
-      ))}
-    </Row>
-  );
+  if (loading) {
+    content = (
+      <Row justify="center" style={{ margin: "40px" }}>
+        <FontAwesomeIcon
+          icon={faHourglassHalf}
+          spin
+          size="8x"
+        ></FontAwesomeIcon>
+      </Row>
+    );
+  } else {
+    content = (
+      <div>
+        {recipes.map((recipe) => (
+          <RecipeListItem key={recipe.uri} recipe={recipe} />
+        ))}
+      </div>
+    );
+  }
   return content;
 };
 
