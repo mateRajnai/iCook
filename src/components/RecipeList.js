@@ -3,7 +3,9 @@ import RecipeListItem from "./RecipeListItem";
 import { RecipeContext } from "../context/RecipeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHourglassHalf } from "@fortawesome/free-solid-svg-icons";
-import { Row } from "antd";
+import { Row, Layout } from "antd";
+
+const { Content } = Layout;
 
 const RecipeList = (props) => {
   const { recipes } = useContext(RecipeContext);
@@ -22,11 +24,11 @@ const RecipeList = (props) => {
     );
   } else {
     content = (
-      <div>
+      <Content>
         {recipes.map((recipe) => (
           <RecipeListItem key={recipe.uri} recipe={recipe} />
         ))}
-      </div>
+      </Content>
     );
   }
   return content;
