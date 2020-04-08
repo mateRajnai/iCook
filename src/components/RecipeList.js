@@ -25,8 +25,8 @@ const RecipeList = (props) => {
   } else {
     content = (
       <Content>
-        {recipes.map((recipe) => (
-          <RecipeListItem key={recipe.uri} recipe={recipe} />
+        {recipes.map((recipe, index) => (
+          <RecipeListItem key={index} recipe={recipe} />
         ))}
       </Content>
     );
