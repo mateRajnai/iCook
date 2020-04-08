@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Input } from "antd";
-import { RecipeContext } from "../RecipeContext";
+import { RecipeContext } from "../context/RecipeContext";
 
 const SearchByKeyword = (props) => {
   const { Search } = Input;

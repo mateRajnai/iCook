@@ -1,16 +1,17 @@
 import React from "react";
 import { Row, Col } from "antd";
 
-import Search from "./Search";
+import RecipeSearch from "./RecipeSearch";
+import RecipeList from "./RecipeList";
 
 export const RecipeContent = (props) => {
   return (
     <Row>
-      <Col span={8}>
-        <Search />
+      <Col lg={6} md={4} sm={4}>
+        <RecipeSearch />
       </Col>
-      <Col span={16}>
-        <h1>Recipelist</h1>
+      <Col lg={18} md={20} sm={20}>
+        <RecipeList />
       </Col>
     </Row>
   );

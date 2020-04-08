@@ -184,7 +184,7 @@ const NUTRITIENT_FILTER = {
   queryString: "",
 };
 
-const Search = () => {
+const RecipeSearch = () => {
   const [keywordFilter, setKeyword] = useState(KEYWORD_FILTER);
   const [ingredientNumberFilter, setIngredientNumber] = useState(
     INGREDIENT_NUMBER_FILTER
@@ -231,4 +231,4 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default RecipeSearch;
