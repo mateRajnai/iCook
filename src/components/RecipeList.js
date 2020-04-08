@@ -28,7 +28,7 @@ const RecipeList = (props) => {
     content = (
       <Content>
         <InfiniteScroll
-          dataLength={recipes.length}
+          dataLength={recipes.length - 1}
           next={loadMoreRecipes}
           hasMore={true}
           endMessage={
