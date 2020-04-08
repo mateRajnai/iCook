@@ -1,33 +1,40 @@
 import React from "react";
 import { Collapse } from "antd";
+import SingleInputTypeFilter from "./SingleInputTypeFilter";
+import MinMaxInputTypeFilter from "./MinMaxInputTypeFilter";
+import CheckboxTypeFilter from "./CheckboxTypeFilter";
 
 const { Panel } = Collapse;
 
-const RecipeFilter = () => {
-  const callback = (key) => {
-    console.log(key);
-  };
-
-  const text = `
-    A dog is a type of domesticated animal.
-    Known for its loyalty and faithfulness,
-    it can be found as a welcome guest in many households across the world.
-    `;
-
+const RecipeFilter = (props) => {
   return (
-    <Collapse onChange={callback}>
-      <Panel header="This is panel header 1" key="1">
-        <Collapse defaultActiveKey="1">
-          <Panel header="This is panel nest panel" key="1">
-            <p>{text}</p>
-          </Panel>
-        </Collapse>
-      </Panel>
-      <Panel header="This is panel header 2" key="2">
-        <p>{text}</p>
-      </Panel>
-      <Panel header="This is panel header 3" key="3">
-        <p>{text}</p>
+    <Collapse>
+      <Panel header="Detailed search options" key="1">
+        <SingleInputTypeFilter
+          filter={props.ingredientNumberFilter}
+          setter={props.setIngredientNumber}
+          key={props.ingredientNumberFilter.name}
+        />
+        <MinMaxInputTypeFilter
+          filter={props.caloriesFilter}
+          setter={props.setCaloriesFilter}
+          key={props.caloriesFilter.name}
+        />
+        <MinMaxInputTypeFilter
+          filter={props.cookTimeFilter}
+          setter={props.setCookTime}
+          key={props.cookTimeFilter}
+        />
+        <CheckboxTypeFilter
+          filter={props.dietFilter}
+          setter={props.setDiets}
+          key={props.dietFilter.name}
+        />
+        <CheckboxTypeFilter
+          filter={props.healthLabelFilter}
+          setter={props.setHealthLabels}
+          key={props.healthLabelFilter.name}
+        />
       </Panel>
     </Collapse>
   );

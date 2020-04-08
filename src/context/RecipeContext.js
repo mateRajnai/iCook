@@ -6,19 +6,18 @@ export const RecipeContext = createContext();
 export const RecipeProvider = (props) => {
   const API_ID = "29f808e6";
   const API_KEY = "172c8533603f02665a8920e3ee1ea944";
-  const [query, setQuery] = useState("");
+  const [queryString, setQueryString] = useState("");
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
 
-  const search = (userInput) => {
-    if (userInput !== query) {
+  const search = (searchQuery, filterQuery) => {
+    const actualUrl = `https://api.edamam.com/search?q=${searchQuery}&app_id=${API_ID}&app_key=${API_KEY}${filterQuery}`;
+    if (actualUrl !== queryString) {
       setLoading(true);
       setRecipes([]);
-      setQuery(userInput);
-      Axios.get(
-        `https://api.edamam.com/search?q=${userInput}&app_id=${API_ID}&app_key=${API_KEY}`
-      ).then((resp) =>
+      setQueryString(actualUrl);
+      Axios.get(actualUrl).then((resp) =>
         resp.data.hits.map((data) =>
           setRecipes((prevRecipes) => [...prevRecipes, data.recipe])
         )
@@ -31,6 +30,16 @@ export const RecipeProvider = (props) => {
       setLoading(false);
     }
   }, [recipes]);
+
+  useEffect(() => {
+    if (queryString !== "") {
+      Axios.get(queryString).then((resp) =>
+        resp.data.hits.map((data) =>
+          setRecipes((prevRecipes) => [...prevRecipes, data.recipe])
+        )
+      );
+    }
+  }, [queryString]);
 
   return (
     <RecipeContext.Provider
