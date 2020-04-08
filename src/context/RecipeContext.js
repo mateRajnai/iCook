@@ -17,7 +17,7 @@ export const RecipeProvider = (props) => {
   const search = (searchQuery, filterQuery) => {
     setSearchQuery(searchQuery);
     setFilterQuery(filterQuery);
-    const actualUrl = `https://api.edamam.com/search?q=${searchQuery}&app_id=${API_ID}&app_key=${API_KEY}&from=${indexOfFromInUrl}&to=${indexOfToInUrl}${filterQuery}`;
+    const actualUrl = `https://api.edamam.com/search?q=${searchQuery}&app_id=${API_ID}&app_key=${API_KEY}${filterQuery}`;
     if (actualUrl !== queryString) {
       setIndexOfFromInUrl(0);
       setIndexOfToInUrl(10);
@@ -30,8 +30,6 @@ export const RecipeProvider = (props) => {
   const loadMoreRecipes = () => {
     const actualUrl = `https://api.edamam.com/search?q=${searchQuery}&app_id=${API_ID}&app_key=${API_KEY}&from=${indexOfFromInUrl}&to=${indexOfToInUrl}${filterQuery}`;
     setQueryString(actualUrl);
-    console.log("load more recipes");
-    console.log("new url" + queryString);
   };
 
   const getData = (url) => {
@@ -50,7 +48,6 @@ export const RecipeProvider = (props) => {
 
   useEffect(() => {
     if (queryString !== "") {
-      console.log(queryString);
       getData(queryString);
       setIndexOfFromInUrl((index) => index + 10);
       setIndexOfToInUrl((index) => index + 10);
