@@ -9,15 +9,30 @@ export const RecipeProvider = (props) => {
   const [queryString, setQueryString] = useState("");
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [indexOfFromInUrl, setIndexOfFromInUrl] = useState(0);
+  const [indexOfToInUrl, setIndexOfToInUrl] = useState(10);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterQuery, setFilterQuery] = useState("");
 
   const search = (searchQuery, filterQuery) => {
-    const actualUrl = `https://api.edamam.com/search?q=${searchQuery}&app_id=${API_ID}&app_key=${API_KEY}${filterQuery}`;
+    setSearchQuery(searchQuery);
+    setFilterQuery(filterQuery);
+    const actualUrl = `https://api.edamam.com/search?q=${searchQuery}&app_id=${API_ID}&app_key=${API_KEY}&from=${indexOfFromInUrl}&to=${indexOfToInUrl}${filterQuery}`;
     if (actualUrl !== queryString) {
+      setIndexOfFromInUrl(0);
+      setIndexOfToInUrl(10);
       setLoading(true);
       setRecipes([]);
       setQueryString(actualUrl);
       getData(actualUrl);
     }
+  };
+
+  const loadMoreRecipes = () => {
+    setIndexOfFromInUrl(indexOfFromInUrl + 10);
+    setIndexOfToInUrl(indexOfToInUrl + 10);
+    const actualUrl = `https://api.edamam.com/search?q=${searchQuery}&app_id=${API_ID}&app_key=${API_KEY}&from=${indexOfFromInUrl}&to=${indexOfToInUrl}${filterQuery}`;
+    getData(actualUrl);
   };
 
   const getData = (url) => {
