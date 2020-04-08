@@ -19,7 +19,7 @@ const CheckboxTypeFilter = (props) => {
       <Panel header={props.filter.name} key="1">
         <Checkbox.Group
           options={props.filter.options}
-          name={props.filter.apiParameter}
+          defaultValue={props.filter.checkedOptions}
           onChange={(checkedValues) => onChange(checkedValues)}
         />
       </Panel>

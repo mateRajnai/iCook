@@ -18,6 +18,7 @@ const SingleInputTypeFilter = (props) => {
           placeholder="Value"
           addonAfter={props.filter.unit}
           onChange={onChange}
+          defaultValue={props.filter.value}
         />
       </Panel>
     </Collapse>

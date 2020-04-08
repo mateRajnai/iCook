@@ -17,7 +17,7 @@ const RecipeFilter = (props) => {
         />
         <MinMaxInputTypeFilter
           filter={props.caloriesFilter}
-          setter={props.setCaloriesFilter}
+          setter={props.setCalories}
           key={props.caloriesFilter.name}
         />
         <MinMaxInputTypeFilter

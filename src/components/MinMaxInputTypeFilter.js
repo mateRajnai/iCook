@@ -44,6 +44,7 @@ const MinMaxInputTypeFilter = (props) => {
                 addonAfter={props.filter.unit}
                 placeholder="min"
                 name="min"
+                defaultValue={props.filter.minValue}
                 onChange={handleOnChange}
               />
             </Col>
@@ -51,6 +52,7 @@ const MinMaxInputTypeFilter = (props) => {
               <Input
                 placeholder="max"
                 addonAfter={props.filter.unit}
+                defaultValue={props.filter.maxValue}
                 onChange={handleOnChange}
               />
             </Col>
