@@ -14,7 +14,7 @@ const RecipeListItem = (props) => {
   const selectRecipe = (event) => {
     event.stopPropagation();
     setSelectedRecipe(recipe);
-    const id = recipe.label.toLowerCase().replace(" ", "-");
+    const id = recipe.label.toLowerCase().replace(/ /g, "-");
     history.push(`/recipe/${id}`);
   };
 
