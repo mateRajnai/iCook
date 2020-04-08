@@ -18,6 +18,7 @@ const SearchByKeyword = (props) => {
       <Search
         placeholder="Search recipes by keyword"
         onSearch={(value) => handleSearch(value)}
+        defaultValue={props.keywordFilter.value}
         enterButton
       />
     </div>

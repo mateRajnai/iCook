@@ -9,6 +9,7 @@ export const RecipeProvider = (props) => {
   const [queryString, setQueryString] = useState("");
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
 
   const search = (searchQuery, filterQuery) => {
     const actualUrl = `https://api.edamam.com/search?q=${searchQuery}&app_id=${API_ID}&app_key=${API_KEY}${filterQuery}`;
@@ -20,7 +21,7 @@ export const RecipeProvider = (props) => {
   };
 
   useEffect(() => {
-    if (recipes.length > 5) {
+    if (recipes.length > 3) {
       setLoading(false);
     }
   }, [recipes]);
@@ -36,7 +37,16 @@ export const RecipeProvider = (props) => {
   }, [queryString]);
 
   return (
-    <RecipeContext.Provider value={{ search, recipes, loading, setLoading }}>
+    <RecipeContext.Provider
+      value={{
+        search,
+        recipes,
+        loading,
+        setLoading,
+        selectedRecipe,
+        setSelectedRecipe,
+      }}
+    >
       {props.children}
     </RecipeContext.Provider>
   );
