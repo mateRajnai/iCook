@@ -30,6 +30,11 @@ export default styled.div`
     border-bottom: 1px dotted #005500;
   }
 
+  & *.main-row:last-child {
+    border: none;
+    padding-bottom: 0;
+  }
+
   & *#recipe-labels {
     text-align: center;
   }

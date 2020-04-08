@@ -7,4 +7,8 @@ export default styled.div`
   bottom: 40px;
   left: 0;
   right: 0;
+
+  & > div {
+    margin-bottom: 100px;
+  }
 `;
