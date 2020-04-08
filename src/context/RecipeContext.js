@@ -56,7 +56,9 @@ export const RecipeProvider = (props) => {
   }, [queryString]);
 
   return (
-    <RecipeContext.Provider value={{ search, recipes, loading, setLoading }}>
+    <RecipeContext.Provider
+      value={{ search, recipes, loading, setLoading, loadMoreRecipes }}
+    >
       {props.children}
     </RecipeContext.Provider>
   );
