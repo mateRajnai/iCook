@@ -30,7 +30,7 @@ const CALORIES_FILTER = {
 const COOK_TIME_FILTER = {
   name: "Cook time",
   apiParameter: "time",
-  unit: "minutes",
+  unit: "min",
   minValue: "",
   maxValue: "",
   queryString: "",

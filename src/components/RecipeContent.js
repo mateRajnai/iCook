@@ -15,11 +15,12 @@ export const RecipeContent = (props) => {
           style={{
             position: "fixed",
             top: "110px",
-            width: "317.484px",
-            height: "14030.3px",
+            width: "500px",
+            height: "1200px",
+            marginLeft: "50px",
           }}
         >
-          <Sider width={300} className="site-layout-background main-menu-inner">
+          <Sider width={400} className="site-layout-background main-menu-inner">
             <Menu className="aside-container" mode="inline">
               <RecipeSearch />
             </Menu>

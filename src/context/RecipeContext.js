@@ -16,11 +16,6 @@ export const RecipeProvider = (props) => {
       setLoading(true);
       setRecipes([]);
       setQueryString(actualUrl);
-      Axios.get(actualUrl).then((resp) =>
-        resp.data.hits.map((data) =>
-          setRecipes((prevRecipes) => [...prevRecipes, data.recipe])
-        )
-      );
     }
   };
 
