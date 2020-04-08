@@ -13,6 +13,7 @@ export const RecipeProvider = (props) => {
   const [indexOfToInUrl, setIndexOfToInUrl] = useState(10);
   const [searchQuery, setSearchQuery] = useState("");
   const [filterQuery, setFilterQuery] = useState("");
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
 
   const search = (searchQuery, filterQuery) => {
     setSearchQuery(searchQuery);
@@ -41,7 +42,7 @@ export const RecipeProvider = (props) => {
   };
 
   useEffect(() => {
-    if (recipes.length > 5) {
+    if (recipes.length > 3) {
       setLoading(false);
     }
   }, [recipes]);
@@ -56,7 +57,15 @@ export const RecipeProvider = (props) => {
 
   return (
     <RecipeContext.Provider
-      value={{ search, recipes, loading, setLoading, loadMoreRecipes }}
+      value={{
+        search,
+        recipes,
+        loading,
+        setLoading,
+        selectedRecipe,
+        setSelectedRecipe,
+        loadMoreRecipes
+      }}
     >
       {props.children}
     </RecipeContext.Provider>

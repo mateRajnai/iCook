@@ -1,9 +1,10 @@
 import React from "react";
 import { Layout } from "antd";
+import { Link } from "react-router-dom";
 
 const { Header } = Layout;
 
-const LayoutHeader = () => {
+const LayoutHeader = (props) => {
   return (
     <Header
       style={{
@@ -13,12 +14,14 @@ const LayoutHeader = () => {
         height: "100px",
       }}
     >
-      <img
-        className="logo"
-        alt="iCook"
-        src="/logo.png"
-        style={{ maxBlockSize: "100%" }}
-      />
+      <Link to={"/"}>
+        <img
+          className="logo"
+          alt="iCook"
+          src="/logo.png"
+          style={{ maxBlockSize: "100%" }}
+        />
+      </Link>
     </Header>
   );
 };
