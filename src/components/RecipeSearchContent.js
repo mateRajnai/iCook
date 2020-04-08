@@ -16,7 +16,6 @@ export const RecipeContent = (props) => {
             position: "fixed",
             top: "110px",
             width: "500px",
-            height: "1200px",
             marginLeft: "50px",
           }}
         >

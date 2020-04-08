@@ -16,7 +16,11 @@ const CheckboxTypeFilter = (props) => {
 
   return (
     <Collapse defaultActiveKey="0">
-      <Panel header={props.filter.name} key="1">
+      <Panel
+        header={props.filter.name}
+        key="1"
+        forceRender={props.filter.checkedOptions !== []}
+      >
         <Checkbox.Group
           options={props.filter.options}
           defaultValue={props.filter.checkedOptions}

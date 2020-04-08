@@ -42,9 +42,11 @@ export const RecipeProvider = (props) => {
   };
 
   useEffect(() => {
-    if (recipes.length > 3) {
-      setLoading(false);
-    }
+    setTimeout(() => {
+      if (recipes.length === 0) {
+        setLoading(false);
+      }
+    }, 2500);
   }, [recipes]);
 
   useEffect(() => {
@@ -55,16 +57,19 @@ export const RecipeProvider = (props) => {
     }
   }, [queryString]);
 
+  useEffect(() => {}, [loading]);
+
   return (
     <RecipeContext.Provider
       value={{
         search,
+        queryString,
         recipes,
         loading,
         setLoading,
         selectedRecipe,
         setSelectedRecipe,
-        loadMoreRecipes
+        loadMoreRecipes,
       }}
     >
       {props.children}

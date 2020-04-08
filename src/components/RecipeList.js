@@ -3,15 +3,18 @@ import RecipeListItem from "./RecipeListItem";
 import { RecipeContext } from "../context/RecipeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHourglassHalf } from "@fortawesome/free-solid-svg-icons";
-import { Row, Layout } from "antd";
+import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
+import { Row, Layout, Typography } from "antd";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 const { Content } = Layout;
+const { Title } = Typography;
 
 const RecipeList = (props) => {
   const { recipes } = useContext(RecipeContext);
   const { loading } = useContext(RecipeContext);
   const { loadMoreRecipes } = useContext(RecipeContext);
+  const { queryString } = useContext(RecipeContext);
   let content = null;
 
   if (loading) {
@@ -24,7 +27,7 @@ const RecipeList = (props) => {
         ></FontAwesomeIcon>
       </Row>
     );
-  } else {
+  } else if (recipes.length !== 0) {
     content = (
       <Content>
         <InfiniteScroll
@@ -45,6 +48,24 @@ const RecipeList = (props) => {
           ))}
         </InfiniteScroll>
       </Content>
+    );
+  } else if (queryString !== "") {
+    content = (
+      <React.Fragment>
+        <Row justify="center" style={{ margin: "40px" }}>
+          <FontAwesomeIcon
+            icon={faExclamationCircle}
+            spin
+            size="8x"
+            style={{ color: "orange" }}
+          ></FontAwesomeIcon>
+        </Row>
+        <Row justify="center" style={{ margin: "40px" }}>
+          <Title level={4}>
+            Sorry, we found nothing! Please try to refine your search!
+          </Title>
+        </Row>
+      </React.Fragment>
     );
   }
   return content;
