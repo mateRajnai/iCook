@@ -1,10 +1,13 @@
 import styled from "styled-components";
 
 export default styled.div`
-  position: "fixed";
-  z-index: 1;
   width: 100%;
-  height: "100px";
+  z-index: 1;
+  position: fixed;
+  & > Header {
+    height: 70px;
+    background-color: #004400;
+  }
 
   & * a {
     text-decoration: none;
