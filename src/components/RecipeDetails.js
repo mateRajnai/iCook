@@ -19,7 +19,13 @@ const RecipeDetails = (props) => {
                     <h1>{selectedRecipe.label}</h1>
                   </Col>
                   <Col>
-                    <a href={selectedRecipe.url}>How do I cook this?</a>
+                    <a
+                      href={selectedRecipe.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      How do I cook this?
+                    </a>
                   </Col>
                 </Row>
                 <Row justify="space-around">
