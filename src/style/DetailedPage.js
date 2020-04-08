@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export default styled.div`
-  padding: 20px;
   & *#container {
     padding: 20px;
     border: 2px solid #005500;
