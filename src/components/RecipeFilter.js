@@ -35,21 +35,6 @@ const RecipeFilter = (props) => {
           setter={props.setHealthLabels}
           key={props.healthLabelFilter.name}
         />
-        <CheckboxTypeFilter
-          filter={props.mealTypeFilter}
-          setter={props.setMealTypes}
-          key={props.mealTypeFilter.name}
-        />
-        <CheckboxTypeFilter
-          filter={props.dishTypeFilter}
-          setter={props.setDishTypes}
-          key={props.dishTypeFilter.name}
-        />
-        <CheckboxTypeFilter
-          filter={props.cuisineFilter}
-          setter={props.setCuisines}
-          key={props.cuisineFilter.name}
-        />
       </Panel>
     </Collapse>
   );

@@ -39,14 +39,7 @@ const COOK_TIME_FILTER = {
 const DIET_FILTER = {
   name: "Diet label",
   apiParameter: "diet",
-  options: [
-    "balanced",
-    "high-fiber",
-    "high-protein",
-    "low-carb",
-    "low-fat",
-    "low-sodium",
-  ],
+  options: ["balanced", "high-protein", "low-carb", "low-fat"],
   checkedOptions: [],
   queryString: "",
 };
@@ -56,34 +49,11 @@ const HEALTH_FILTER = {
   apiParameter: "health",
   options: [
     "alcohol-free",
-    "celery-free",
-    "crustacean-free",
-    "dairy-free",
-    "egg-free",
-    "fish-free",
-    "fodmap-free",
-    "gluten-free",
-    "keto-friendly",
-    "kidney-friendly",
-    "kosher",
-    "low-potassium",
-    "lupine-free",
-    "mustard-free",
-    "low-fat-abs",
-    "No-oil-added",
-    "low-sugas",
-    "paleo",
     "peanut-free",
-    "pecatarian",
-    "pork-free",
-    "red-meat-free",
-    "sesame-free",
-    "shellfish-free",
-    "soy-free",
     "sugar-conscious",
     "tree-nut-free",
     "vegan",
-    "wheat-free",
+    "vegetarian",
   ],
   checkedOptions: [],
   queryString: "",
@@ -193,13 +163,16 @@ const RecipeSearch = () => {
   const [cookTimeFilter, setCookTime] = useState(COOK_TIME_FILTER);
   const [dietFilter, setDiets] = useState(DIET_FILTER);
   const [healthLabelFilter, setHealthLabels] = useState(HEALTH_FILTER);
-  const [mealTypeFilter, setMealTypes] = useState(MEAL_TYPE_FILTER);
-  const [dishTypeFilter, setDishTypes] = useState(DISH_TYPE_FILTER);
-  const [cuisineFilter, setCuisines] = useState(CUISINE_FILTER);
 
   const prepareFilterQuery = () => {
     console.log(ingredientNumberFilter.queryString);
-    return ingredientNumberFilter.queryString + healthLabelFilter.queryString;
+    return (
+      ingredientNumberFilter.queryString +
+      caloriesFilter.queryString +
+      cookTimeFilter.queryString +
+      dietFilter.queryString +
+      healthLabelFilter.queryString
+    );
   };
 
   return (
@@ -220,12 +193,6 @@ const RecipeSearch = () => {
         setDiets={setDiets}
         healthLabelFilter={healthLabelFilter}
         setHealthLabels={setHealthLabels}
-        mealTypeFilter={mealTypeFilter}
-        setMealTypes={setMealTypes}
-        dishTypeFilter={dishTypeFilter}
-        setDishTypes={setDishTypes}
-        cuisineFilter={cuisineFilter}
-        setCuisines={setCuisines}
       />
     </React.Fragment>
   );
