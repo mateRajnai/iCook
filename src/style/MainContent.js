@@ -7,5 +7,8 @@ export default styled.div`
   bottom: 40px;
   left: 0;
   right: 0;
-  padding: 20px;
+
+  & > div {
+    margin-bottom: 100px;
+  }
 `;
