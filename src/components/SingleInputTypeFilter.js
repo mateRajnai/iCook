@@ -6,8 +6,11 @@ const { Panel } = Collapse;
 const SingleInputTypeFilter = (props) => {
   const onChange = (e) => {
     const filterCopy = props.filter;
-    filterCopy.value = e.target.value;
-    filterCopy.queryString = `&${filterCopy.apiParameter}=${filterCopy.value}`;
+    filterCopy.value = parseInt(e.target.value) ? e.target.value : "";
+    filterCopy.queryString =
+      filterCopy.value === ""
+        ? ""
+        : `&${filterCopy.apiParameter}=${filterCopy.value}`;
     props.setter(filterCopy);
   };
 

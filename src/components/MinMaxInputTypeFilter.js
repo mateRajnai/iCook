@@ -11,13 +11,15 @@ const MinMaxInputTypeFilter = (props) => {
       return `${baseString}${min}%2b`;
     } else if (min !== "" && max !== "") {
       return `${baseString}${min}-${max}`;
+    } else if (max !== "") {
+      return `${baseString}${max}`;
     }
-    return `${baseString}${max}`;
+    return "";
   };
 
   const handleOnChange = (e) => {
     const property = e.target.name;
-    const value = e.target.value;
+    const value = parseInt(e.target.value) ? e.target.value : "";
     const filterCopy = props.filter;
 
     if (property === "min") {
