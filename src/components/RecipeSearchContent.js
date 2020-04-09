@@ -14,7 +14,8 @@ export const RecipeContent = (props) => {
           className="ant-affix"
           style={{
             position: "fixed",
-            top: "110px",
+            top: "70px",
+            paddingTop: "20px",
             width: "500px",
             marginLeft: "50px",
           }}

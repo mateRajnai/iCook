@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export default styled.div`
-  padding: 20px;
   & *#container {
     padding: 20px;
     border: 2px solid #005500;
@@ -28,6 +27,11 @@ export default styled.div`
   & *.main-row {
     padding: 20px 0 20px 0;
     border-bottom: 1px dotted #005500;
+  }
+
+  & *.main-row:last-child {
+    border: none;
+    padding-bottom: 0;
   }
 
   & *#recipe-labels {

@@ -2,10 +2,14 @@ import React, { useContext } from "react";
 import RecipeListItem from "./RecipeListItem";
 import { RecipeContext } from "../context/RecipeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHourglassHalf } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHourglassHalf,
+  faArrowLeft,
+} from "@fortawesome/free-solid-svg-icons";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
-import { Row, Layout, Typography } from "antd";
+import { Row, Layout, Typography, Col } from "antd";
 import InfiniteScroll from "react-infinite-scroll-component";
+import SearchTip from "../style/SearchTip";
 
 const { Content } = Layout;
 const { Title } = Typography;
@@ -15,6 +19,7 @@ const RecipeList = (props) => {
   const { loading } = useContext(RecipeContext);
   const { loadMoreRecipes } = useContext(RecipeContext);
   const { queryString } = useContext(RecipeContext);
+
   let content = null;
 
   if (loading) {
@@ -25,6 +30,19 @@ const RecipeList = (props) => {
           spin
           size="8x"
         ></FontAwesomeIcon>
+      </Row>
+    );
+  } else if (recipes.length === 0 && queryString === "") {
+    content = (
+      <Row justify="center">
+        <Col span={16}>
+          <SearchTip>
+            <div>
+              <FontAwesomeIcon icon={faArrowLeft} size="5x"></FontAwesomeIcon>
+              <span>Search for a meal or ingredient</span>
+            </div>
+          </SearchTip>
+        </Col>
       </Row>
     );
   } else if (recipes.length !== 0) {
@@ -49,7 +67,7 @@ const RecipeList = (props) => {
         </InfiniteScroll>
       </Content>
     );
-  } else if (queryString !== "") {
+  } else if (queryString !== "" && recipes.length === 0) {
     content = (
       <React.Fragment>
         <Row justify="center" style={{ margin: "40px" }}>
