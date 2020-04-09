@@ -165,7 +165,6 @@ const RecipeSearch = () => {
   const [healthLabelFilter, setHealthLabels] = useState(HEALTH_FILTER);
 
   const prepareFilterQuery = () => {
-    console.log(ingredientNumberFilter.queryString);
     return (
       ingredientNumberFilter.queryString +
       caloriesFilter.queryString +
