@@ -1,6 +1,6 @@
 import React from "react";
-import SearchByKeyword from "./SearchByKeyword";
-import RecipeFilter from "./RecipeFilter";
+import SearchByKeyword from "./searchByKeyword/SearchByKeyword";
+import RecipeFilter from "./filtering/RecipeFilter";
 import { useState } from "react";
 
 const KEYWORD_FILTER = {
