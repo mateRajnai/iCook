@@ -1,8 +1,8 @@
 import React from "react";
 import { Collapse } from "antd";
-import SingleInputTypeFilter from "./SingleInputTypeFilter";
-import MinMaxInputTypeFilter from "./MinMaxInputTypeFilter";
-import CheckboxTypeFilter from "./CheckboxTypeFilter";
+import SingleInputTypeFilter from "./filterTypes/SingleInputTypeFilter";
+import MinMaxInputTypeFilter from "./filterTypes/MinMaxInputTypeFilter";
+import CheckboxTypeFilter from "./filterTypes/CheckboxTypeFilter";
 
 const { Panel } = Collapse;
 

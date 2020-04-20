@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import RecipeListItem from "./RecipeListItem";
-import { RecipeContext } from "../context/RecipeContext";
+import { RecipeContext } from "../../context/RecipeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHourglassHalf,
@@ -9,7 +9,7 @@ import {
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { Row, Layout, Typography, Col } from "antd";
 import InfiniteScroll from "react-infinite-scroll-component";
-import SearchTip from "../style/SearchTip";
+import SearchTip from "../../style/SearchTip";
 
 const { Content } = Layout;
 const { Title } = Typography;

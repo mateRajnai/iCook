@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import { RecipeContext } from "../context/RecipeContext";
+import { RecipeContext } from "../../context/RecipeContext";
 import { Row, Col } from "antd";
-import DetailedPage from "../style/DetailedPage";
+import DetailedPage from "../../style/DetailedPage";
 
 const RecipeDetails = (props) => {
   const { selectedRecipe } = useContext(RecipeContext);

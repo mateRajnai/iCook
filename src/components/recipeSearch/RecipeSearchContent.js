@@ -3,7 +3,7 @@ import { Row, Col, Menu, Layout } from "antd";
 import styled from "styled-components";
 
 import RecipeSearch from "./RecipeSearch";
-import RecipeList from "./RecipeList";
+import RecipeList from "../recipeList/RecipeList";
 
 const { Sider } = Layout;
 
@@ -15,7 +15,7 @@ const InnerDiv = styled.div`
   margin-left: "50px";
 `;
 
-export const RecipeContent = (props) => {
+export const RecipeSearchContent = (props) => {
   return (
     <Row>
       <Col lg={6} md={4} sm={4}>
@@ -34,4 +34,4 @@ export const RecipeContent = (props) => {
   );
 };
 
-export default RecipeContent;
+export default RecipeSearchContent;
