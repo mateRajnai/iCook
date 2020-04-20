@@ -9,7 +9,11 @@ const { Panel } = Collapse;
 const RecipeFilter = (props) => {
   return (
     <Collapse>
-      <Panel header="Detailed search options" key="1">
+      <Panel
+        header="Detailed search options"
+        key="1"
+        style={{ maxBlockSize: "100%" }}
+      >
         <SingleInputTypeFilter
           filter={props.ingredientNumberFilter}
           setter={props.setIngredientNumber}
