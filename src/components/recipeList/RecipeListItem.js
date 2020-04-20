@@ -3,11 +3,11 @@ import { Card, Row, Col } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 import ListItem from "../../style/ListItem";
-import { RecipeContext } from "../../context/RecipeContext";
 import { useHistory } from "react-router-dom";
+import { SelectedRecipeContext } from "../../context/SelectedRecipeContext";
 
 const RecipeListItem = (props) => {
-  const { setSelectedRecipe } = useContext(RecipeContext);
+  const { setSelectedRecipe } = useContext(SelectedRecipeContext);
   const recipe = props.recipe;
   let history = useHistory();
 

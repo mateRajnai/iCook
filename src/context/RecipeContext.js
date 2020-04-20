@@ -13,7 +13,6 @@ export const RecipeProvider = (props) => {
   const [indexOfToInUrl, setIndexOfToInUrl] = useState(10);
   const [searchQuery, setSearchQuery] = useState("");
   const [filterQuery, setFilterQuery] = useState("");
-  const [selectedRecipe, setSelectedRecipe] = useState(null);
 
   const search = (searchQuery, filterQuery) => {
     setSearchQuery(searchQuery);
@@ -67,8 +66,6 @@ export const RecipeProvider = (props) => {
         recipes,
         loading,
         setLoading,
-        selectedRecipe,
-        setSelectedRecipe,
         loadMoreRecipes,
       }}
     >
