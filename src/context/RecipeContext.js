@@ -4,8 +4,8 @@ import Axios from "axios";
 export const RecipeContext = createContext();
 
 export const RecipeProvider = (props) => {
-  const API_ID = "29f808e6";
-  const API_KEY = "172c8533603f02665a8920e3ee1ea944";
+  const API_ID = process.env.REACT_APP_API_ID;
+  const API_KEY = process.env.REACT_APP_API_KEY;
   const [queryString, setQueryString] = useState("");
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
