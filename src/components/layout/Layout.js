@@ -8,6 +8,7 @@ import LayoutFooter from "./LayoutFooter";
 import RecipeSearchContent from "../recipeSearch/RecipeSearchContent";
 import MainContent from "../../style/MainContent";
 import RecipeDetails from "../details/RecipeDetails";
+import DrinkRandomizer from "../drink/DrinkRandomizer";
 
 const Layout = (props) => {
   return (
@@ -21,14 +22,7 @@ const Layout = (props) => {
             component={RecipeSearchContent}
           />
           <Route path={"/recipe/:id"} component={RecipeDetails} />
-          <Route
-            path={"/random-drink"}
-            render={(props) => (
-              <div style={{ textAlign: "center" }}>
-                <h1>Coming soon...</h1>
-              </div>
-            )}
-          />
+          <Route path={"/random-drink"} component={DrinkRandomizer} />
         </MainContent>
         <LayoutFooter />
       </AntLayout>
