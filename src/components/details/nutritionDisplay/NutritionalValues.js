@@ -9,6 +9,7 @@ import { SelectedRecipeContext } from "../../../context/SelectedRecipeContext";
 const NUTRIENT_DATA = 1;
 
 const NutritionalTable = styled.div`
+  font-size: 15px;
   padding: 5px;
   #hide-button {
     margin-top: 20px;
