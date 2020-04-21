@@ -6,11 +6,14 @@ export const RecipeContext = createContext();
 export const RecipeProvider = (props) => {
   const API_ID = process.env.REACT_APP_API_ID;
   const API_KEY = process.env.REACT_APP_API_KEY;
+
   const [queryString, setQueryString] = useState("");
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
+
   const [indexOfFromInUrl, setIndexOfFromInUrl] = useState(0);
   const [indexOfToInUrl, setIndexOfToInUrl] = useState(10);
+
   const [searchQuery, setSearchQuery] = useState("");
   const [filterQuery, setFilterQuery] = useState("");
 
@@ -40,6 +43,11 @@ export const RecipeProvider = (props) => {
     );
   };
 
+  const setIndexOfUrlForInfiniteScrolling = () => {
+    setIndexOfFromInUrl((index) => index + 10);
+    setIndexOfToInUrl((index) => index + 10);
+  };
+
   useEffect(() => {
     setTimeout(() => {
       if (recipes.length === 0) {
@@ -51,8 +59,7 @@ export const RecipeProvider = (props) => {
   useEffect(() => {
     if (queryString !== "") {
       getData(queryString);
-      setIndexOfFromInUrl((index) => index + 10);
-      setIndexOfToInUrl((index) => index + 10);
+      setIndexOfUrlForInfiniteScrolling();
     }
   }, [queryString]);
 
