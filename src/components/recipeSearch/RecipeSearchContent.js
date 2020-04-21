@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Menu, Layout } from "antd";
+import { Row, Col, Menu } from "antd";
 import styled from "styled-components";
 
 import RecipeSearch from "./RecipeSearch";

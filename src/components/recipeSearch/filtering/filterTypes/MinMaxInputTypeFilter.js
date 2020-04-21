@@ -20,6 +20,7 @@ const MinMaxInputTypeFilter = (props) => {
   const handleOnChange = (e) => {
     const property = e.target.name;
     const value = parseInt(e.target.value) ? e.target.value : "";
+    const allFiltersCopy = props.allFilters;
     const filterCopy = props.filter;
 
     if (property === "min") {
@@ -31,7 +32,8 @@ const MinMaxInputTypeFilter = (props) => {
       filterCopy.minValue,
       filterCopy.maxValue
     );
-    props.setter(filterCopy);
+    allFiltersCopy[props.index] = filterCopy;
+    props.setter(allFiltersCopy);
     console.log(filterCopy.queryString);
   };
 

@@ -1,23 +1,27 @@
 import React, { useContext } from "react";
 import { Input } from "antd";
 import { RecipeContext } from "../../../context/RecipeContext";
+import { SearchContext } from "../../../context/SearchContext";
 
 const SearchByKeyword = (props) => {
   const { Search } = Input;
   const { search } = useContext(RecipeContext);
+  const { keywordFilter, setKeywordFilter, prepareFilterQuery } = useContext(
+    SearchContext
+  );
 
   const handleSearch = (value) => {
-    const keyWordFilter = props.keywordFilter;
+    const keyWordFilter = keywordFilter;
     keyWordFilter.value = value;
-    props.setKeyword(keyWordFilter);
-    search(props.keywordFilter.value, props.prepareFilterQuery());
+    setKeywordFilter(keyWordFilter);
+    search(keywordFilter.value, prepareFilterQuery());
   };
 
   return (
     <div>
       <Search
         placeholder="Search recipes by keyword"
-        defaultValue={props.keywordFilter.value}
+        defaultValue={keywordFilter.value}
         onSearch={(value) => handleSearch(value)}
         enterButton
       />
