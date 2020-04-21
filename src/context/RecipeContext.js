@@ -9,22 +9,19 @@ export const RecipeProvider = (props) => {
   const [queryString, setQueryString] = useState("");
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
+
   const [indexOfFromInUrl, setIndexOfFromInUrl] = useState(0);
   const [indexOfToInUrl, setIndexOfToInUrl] = useState(10);
   const [searchQuery, setSearchQuery] = useState("");
   const [filterQuery, setFilterQuery] = useState("");
-  const [selectedRecipe, setSelectedRecipe] = useState(null);
 
   const search = (searchQuery, filterQuery) => {
     setSearchQuery(searchQuery);
     setFilterQuery(filterQuery);
     const actualUrl = `https://api.edamam.com/search?q=${searchQuery}&app_id=${API_ID}&app_key=${API_KEY}${filterQuery}`;
     if (actualUrl !== queryString) {
-      setIndexOfFromInUrl(0);
-      setIndexOfToInUrl(10);
       setLoading(true);
-      setRecipes([]);
-      setQueryString(actualUrl);
+      setInitialStatesAfterNewSearch(actualUrl);
     }
   };
 
@@ -41,6 +38,18 @@ export const RecipeProvider = (props) => {
     );
   };
 
+  const setInitialStatesAfterNewSearch = (actualUrl) => {
+    setIndexOfFromInUrl(0);
+    setIndexOfToInUrl(10);
+    setRecipes([]);
+    setQueryString(actualUrl);
+  };
+
+  const setIndexOfUrlForInfiniteScrolling = () => {
+    setIndexOfFromInUrl((index) => index + 10);
+    setIndexOfToInUrl((index) => index + 10);
+  };
+
   useEffect(() => {
     setTimeout(() => {
       if (recipes.length === 0) {
@@ -52,8 +61,7 @@ export const RecipeProvider = (props) => {
   useEffect(() => {
     if (queryString !== "") {
       getData(queryString);
-      setIndexOfFromInUrl((index) => index + 10);
-      setIndexOfToInUrl((index) => index + 10);
+      setIndexOfUrlForInfiniteScrolling();
     }
   }, [queryString]);
 
@@ -67,8 +75,6 @@ export const RecipeProvider = (props) => {
         recipes,
         loading,
         setLoading,
-        selectedRecipe,
-        setSelectedRecipe,
         loadMoreRecipes,
       }}
     >
