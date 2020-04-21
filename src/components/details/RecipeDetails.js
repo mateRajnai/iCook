@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import { RecipeContext } from "../../context/RecipeContext";
 import { Row, Col } from "antd";
 import DetailedPage from "../../style/DetailedPage";
+import RecipeLabels from "./RecipeLabels";
+import NutritionalValues from "./NutritionDisplay/NutritionalValues";
 
 const RecipeDetails = (props) => {
   const { selectedRecipe } = useContext(RecipeContext);
@@ -49,41 +51,10 @@ const RecipeDetails = (props) => {
               </Col>
             </Row>
             <Row className="main-row" id="recipe-labels">
-              <Col flex="auto">
-                <Row>
-                  <Col span={8}>
-                    <h3>Health label(s):</h3>
-                  </Col>
-                  <Col span={8}>
-                    <h3>Diet label(s):</h3>
-                  </Col>
-                  <Col span={8}>
-                    <h3>Caution(s):</h3>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col span={8}>
-                    {selectedRecipe.healthLabels.map((label, index) => (
-                      <p key={index}>{label}</p>
-                    ))}
-                  </Col>
-                  <Col span={8}>
-                    {selectedRecipe.dietLabels.map((label, index) => (
-                      <p key={index}>{label}</p>
-                    ))}
-                  </Col>
-                  <Col span={8}>
-                    {selectedRecipe.cautions.map((caution, index) => (
-                      <p key={index}>{caution}</p>
-                    ))}
-                  </Col>
-                </Row>
-              </Col>
+              <RecipeLabels></RecipeLabels>
             </Row>
             <Row className="main-row" justify="center" id="nutritional values">
-              <Col>
-                <button>Show nutritional values</button>
-              </Col>
+              <NutritionalValues></NutritionalValues>
             </Row>
             <Row className="main-row" justify="center" id="notes">
               <Col>
