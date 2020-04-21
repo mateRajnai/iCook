@@ -3,7 +3,7 @@ import { RecipeContext } from "../../context/RecipeContext";
 import { Row, Col } from "antd";
 import DetailedPage from "../../style/DetailedPage";
 import RecipeLabels from "./RecipeLabels";
-import NutritionalValues from "./NutritionDisplay/NutritionalValues";
+import NutritionalValues from "./nutritionDisplay/NutritionalValues";
 
 const RecipeDetails = (props) => {
   const { selectedRecipe } = useContext(RecipeContext);
