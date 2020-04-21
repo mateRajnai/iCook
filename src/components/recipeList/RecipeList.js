@@ -5,14 +5,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHourglassHalf,
   faArrowLeft,
+  faExclamationCircle,
 } from "@fortawesome/free-solid-svg-icons";
-import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { Row, Layout, Typography, Col } from "antd";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SearchTip from "../../style/SearchTip";
+import styled from "styled-components";
 
 const { Content } = Layout;
 const { Title } = Typography;
+
+const RowWithMargin = styled(Row)`
+  margin: 40px;
+`;
 
 const RecipeList = (props) => {
   const { recipes } = useContext(RecipeContext);
@@ -24,13 +29,13 @@ const RecipeList = (props) => {
 
   if (loading) {
     content = (
-      <Row justify="center" style={{ margin: "40px" }}>
+      <RowWithMargin justify="center">
         <FontAwesomeIcon
           icon={faHourglassHalf}
           spin
           size="8x"
         ></FontAwesomeIcon>
-      </Row>
+      </RowWithMargin>
     );
   } else if (recipes.length === 0 && queryString === "") {
     content = (
@@ -70,19 +75,19 @@ const RecipeList = (props) => {
   } else if (queryString !== "" && recipes.length === 0) {
     content = (
       <React.Fragment>
-        <Row justify="center" style={{ margin: "40px" }}>
+        <RowWithMargin justify="center">
           <FontAwesomeIcon
             icon={faExclamationCircle}
             spin
             size="8x"
             style={{ color: "orange" }}
           ></FontAwesomeIcon>
-        </Row>
-        <Row justify="center" style={{ margin: "40px" }}>
+        </RowWithMargin>
+        <RowWithMargin justify="center">
           <Title level={4}>
             Sorry, we found nothing! Please try to refine your search!
           </Title>
-        </Row>
+        </RowWithMargin>
       </React.Fragment>
     );
   }

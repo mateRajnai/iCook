@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { Row, Col } from "antd";
-import { RecipeContext } from "../../context/RecipeContext";
+import { SelectedRecipeContext } from "../../context/SelectedRecipeContext";
 
 const RecipeLabels = (props) => {
-  const { selectedRecipe } = useContext(RecipeContext);
+  const { selectedRecipe } = useContext(SelectedRecipeContext);
 
   return (
     <Col flex="auto">

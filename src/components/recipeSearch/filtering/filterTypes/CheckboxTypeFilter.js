@@ -6,12 +6,13 @@ const { Panel } = Collapse;
 const CheckboxTypeFilter = (props) => {
   const onChange = (ckeckedValues) => {
     const filterCopy = props.filter;
+    const allFiltersCopy = props.allFilters;
     filterCopy.checkedOptions = ckeckedValues;
     filterCopy.queryString = ckeckedValues
       .map((value) => `&${filterCopy.apiParameter}=${value}`)
       .join("");
-
-    props.setter(filterCopy);
+    allFiltersCopy[props.index] = filterCopy;
+    props.setter(allFiltersCopy);
   };
 
   return (

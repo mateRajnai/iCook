@@ -5,13 +5,15 @@ const { Panel } = Collapse;
 
 const SingleInputTypeFilter = (props) => {
   const onChange = (e) => {
+    const allFiltersCopy = props.allFilters;
     const filterCopy = props.filter;
     filterCopy.value = parseInt(e.target.value) ? e.target.value : "";
     filterCopy.queryString =
       filterCopy.value === ""
         ? ""
         : `&${filterCopy.apiParameter}=${filterCopy.value}`;
-    props.setter(filterCopy);
+    allFiltersCopy[props.index] = filterCopy;
+    props.setter(allFiltersCopy);
   };
 
   return (

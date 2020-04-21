@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
 import { Row, Col } from "antd";
-import { RecipeContext } from "../../../context/RecipeContext";
 import NutritionalTableRow, {
   NutritionalTableHeader,
 } from "./NutritionalTableRow";
 import styled from "styled-components";
+import { SelectedRecipeContext } from "../../../context/SelectedRecipeContext";
 
 const NUTRIENT_DATA = 1;
 
@@ -17,7 +17,7 @@ const NutritionalTable = styled.div`
 
 const NutritionalValues = (props) => {
   const [isHidden, setHidden] = useState(true);
-  const { selectedRecipe } = useContext(RecipeContext);
+  const { selectedRecipe } = useContext(SelectedRecipeContext);
   const nutrients = Object.entries(selectedRecipe.totalNutrients);
   const dailyNutrients = Object.entries(selectedRecipe.totalDaily);
 
