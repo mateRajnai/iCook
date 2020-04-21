@@ -4,6 +4,7 @@ import { Row, Col } from "antd";
 import DetailedPage from "../../style/DetailedPage";
 import RecipeLabels from "./RecipeLabels";
 import NutritionalValues from "./nutritionDisplay/NutritionalValues";
+import RecipeInfo from "./RecipeInfo";
 
 const RecipeDetails = (props) => {
   const { selectedRecipe } = useContext(RecipeContext);
@@ -15,40 +16,7 @@ const RecipeDetails = (props) => {
         <Row justify="center">
           <Col id="container" span={16}>
             <Row className="main-row" id="recipe-details">
-              <Col span={24}>
-                <Row justify="space-between">
-                  <Col id="header">
-                    <h1>{selectedRecipe.label}</h1>
-                  </Col>
-                  <Col>
-                    <a
-                      href={selectedRecipe.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      How do I cook this?
-                    </a>
-                  </Col>
-                </Row>
-                <Row justify="space-around">
-                  <Col span={8}>
-                    <img
-                      src={selectedRecipe.image}
-                      alt={selectedRecipe.label}
-                    ></img>
-                  </Col>
-                  <Col span={8}>
-                    <p>Ingredients for {selectedRecipe.yield} servings:</p>
-                    <ul>
-                      {selectedRecipe.ingredientLines.map(
-                        (ingredient, index) => (
-                          <li key={index}>{ingredient}</li>
-                        )
-                      )}
-                    </ul>
-                  </Col>
-                </Row>
-              </Col>
+              <RecipeInfo></RecipeInfo>
             </Row>
             <Row className="main-row" id="recipe-labels">
               <RecipeLabels></RecipeLabels>
