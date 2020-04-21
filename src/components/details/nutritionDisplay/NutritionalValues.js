@@ -1,9 +1,19 @@
 import React, { useContext, useState } from "react";
 import { Row, Col } from "antd";
 import { RecipeContext } from "../../../context/RecipeContext";
-import NutritionalTableRow from "./NutritionalTableRow";
+import NutritionalTableRow, {
+  NutritionalTableHeader,
+} from "./NutritionalTableRow";
+import styled from "styled-components";
 
 const NUTRIENT_DATA = 1;
+
+const NutritionalTable = styled.div`
+  padding: 5px;
+  #hide-button {
+    margin-top: 20px;
+  }
+`;
 
 const NutritionalValues = (props) => {
   const [isHidden, setHidden] = useState(true);
@@ -11,8 +21,16 @@ const NutritionalValues = (props) => {
   const nutrients = Object.entries(selectedRecipe.totalNutrients);
   const dailyNutrients = Object.entries(selectedRecipe.totalDaily);
 
+  console.log(nutrients);
+  console.log(dailyNutrients);
+
   const toggleVisibility = () => {
     setHidden(!isHidden);
+  };
+
+  const getDailyNutrient = (nutrient) => {
+    const daily = dailyNutrients.find((daily) => daily[0] === nutrient[0]);
+    return daily;
   };
 
   if (isHidden) {
@@ -24,29 +42,35 @@ const NutritionalValues = (props) => {
   } else {
     return (
       <Col span={18}>
-        <Row>
-          <Col span={12}>
-            {nutrients.slice(0, nutrients.length / 2).map((nutrient, index) => (
-              <NutritionalTableRow
-                key={index}
-                nutrient={nutrient[NUTRIENT_DATA]}
-                dailyNutrient={dailyNutrients[index][NUTRIENT_DATA]}
-              ></NutritionalTableRow>
-            ))}
-          </Col>
-          <Col span={12}>
-            {nutrients.slice(nutrients.length / 2).map((nutrient, index) => (
-              <NutritionalTableRow
-                key={index}
-                nutrient={nutrient[NUTRIENT_DATA]}
-                dailyNutrient={dailyNutrients[index][NUTRIENT_DATA]}
-              ></NutritionalTableRow>
-            ))}
-          </Col>
-        </Row>
-        <Row justify="center">
-          <button onClick={toggleVisibility}>Hide nutritional values</button>
-        </Row>
+        <NutritionalTable>
+          <Row justify="space-between">
+            <Col span={11}>
+              <NutritionalTableHeader></NutritionalTableHeader>
+              {nutrients
+                .slice(0, nutrients.length / 2)
+                .map((nutrient, index) => (
+                  <NutritionalTableRow
+                    key={index}
+                    nutrient={nutrient[NUTRIENT_DATA]}
+                    dailyNutrient={getDailyNutrient(nutrient)}
+                  ></NutritionalTableRow>
+                ))}
+            </Col>
+            <Col span={11}>
+              <NutritionalTableHeader></NutritionalTableHeader>
+              {nutrients.slice(nutrients.length / 2).map((nutrient, index) => (
+                <NutritionalTableRow
+                  key={index}
+                  nutrient={nutrient[NUTRIENT_DATA]}
+                  dailyNutrient={getDailyNutrient(nutrient)}
+                ></NutritionalTableRow>
+              ))}
+            </Col>
+          </Row>
+          <Row id="hide-button" justify="center">
+            <button onClick={toggleVisibility}>Hide nutritional values</button>
+          </Row>
+        </NutritionalTable>
       </Col>
     );
   }
