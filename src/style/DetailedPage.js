@@ -6,6 +6,7 @@ export default styled.div`
     border: 2px solid #005500;
     background-color: #cbffcb;
     border-radius: 10px;
+    font-size: 15px;
   }
 
   & * img {
