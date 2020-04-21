@@ -6,7 +6,6 @@ export const RecipeContext = createContext();
 export const RecipeProvider = (props) => {
   const API_ID = process.env.REACT_APP_API_ID;
   const API_KEY = process.env.REACT_APP_API_KEY;
-
   const [queryString, setQueryString] = useState("");
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
