@@ -46,22 +46,22 @@ const RecipeListItem = (props) => {
         <Col sm={24} md={24} lg={18}>
           <Card title={recipe.label} id="RecipeCard" onClick={selectRecipe}>
             <Row gutter={[32]}>
-              <Col>
+              <Col span={3}>
                 <img src={recipe.image} alt={recipe.label} height={100}></img>
               </Col>
-              <Col>
+              <Col span={2}>
                 <Row>Servings:</Row>
                 <Row>
                   <p>{recipe.yield}</p>
                 </Row>
               </Col>
-              <Col>
+              <Col span={2}>
                 <Row>Calories:</Row>
                 <Row>
                   <p>{parseFloat(recipe.calories).toFixed(2)}</p>
                 </Row>
               </Col>
-              <Col>
+              <Col span={4}>
                 <Row>Calories per serving:</Row>
                 <Row>
                   <p>
@@ -71,7 +71,7 @@ const RecipeListItem = (props) => {
                   </p>
                 </Row>
               </Col>
-              <Col>
+              <Col span={4}>
                 <Row>Diet properties:</Row>
                 <Row>
                   <ul>
@@ -81,7 +81,7 @@ const RecipeListItem = (props) => {
                   </ul>
                 </Row>
               </Col>
-              <Col>
+              <Col span={5}>
                 <Row>Health properties:</Row>
                 <Row>
                   <ul>
@@ -91,7 +91,7 @@ const RecipeListItem = (props) => {
                   </ul>
                 </Row>
               </Col>
-              <Col flex="auto">
+              <Col span={4}>
                 <Row justify="center">
                   <Col>
                     <StyledBookmarkIcon
