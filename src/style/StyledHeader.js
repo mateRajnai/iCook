@@ -6,7 +6,7 @@ export default styled.div`
   position: fixed;
   & > Header {
     height: 70px;
-    background-color: #004400;
+    background-color: ${(props) => props.theme.tertiaryColor};
   }
 
   & * a {

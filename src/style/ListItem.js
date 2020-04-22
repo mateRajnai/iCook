@@ -2,11 +2,11 @@ import styled from "styled-components";
 
 export default styled.div`
   & * :hover {
-    background-color: #cbffcb;
+    background-color: ${(props) => props.theme.primaryColor};
   }
 
   & * svg :hover {
-    color: #005500;
+    color: ${(props) => props.theme.secondaryColor};
     cursor: pointer;
   }
 `;

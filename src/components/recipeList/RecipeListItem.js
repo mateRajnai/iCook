@@ -9,12 +9,9 @@ import BookmarkIcon from "../../style/BookmarkIcon";
 
 const RecipeListItem = (props) => {
   const { setSelectedRecipe } = useContext(SelectedRecipeContext);
-  const {
-    addToBookmarks,
-    checkIfBookmarked,
-    bookmarkedTheme,
-    defaultTheme,
-  } = useContext(BookmarkedRecipesContext);
+  const { addToBookmarks, checkIfBookmarked } = useContext(
+    BookmarkedRecipesContext
+  );
   const recipe = props.recipe;
   let history = useHistory();
 
@@ -84,11 +81,7 @@ const RecipeListItem = (props) => {
                       id="bookmark"
                       data-recipe-id={recipe.uri}
                       icon={faBookmark}
-                      theme={
-                        checkIfBookmarked(recipe.uri)
-                          ? bookmarkedTheme
-                          : defaultTheme
-                      }
+                      isBookmarked={checkIfBookmarked(recipe.uri)}
                       size={"5x"}
                     ></BookmarkIcon>
                   </Col>

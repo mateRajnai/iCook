@@ -7,12 +7,9 @@ import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 
 const RecipeInfo = (props) => {
   const { selectedRecipe } = useContext(SelectedRecipeContext);
-  const {
-    addToBookmarks,
-    checkIfBookmarked,
-    bookmarkedTheme,
-    defaultTheme,
-  } = useContext(BookmarkedRecipesContext);
+  const { addToBookmarks, checkIfBookmarked } = useContext(
+    BookmarkedRecipesContext
+  );
 
   return (
     <Col span={24}>
@@ -23,11 +20,7 @@ const RecipeInfo = (props) => {
             id="bookmark"
             data-recipe-id={selectedRecipe.uri}
             icon={faBookmark}
-            theme={
-              checkIfBookmarked(selectedRecipe.uri)
-                ? bookmarkedTheme
-                : defaultTheme
-            }
+            isBookmarked={checkIfBookmarked(selectedRecipe.uri)}
             size={"2x"}
           ></BookmarkIcon>
         </Col>

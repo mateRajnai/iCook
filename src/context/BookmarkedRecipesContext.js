@@ -8,14 +8,6 @@ export const BookmarkedRecipesContext = React.createContext();
 export const BookmarkedRecipesProvider = (props) => {
   const [bookmarkedRecipes, setBookmarkedRecipes] = useState([]);
 
-  const bookmarkedTheme = {
-    color: "yellow",
-  };
-
-  const defaultTheme = {
-    color: "grey",
-  };
-
   const getData = () => {
     Axios.get(BOOKMARKED_RECIPES_URL).then((resp) =>
       setBookmarkedRecipes(resp.data)
@@ -58,8 +50,6 @@ export const BookmarkedRecipesProvider = (props) => {
       value={{
         checkIfBookmarked,
         addToBookmarks,
-        bookmarkedTheme,
-        defaultTheme,
       }}
     >
       {props.children}
