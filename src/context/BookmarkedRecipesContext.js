@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 
-const BOOKMARKED_RECIPES_URL = "http://localhost:8080/favorites";
+const BOOKMARKED_RECIPES_URL =
+  "https://icook-api-server.herokuapp.com/favorites";
 
 export const BookmarkedRecipesContext = React.createContext();
 
