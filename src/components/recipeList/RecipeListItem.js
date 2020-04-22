@@ -5,9 +5,13 @@ import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 import ListItem from "../../style/ListItem";
 import { useHistory } from "react-router-dom";
 import { SelectedRecipeContext } from "../../context/SelectedRecipeContext";
+import { BookmarkedRecipesContext } from "../../context/BookmarkedRecipesContext";
 
 const RecipeListItem = (props) => {
   const { setSelectedRecipe } = useContext(SelectedRecipeContext);
+  const { updateData, escapeUriCharacters } = useContext(
+    BookmarkedRecipesContext
+  );
   const recipe = props.recipe;
   let history = useHistory();
 
@@ -20,7 +24,11 @@ const RecipeListItem = (props) => {
 
   const addToBookmarks = (event) => {
     event.stopPropagation();
-    console.log("bookmarked");
+    const recipeId = event.currentTarget.attributes.getNamedItem(
+      "data-recipe-id"
+    ).value;
+    const escapedRecipeId = escapeUriCharacters(recipeId);
+    updateData(escapedRecipeId);
   };
 
   return (
@@ -80,6 +88,7 @@ const RecipeListItem = (props) => {
                     <FontAwesomeIcon
                       onClick={addToBookmarks}
                       id="bookmark"
+                      data-recipe-id={recipe.uri}
                       icon={faBookmark}
                       size={"5x"}
                     ></FontAwesomeIcon>
