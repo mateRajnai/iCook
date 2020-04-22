@@ -36,8 +36,11 @@ export const BookmarkedRecipesProvider = (props) => {
     return uri.replace(/\//g, "%2F").replace(/:/g, "%3A").replace(/#/g, "%23");
   };
 
-  const checkIfBookmarked = (uri) => {
-    return bookmarkedRecipes.includes(escapeUriCharacters(uri));
+  const themeSetter = (uri) => {
+    if (bookmarkedRecipes.includes(escapeUriCharacters(uri))) {
+      return bookmarkedTheme;
+    }
+    return defaultTheme;
   };
 
   const addToBookmarks = (event) => {
@@ -56,10 +59,8 @@ export const BookmarkedRecipesProvider = (props) => {
   return (
     <BookmarkedRecipesContext.Provider
       value={{
-        checkIfBookmarked,
+        themeSetter,
         addToBookmarks,
-        bookmarkedTheme,
-        defaultTheme,
       }}
     >
       {props.children}
