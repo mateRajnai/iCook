@@ -6,12 +6,21 @@ import ListItem from "../../style/ListItem";
 import { useHistory } from "react-router-dom";
 import { SelectedRecipeContext } from "../../context/SelectedRecipeContext";
 import { BookmarkedRecipesContext } from "../../context/BookmarkedRecipesContext";
+import styled from "styled-components";
+
+const StyledBookmarkIcon = styled(FontAwesomeIcon)`
+  color: ${(props) => props.theme.color};
+`;
 
 const RecipeListItem = (props) => {
   const { setSelectedRecipe } = useContext(SelectedRecipeContext);
-  const { updateData, escapeUriCharacters } = useContext(
-    BookmarkedRecipesContext
-  );
+  const {
+    updateData,
+    escapeUriCharacters,
+    checkIfBookmarked,
+    bookmarkedTheme,
+    defaultTheme,
+  } = useContext(BookmarkedRecipesContext);
   const recipe = props.recipe;
   let history = useHistory();
 
@@ -85,13 +94,18 @@ const RecipeListItem = (props) => {
               <Col flex="auto">
                 <Row justify="center">
                   <Col>
-                    <FontAwesomeIcon
+                    <StyledBookmarkIcon
                       onClick={addToBookmarks}
                       id="bookmark"
                       data-recipe-id={recipe.uri}
                       icon={faBookmark}
+                      theme={
+                        checkIfBookmarked(recipe.uri)
+                          ? bookmarkedTheme
+                          : defaultTheme
+                      }
                       size={"5x"}
-                    ></FontAwesomeIcon>
+                    ></StyledBookmarkIcon>
                   </Col>
                 </Row>
               </Col>
