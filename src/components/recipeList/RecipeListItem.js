@@ -1,22 +1,16 @@
 import React, { useContext } from "react";
 import { Card, Row, Col } from "antd";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 import ListItem from "../../style/ListItem";
 import { useHistory } from "react-router-dom";
 import { SelectedRecipeContext } from "../../context/SelectedRecipeContext";
 import { BookmarkedRecipesContext } from "../../context/BookmarkedRecipesContext";
-import styled from "styled-components";
-
-const StyledBookmarkIcon = styled(FontAwesomeIcon)`
-  color: ${(props) => props.theme.color};
-`;
+import BookmarkIcon from "../../style/BookmarkIcon";
 
 const RecipeListItem = (props) => {
   const { setSelectedRecipe } = useContext(SelectedRecipeContext);
   const {
-    updateData,
-    escapeUriCharacters,
+    addToBookmarks,
     checkIfBookmarked,
     bookmarkedTheme,
     defaultTheme,
@@ -29,15 +23,6 @@ const RecipeListItem = (props) => {
     setSelectedRecipe(recipe);
     const id = recipe.label.toLowerCase().replace(/ /g, "-");
     history.push(`/recipe/${id}`);
-  };
-
-  const addToBookmarks = (event) => {
-    event.stopPropagation();
-    const recipeId = event.currentTarget.attributes.getNamedItem(
-      "data-recipe-id"
-    ).value;
-    const escapedRecipeId = escapeUriCharacters(recipeId);
-    updateData(escapedRecipeId);
   };
 
   return (
@@ -94,7 +79,7 @@ const RecipeListItem = (props) => {
               <Col flex="auto">
                 <Row justify="center">
                   <Col>
-                    <StyledBookmarkIcon
+                    <BookmarkIcon
                       onClick={addToBookmarks}
                       id="bookmark"
                       data-recipe-id={recipe.uri}
@@ -105,7 +90,7 @@ const RecipeListItem = (props) => {
                           : defaultTheme
                       }
                       size={"5x"}
-                    ></StyledBookmarkIcon>
+                    ></BookmarkIcon>
                   </Col>
                 </Row>
               </Col>

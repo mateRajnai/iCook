@@ -40,6 +40,15 @@ export const BookmarkedRecipesProvider = (props) => {
     return bookmarkedRecipes.includes(escapeUriCharacters(uri));
   };
 
+  const addToBookmarks = (event) => {
+    event.stopPropagation();
+    const recipeId = event.currentTarget.attributes.getNamedItem(
+      "data-recipe-id"
+    ).value;
+    const escapedRecipeId = escapeUriCharacters(recipeId);
+    updateData(escapedRecipeId);
+  };
+
   useEffect(() => {
     getData();
   }, []);
@@ -47,9 +56,8 @@ export const BookmarkedRecipesProvider = (props) => {
   return (
     <BookmarkedRecipesContext.Provider
       value={{
-        updateData,
-        escapeUriCharacters,
         checkIfBookmarked,
+        addToBookmarks,
         bookmarkedTheme,
         defaultTheme,
       }}
