@@ -5,6 +5,7 @@ import { RecipeProvider } from "./context/RecipeContext";
 import { SearchProvider } from "./context/SearchContext";
 import { SelectedRecipeProvider } from "./context/SelectedRecipeContext";
 import { BookmarkedRecipesProvider } from "./context/BookmarkedRecipesContext";
+import { DrinkContextProvider } from "./context/DrinkContext";
 
 function App() {
   return (
@@ -12,9 +13,11 @@ function App() {
       <BookmarkedRecipesProvider>
         <SelectedRecipeProvider>
           <SearchProvider>
-            <div className="App">
-              <Layout />
-            </div>
+            <DrinkContextProvider>
+              <div className="App">
+                <Layout />
+              </div>
+            </DrinkContextProvider>
           </SearchProvider>
         </SelectedRecipeProvider>
       </BookmarkedRecipesProvider>

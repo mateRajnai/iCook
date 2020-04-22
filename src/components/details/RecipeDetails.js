@@ -1,7 +1,40 @@
 import React, { useContext } from "react";
 import { Row, Col } from "antd";
 import DetailedPage from "../../style/DetailedPage";
+import RecipeLabels from "./RecipeLabels";
+import NutritionalValues from "./nutritionDisplay/NutritionalValues";
+import RecipeInfo from "./RecipeInfo";
 import { SelectedRecipeContext } from "../../context/SelectedRecipeContext";
+import styled from "styled-components";
+
+const DetailedRecipe = styled.div`
+  & #recipe-details {
+    padding: 0 0 20px;
+  }
+
+  & *.main-row {
+    padding: 20px 0 20px 0;
+    border-bottom: 1px dotted #005500;
+  }
+
+  & *.main-row:last-child {
+    border: none;
+    padding-bottom: 0;
+  }
+
+  & *#recipe-labels {
+    text-align: center;
+  }
+
+  & *#recipe-labels * p {
+    margin: 3px;
+  }
+
+  & *#comments,
+  *#notes {
+    text-align: center;
+  }
+`;
 
 const RecipeDetails = (props) => {
   const { selectedRecipe } = useContext(SelectedRecipeContext);
@@ -10,95 +43,37 @@ const RecipeDetails = (props) => {
   if (selectedRecipe != null) {
     content = (
       <DetailedPage>
-        <Row justify="center">
-          <Col id="container" span={16}>
-            <Row className="main-row" id="recipe-details">
-              <Col span={24}>
-                <Row justify="space-between">
-                  <Col id="header">
-                    <h1>{selectedRecipe.label}</h1>
-                  </Col>
-                  <Col>
-                    <a
-                      href={selectedRecipe.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      How do I cook this?
-                    </a>
-                  </Col>
-                </Row>
-                <Row justify="space-around">
-                  <Col span={8}>
-                    <img
-                      src={selectedRecipe.image}
-                      alt={selectedRecipe.label}
-                    ></img>
-                  </Col>
-                  <Col span={8}>
-                    <p>Ingredients for {selectedRecipe.yield} servings:</p>
-                    <ul>
-                      {selectedRecipe.ingredientLines.map(
-                        (ingredient, index) => (
-                          <li key={index}>{ingredient}</li>
-                        )
-                      )}
-                    </ul>
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-            <Row className="main-row" id="recipe-labels">
-              <Col flex="auto">
-                <Row>
-                  <Col span={8}>
-                    <h3>Health label(s):</h3>
-                  </Col>
-                  <Col span={8}>
-                    <h3>Diet label(s):</h3>
-                  </Col>
-                  <Col span={8}>
-                    <h3>Caution(s):</h3>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col span={8}>
-                    {selectedRecipe.healthLabels.map((label, index) => (
-                      <p key={index}>{label}</p>
-                    ))}
-                  </Col>
-                  <Col span={8}>
-                    {selectedRecipe.dietLabels.map((label, index) => (
-                      <p key={index}>{label}</p>
-                    ))}
-                  </Col>
-                  <Col span={8}>
-                    {selectedRecipe.cautions.map((caution, index) => (
-                      <p key={index}>{caution}</p>
-                    ))}
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-            <Row className="main-row" justify="center" id="nutritional values">
-              <Col>
-                <button>Show nutritional values</button>
-              </Col>
-            </Row>
-            <Row className="main-row" justify="center" id="notes">
-              <Col>
-                <h2>Personal notes</h2>
-                <p>Coming soon...</p>
-              </Col>
-            </Row>
-            <Row className="main-row" justify="center" id="comments">
-              <Col>
-                <h2>Comments</h2>
-                <p>Coming soon...</p>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
+        <DetailedRecipe>
+          <Row justify="center">
+            <Col id="container" span={16}>
+              <Row className="main-row" id="recipe-details">
+                <RecipeInfo></RecipeInfo>
+              </Row>
+              <Row className="main-row" id="recipe-labels">
+                <RecipeLabels></RecipeLabels>
+              </Row>
+              <Row
+                className="main-row"
+                justify="center"
+                id="nutritional values"
+              >
+                <NutritionalValues></NutritionalValues>
+              </Row>
+              <Row className="main-row" justify="center" id="notes">
+                <Col>
+                  <h2>Personal notes</h2>
+                  <p>Coming soon...</p>
+                </Col>
+              </Row>
+              <Row className="main-row" justify="center" id="comments">
+                <Col>
+                  <h2>Comments</h2>
+                  <p>Coming soon...</p>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </DetailedRecipe>
       </DetailedPage>
     );
   }
