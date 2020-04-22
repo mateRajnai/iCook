@@ -20,31 +20,4 @@ export default styled.div`
   & *#header {
     margin-bottom: 20px;
   }
-
-  & *.main-row#recipe-details {
-    padding: 0 0 20px;
-  }
-
-  & *.main-row {
-    padding: 20px 0 20px 0;
-    border-bottom: 1px dotted #005500;
-  }
-
-  & *.main-row:last-child {
-    border: none;
-    padding-bottom: 0;
-  }
-
-  & *#recipe-labels {
-    text-align: center;
-  }
-
-  & *#recipe-labels * p {
-    margin: 3px;
-  }
-
-  & *#comments,
-  *#notes {
-    text-align: center;
-  }
 `;
