@@ -11,6 +11,7 @@ const DrinkDisplay = styled.div`
 
 const DrinkDetails = (props) => {
   const { randomDrink } = useContext(DrinkContext);
+  console.log(randomDrink);
 
   if (randomDrink === null) {
     return null;
@@ -18,9 +19,9 @@ const DrinkDetails = (props) => {
     return (
       <Col span={24}>
         <DrinkDisplay>
-          <Row>
+          <Row id="header">
             <Col>
-              <h2>{randomDrink.strDrink}</h2>
+              <h1>{randomDrink.strDrink}</h1>
             </Col>
           </Row>
           <Row justify="space-around">
@@ -34,15 +35,27 @@ const DrinkDetails = (props) => {
             <Col span={8}>
               <Row className="detail-row">
                 <Col>
-                  Category: {randomDrink.strCategory} -{" "}
+                  <h4>Category:</h4> {randomDrink.strCategory} -{" "}
                   {randomDrink.strAlcoholic}
                 </Col>
               </Row>
               <Row className="detail-row">
-                <Col>Suggested serving glass: {randomDrink.strGlass}</Col>
+                <Col>
+                  <h4>Suggested serving glass:</h4> {randomDrink.strGlass}
+                </Col>
               </Row>
               <Row className="detail-row">
-                <Col>Ingredients</Col>
+                <Col>
+                  <h4>Ingredients:</h4>
+                  <ul>
+                    {randomDrink.ingredients.map((ingredient, index) => (
+                      <li key={index}>
+                        {ingredient.ingredientName}:{" "}
+                        {ingredient.measure === null ? "-" : ingredient.measure}
+                      </li>
+                    ))}
+                  </ul>
+                </Col>
               </Row>
               <Row className="detail-row">
                 <Col>
