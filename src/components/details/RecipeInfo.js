@@ -16,8 +16,8 @@ const RecipeInfo = (props) => {
 
   return (
     <Col span={24}>
-      <Row justify="space-between">
-        <Col>
+      <Row justify="space-between" id="header">
+        <Col span={2}>
           <BookmarkIcon
             onClick={addToBookmarks}
             id="bookmark"
@@ -31,10 +31,10 @@ const RecipeInfo = (props) => {
             size={"2x"}
           ></BookmarkIcon>
         </Col>
-        <Col id="header">
+        <Col span={10}>
           <h1>{selectedRecipe.label}</h1>
         </Col>
-        <Col>
+        <Col span={4} offset={4}>
           <a
             href={selectedRecipe.url}
             target="_blank"
