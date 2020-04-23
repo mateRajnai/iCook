@@ -36,6 +36,7 @@ export const RecipeProvider = (props) => {
         if (resp.data.count === 0) {
           setLoading(false);
         }
+        return resp;
       })
       .then((resp) =>
         resp.data.hits.map((data) =>
@@ -57,11 +58,9 @@ export const RecipeProvider = (props) => {
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      if (recipes.length === 0) {
-        setLoading(false);
-      }
-    }, 2500);
+    if (recipes.length === 10) {
+      setLoading(false);
+    }
   }, [recipes]);
 
   useEffect(() => {
