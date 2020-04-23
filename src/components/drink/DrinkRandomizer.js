@@ -14,7 +14,7 @@ const Randomizer = styled.div`
 
   #dice:hover {
     cursor: pointer;
-    color: #005500;
+    color: ${(props) => props.theme.secondaryColor};
     transition: 0.5s;
   }
 `;
