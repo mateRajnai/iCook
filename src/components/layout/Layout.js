@@ -9,7 +9,7 @@ import RecipeSearchContent from "../recipeSearch/RecipeSearchContent";
 import MainContent from "../../style/MainContent";
 import RecipeDetails from "../details/RecipeDetails";
 import DrinkRandomizer from "../drink/DrinkRandomizer";
-import BookmarkedRecipesContent from "../bookmark/BookmarkedRecipesContent";
+import BookmarkList from "../bookmark/BookmarkList";
 
 const Layout = (props) => {
   return (
@@ -24,7 +24,7 @@ const Layout = (props) => {
           />
           <Route path={"/recipe/:id"} component={RecipeDetails} />
           <Route path={"/random-drink"} component={DrinkRandomizer} />
-          <Route path={"/bookmark"} component={BookmarkedRecipesContent} />
+          <Route path={"/bookmark"} component={BookmarkList} />
         </MainContent>
         <LayoutFooter />
       </AntLayout>

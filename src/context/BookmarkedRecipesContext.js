@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Axios from "axios";
 
 const BOOKMARKED_RECIPES_URL = "http://localhost:8080/favorites";
+const API_KEY = process.env.REACT_APP_API_KEY;
+const API_ID = process.env.REACT_APP_API_ID;
 const EDAMAM_BASE_URL = "https://api.edamam.com/search?";
 
 export const BookmarkedRecipesContext = React.createContext();
@@ -9,6 +11,7 @@ export const BookmarkedRecipesContext = React.createContext();
 export const BookmarkedRecipesProvider = (props) => {
   const [bookmarkedRecipes, setBookmarkedRecipes] = useState([]);
   const [bookmarkedRecipeObjects, setBookmarkedRecipeObjects] = useState([]);
+  const [actualUrl, setActualUrl] = useState("");
 
   const bookmarkedTheme = {
     color: "yellow",
@@ -18,13 +21,15 @@ export const BookmarkedRecipesProvider = (props) => {
     color: "grey",
   };
 
-  const createQueryString = () =>
-    bookmarkedRecipes.map((id) => "r=" + id).join("&");
-
-  const getRecipeObjects = () => {
-    Axios.get(EDAMAM_BASE_URL).then((resp) =>
-      setBookmarkedRecipeObjects(resp.data)
+  const createActualUrl = (bookmarkedRecipes) => {
+    const queryString = bookmarkedRecipes.map((id) => "r=" + id).join("&");
+    setActualUrl(
+      EDAMAM_BASE_URL + queryString + `&app_id=${API_ID}&app_key=${API_KEY}`
     );
+  };
+
+  const getRecipeObjects = (actualUrl) => {
+    Axios.get(actualUrl).then((resp) => setBookmarkedRecipeObjects(resp.data));
   };
 
   const getData = () => {
@@ -64,21 +69,28 @@ export const BookmarkedRecipesProvider = (props) => {
   };
 
   useEffect(() => {
-    if (bookmarkedRecipes.length !== 0) {
-      getRecipeObjects();
-    }
+    createActualUrl(bookmarkedRecipes);
   }, [bookmarkedRecipes]);
 
   useEffect(() => {
+    if (
+      actualUrl !==
+      EDAMAM_BASE_URL + `&app_id=${API_ID}&app_key=${API_KEY}`
+    ) {
+      getRecipeObjects(actualUrl);
+    }
+  }, [actualUrl]);
+
+  useEffect(() => {
     getData();
-    createQueryString();
-  });
+  }, []);
 
   return (
     <BookmarkedRecipesContext.Provider
       value={{
         themeSetter,
         addToBookmarks,
+        bookmarkedRecipes,
         bookmarkedRecipeObjects,
       }}
     >

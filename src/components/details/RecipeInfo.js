@@ -18,7 +18,7 @@ const RecipeInfo = (props) => {
             id="bookmark"
             data-recipe-id={selectedRecipe.uri}
             icon={faBookmark}
-            theme={themeSetter}
+            theme={themeSetter(selectedRecipe.uri)}
             size={"2x"}
           ></BookmarkIcon>
         </Col>
