@@ -1,6 +1,8 @@
 import React, { createContext, useState, useEffect } from "react";
 import Axios from "axios";
 
+const RESULTS_PER_SEARCH = 10;
+
 export const RecipeContext = createContext();
 
 export const RecipeProvider = (props) => {
@@ -11,7 +13,7 @@ export const RecipeProvider = (props) => {
   const [loading, setLoading] = useState(false);
 
   const [indexOfFromInUrl, setIndexOfFromInUrl] = useState(0);
-  const [indexOfToInUrl, setIndexOfToInUrl] = useState(10);
+  const [indexOfToInUrl, setIndexOfToInUrl] = useState(RESULTS_PER_SEARCH);
   const [searchQuery, setSearchQuery] = useState("");
   const [filterQuery, setFilterQuery] = useState("");
 
@@ -53,12 +55,12 @@ export const RecipeProvider = (props) => {
   };
 
   const setIndexOfUrlForInfiniteScrolling = () => {
-    setIndexOfFromInUrl((index) => index + 10);
-    setIndexOfToInUrl((index) => index + 10);
+    setIndexOfFromInUrl((index) => index + RESULTS_PER_SEARCH);
+    setIndexOfToInUrl((index) => index + RESULTS_PER_SEARCH);
   };
 
   useEffect(() => {
-    if (recipes.length === 10) {
+    if (recipes.length === RESULTS_PER_SEARCH) {
       setLoading(false);
     }
   }, [recipes]);

@@ -81,7 +81,11 @@ const RecipeListItem = (props) => {
                       id="bookmark"
                       data-recipe-id={recipe.uri}
                       icon={faBookmark}
-                      isBookmarked={checkIfBookmarked(recipe.uri)}
+                      isbookmarked={
+                        checkIfBookmarked(recipe.uri)
+                          ? "bookmarked"
+                          : "bookmarkless"
+                      }
                       size={"5x"}
                     ></BookmarkIcon>
                   </Col>
