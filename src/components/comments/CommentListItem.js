@@ -1,4 +1,5 @@
 import React from "react";
+import { Row, Col } from "antd";
 
 const CommentListItem = (props) => {
   let content = null;
@@ -7,8 +8,10 @@ const CommentListItem = (props) => {
 
   content = (
     <div>
-      <p>{comment.content}</p>
-      <p>{comment.submissionTime}</p>
+      <Row>
+        <Col span={8}>{comment.content}</Col>
+        <Col span={8}>{comment.submissionTime}</Col>
+      </Row>
     </div>
   );
   return content;
