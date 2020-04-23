@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import Axios from "axios";
 
 const BOOKMARKED_RECIPES_URL = "http://localhost:8080/favorites";
+const EDAMAM_BASE_URL = "https://api.edamam.com/search?";
 
 export const BookmarkedRecipesContext = React.createContext();
 
 export const BookmarkedRecipesProvider = (props) => {
   const [bookmarkedRecipes, setBookmarkedRecipes] = useState([]);
+  const [bookmarkedRecipeObjects, setBookmarkedRecipeObjects] = useState([]);
 
   const bookmarkedTheme = {
     color: "yellow",
@@ -14,6 +16,12 @@ export const BookmarkedRecipesProvider = (props) => {
 
   const defaultTheme = {
     color: "grey",
+  };
+
+  const getRecipeObjects = () => {
+    Axios.get(EDAMAM_BASE_URL).then((resp) =>
+      setBookmarkedRecipeObjects(resp.data)
+    );
   };
 
   const getData = () => {
@@ -53,7 +61,14 @@ export const BookmarkedRecipesProvider = (props) => {
   };
 
   useEffect(() => {
+    if (bookmarkedRecipes.length !== 0) {
+      getRecipeObjects();
+    }
+  }, [bookmarkedRecipes]);
+
+  useEffect(() => {
     getData();
+    getRecipeObjects();
   }, []);
 
   return (
@@ -61,6 +76,7 @@ export const BookmarkedRecipesProvider = (props) => {
       value={{
         themeSetter,
         addToBookmarks,
+        bookmarkedRecipeObjects,
       }}
     >
       {props.children}
