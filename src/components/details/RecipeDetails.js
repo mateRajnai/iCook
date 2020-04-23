@@ -4,13 +4,9 @@ import DetailedPage from "../../style/DetailedPage";
 import { SelectedRecipeContext } from "../../context/SelectedRecipeContext";
 import CommentSection from "../comments/CommentSection";
 import { CommentProvider } from "../../context/CommentContext";
-// import CommentList from "../comments/CommentList";
-// import { CommentContext } from "../../context/CommentContext";
 
 const RecipeDetails = (props) => {
   const { selectedRecipe } = useContext(SelectedRecipeContext);
-  // const { getComments } = useContext(CommentContext);
-  // const { addComment } = useContext(CommentContext);
 
   let content = null;
 
