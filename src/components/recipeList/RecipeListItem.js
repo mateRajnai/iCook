@@ -79,7 +79,7 @@ const RecipeListItem = (props) => {
                       id="bookmark"
                       data-recipe-id={recipe.uri}
                       icon={faBookmark}
-                      theme={themeSetter(recipe.uri)}
+                      isbookmarked={themeSetter(recipe.uri)}
                       size={"5x"}
                     ></BookmarkIcon>
                   </Col>

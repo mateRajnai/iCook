@@ -13,14 +13,6 @@ export const BookmarkedRecipesProvider = (props) => {
   const [bookmarkedRecipeObjects, setBookmarkedRecipeObjects] = useState([]);
   const [actualUrl, setActualUrl] = useState("");
 
-  const bookmarkedTheme = {
-    color: "yellow",
-  };
-
-  const defaultTheme = {
-    color: "grey",
-  };
-
   const createActualUrl = (bookmarkedRecipes) => {
     const queryString = bookmarkedRecipes.map((id) => "r=" + id).join("&");
     setActualUrl(
@@ -54,9 +46,9 @@ export const BookmarkedRecipesProvider = (props) => {
 
   const themeSetter = (uri) => {
     if (bookmarkedRecipes.includes(escapeUriCharacters(uri))) {
-      return bookmarkedTheme;
+      return "bookmarked";
     }
-    return defaultTheme;
+    return "bookmarkless";
   };
 
   const addToBookmarks = (event) => {
