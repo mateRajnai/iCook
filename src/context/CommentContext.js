@@ -1,13 +1,4 @@
-// Do we need this context? Comments are stored on the backend,
-// but we can have the api calls here
-
-import React, {
-  createContext,
-  useState,
-  useContext,
-  useEffect,
-  findDOMNode,
-} from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
 import { SelectedRecipeContext } from "./SelectedRecipeContext";
 import { v4 as uuidv4 } from "uuid";
 
@@ -34,10 +25,9 @@ export const CommentProvider = (props) => {
 
   // paramétereket kiszervezni úgy mint URL-t
   const addComment = (event) => {
-    const newComment = document.getElementsByClassName("new-comment").value;
+    const newComment = document.getElementById("new-comment").value;
     const newCommentId = uuidv4();
     event.stopPropagation();
-
     Axios.post(
       URL,
       {
@@ -54,8 +44,6 @@ export const CommentProvider = (props) => {
     ).then((resp) => setComments(resp.data));
   };
 
-  // erre szükség van?
-  // Comment provider mindig lenullázódik, ha kimegyek a recept detailsból és ha visszamegyek, akkor újra felépül
   useEffect(() => {}, [comments]);
 
   return (
