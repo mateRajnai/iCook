@@ -3,18 +3,26 @@ import Axios from "axios";
 
 const BOOKMARKED_RECIPES_URL =
   "https://icook-api-server.herokuapp.com/favorites";
+const API_KEY = process.env.REACT_APP_API_KEY;
+const API_ID = process.env.REACT_APP_API_ID;
+const EDAMAM_BASE_URL = "https://api.edamam.com/search?";
 
 export const BookmarkedRecipesContext = React.createContext();
 
 export const BookmarkedRecipesProvider = (props) => {
   const [bookmarkedRecipes, setBookmarkedRecipes] = useState([]);
+  const [bookmarkedRecipeObjects, setBookmarkedRecipeObjects] = useState([]);
+  const [actualUrl, setActualUrl] = useState("");
 
-  const bookmarkedTheme = {
-    color: "yellow",
+  const createActualUrl = (bookmarkedRecipes) => {
+    const queryString = bookmarkedRecipes.map((id) => "r=" + id).join("&");
+    setActualUrl(
+      EDAMAM_BASE_URL + queryString + `&app_id=${API_ID}&app_key=${API_KEY}`
+    );
   };
 
-  const defaultTheme = {
-    color: "grey",
+  const getRecipeObjects = (actualUrl) => {
+    Axios.get(actualUrl).then((resp) => setBookmarkedRecipeObjects(resp.data));
   };
 
   const getData = () => {
@@ -37,8 +45,11 @@ export const BookmarkedRecipesProvider = (props) => {
     return uri.replace(/\//g, "%2F").replace(/:/g, "%3A").replace(/#/g, "%23");
   };
 
-  const checkIfBookmarked = (uri) => {
-    return bookmarkedRecipes.includes(escapeUriCharacters(uri));
+  const themeSetter = (uri) => {
+    if (bookmarkedRecipes.includes(escapeUriCharacters(uri))) {
+      return "bookmarked";
+    }
+    return "bookmarkless";
   };
 
   const addToBookmarks = (event) => {
@@ -51,16 +62,29 @@ export const BookmarkedRecipesProvider = (props) => {
   };
 
   useEffect(() => {
+    createActualUrl(bookmarkedRecipes);
+  }, [bookmarkedRecipes]);
+
+  useEffect(() => {
+    if (
+      actualUrl !==
+      EDAMAM_BASE_URL + `&app_id=${API_ID}&app_key=${API_KEY}`
+    ) {
+      getRecipeObjects(actualUrl);
+    }
+  }, [actualUrl]);
+
+  useEffect(() => {
     getData();
   }, []);
 
   return (
     <BookmarkedRecipesContext.Provider
       value={{
-        checkIfBookmarked,
+        themeSetter,
         addToBookmarks,
-        bookmarkedTheme,
-        defaultTheme,
+        bookmarkedRecipes,
+        bookmarkedRecipeObjects,
       }}
     >
       {props.children}

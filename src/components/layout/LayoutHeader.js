@@ -18,6 +18,7 @@ const LayoutHeader = (props) => {
           <StyledImage className="logo" alt="iCook" src="/logo.png" />
         </Link>
         <Link to={"/search"}>Search</Link>
+        <Link to={"/bookmark"}>Bookmarks</Link>
         <Link to={"/random-drink"}>Get random drink</Link>
       </Header>
     </StyledHeader>

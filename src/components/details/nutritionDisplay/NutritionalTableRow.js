@@ -5,7 +5,7 @@ import styled from "styled-components";
 const NUTRIENT_DATA = 1;
 
 const NutritionInfo = styled.div`
-  border-bottom: 1px solid #050505;
+  border-bottom: 1px solid ${(props) => props.theme.secondaryColor};
   margin: 0 0 7px;
   h4 {
     margin: 0;
