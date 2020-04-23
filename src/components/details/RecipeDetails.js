@@ -2,9 +2,16 @@ import React, { useContext } from "react";
 import { Row, Col } from "antd";
 import DetailedPage from "../../style/DetailedPage";
 import { SelectedRecipeContext } from "../../context/SelectedRecipeContext";
+import CommentSection from "../comments/CommentSection";
+import { CommentProvider } from "../../context/CommentContext";
+// import CommentList from "../comments/CommentList";
+// import { CommentContext } from "../../context/CommentContext";
 
 const RecipeDetails = (props) => {
   const { selectedRecipe } = useContext(SelectedRecipeContext);
+  // const { getComments } = useContext(CommentContext);
+  // const { addComment } = useContext(CommentContext);
+
   let content = null;
 
   if (selectedRecipe != null) {
@@ -93,8 +100,9 @@ const RecipeDetails = (props) => {
             </Row>
             <Row className="main-row" justify="center" id="comments">
               <Col>
-                <h2>Comments</h2>
-                <p>Coming soon...</p>
+                <CommentProvider>
+                  <CommentSection />
+                </CommentProvider>
               </Col>
             </Row>
           </Col>
