@@ -18,6 +18,9 @@ export const BookmarkedRecipesProvider = (props) => {
     color: "grey",
   };
 
+  const createQueryString = () =>
+    bookmarkedRecipes.map((id) => "r=" + id).join("&");
+
   const getRecipeObjects = () => {
     Axios.get(EDAMAM_BASE_URL).then((resp) =>
       setBookmarkedRecipeObjects(resp.data)
@@ -68,8 +71,8 @@ export const BookmarkedRecipesProvider = (props) => {
 
   useEffect(() => {
     getData();
-    getRecipeObjects();
-  }, []);
+    createQueryString();
+  });
 
   return (
     <BookmarkedRecipesContext.Provider
