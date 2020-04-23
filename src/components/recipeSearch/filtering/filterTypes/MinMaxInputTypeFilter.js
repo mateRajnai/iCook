@@ -34,7 +34,6 @@ const MinMaxInputTypeFilter = (props) => {
     );
     allFiltersCopy[props.index] = filterCopy;
     props.setter(allFiltersCopy);
-    console.log(filterCopy.queryString);
   };
 
   return (

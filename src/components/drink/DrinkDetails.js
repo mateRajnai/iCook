@@ -11,7 +11,6 @@ const DrinkDisplay = styled.div`
 
 const DrinkDetails = (props) => {
   const { randomDrink } = useContext(DrinkContext);
-  console.log(randomDrink);
 
   if (randomDrink === null) {
     return null;

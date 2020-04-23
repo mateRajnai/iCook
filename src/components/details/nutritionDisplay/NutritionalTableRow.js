@@ -18,7 +18,6 @@ const NutritionalTableRow = (props) => {
   if (props.dailyNutrient === undefined) {
     dailyNutrient = "-";
   } else {
-    console.log(props.dailyNutrient[NUTRIENT_DATA]);
     dailyNutrient = parseFloat(props.dailyNutrient[NUTRIENT_DATA].quantity)
       .toFixed(4)
       .concat(" ", props.dailyNutrient[NUTRIENT_DATA].unit);
