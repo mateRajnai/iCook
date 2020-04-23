@@ -31,11 +31,17 @@ export const RecipeProvider = (props) => {
   };
 
   const getData = (url) => {
-    Axios.get(url).then((resp) =>
-      resp.data.hits.map((data) =>
-        setRecipes((prevRecipes) => [...prevRecipes, data.recipe])
-      )
-    );
+    Axios.get(url)
+      .then((resp) => {
+        if (resp.data.count === 0) {
+          setLoading(false);
+        }
+      })
+      .then((resp) =>
+        resp.data.hits.map((data) =>
+          setRecipes((prevRecipes) => [...prevRecipes, data.recipe])
+        )
+      );
   };
 
   const setInitialStatesAfterNewSearch = (actualUrl) => {
