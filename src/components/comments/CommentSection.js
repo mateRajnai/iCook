@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import CommentList from "../comments/CommentList";
 import { CommentContext } from "../../context/CommentContext";
 
@@ -14,10 +14,8 @@ const CommentSection = () => {
     content = (
       <div>
         <button onClick={getComments}>Show comments</button>
-        <form>
-          <input type="text" />
-          <input type="submit" value="Add comment" onClick={addComment} />
-        </form>
+        <input type="text" className="new-comment" />
+        <button onClick={addComment}>Add comment</button>
         <CommentList />
       </div>
     );
@@ -25,7 +23,7 @@ const CommentSection = () => {
     content = (
       <div>
         <button onClick={getComments}>Show comments</button>
-        <input type="text" id="new-comment" />
+        <input type="text" className="new-comment" />
         <button onClick={addComment}>Add comment</button>
       </div>
     );
