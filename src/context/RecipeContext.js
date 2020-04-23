@@ -8,28 +8,33 @@ export const RecipeContext = createContext();
 export const RecipeProvider = (props) => {
   const API_ID = process.env.REACT_APP_API_ID;
   const API_KEY = process.env.REACT_APP_API_KEY;
-  const [queryString, setQueryString] = useState("");
+  const [searchURL, setSearchURL] = useState("");
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const [indexOfFromInUrl, setIndexOfFromInUrl] = useState(0);
-  const [indexOfToInUrl, setIndexOfToInUrl] = useState(RESULTS_PER_SEARCH);
+  const [showResultsFrom, setShowResultsFrom] = useState(0);
+  const [showResultsTo, setShowResultsTo] = useState(RESULTS_PER_SEARCH);
   const [searchQuery, setSearchQuery] = useState("");
   const [filterQuery, setFilterQuery] = useState("");
 
-  const search = (searchQuery, filterQuery) => {
-    setSearchQuery(searchQuery);
-    setFilterQuery(filterQuery);
-    const actualUrl = `https://api.edamam.com/search?q=${searchQuery}&app_id=${API_ID}&app_key=${API_KEY}${filterQuery}`;
-    if (actualUrl !== queryString) {
+  const search = (newSearchQuery, newFilterQuery) => {
+    let currentSearchQuery = searchQuery;
+    let currentFilterQuery = filterQuery;
+    //it checks if it's a new search and initializes it, otherwise searches with the same queries but with increased index
+    if (newSearchQuery !== searchQuery || newFilterQuery !== filterQuery) {
+      setSearchQuery(newSearchQuery);
+      setFilterQuery(newFilterQuery);
       setLoading(true);
-      setInitialStatesAfterNewSearch(actualUrl);
+      initNewSearch();
+      currentSearchQuery = newSearchQuery;
+      currentFilterQuery = newFilterQuery;
     }
+    const url = `https://api.edamam.com/search?q=${currentSearchQuery}&app_id=${API_ID}&app_key=${API_KEY}&from=${showResultsFrom}&to=${showResultsTo}${currentFilterQuery}`;
+    setSearchURL(url);
   };
 
   const loadMoreRecipes = () => {
-    const actualUrl = `https://api.edamam.com/search?q=${searchQuery}&app_id=${API_ID}&app_key=${API_KEY}&from=${indexOfFromInUrl}&to=${indexOfToInUrl}${filterQuery}`;
-    setQueryString(actualUrl);
+    search(searchQuery, filterQuery);
   };
 
   const getData = (url) => {
@@ -47,16 +52,15 @@ export const RecipeProvider = (props) => {
       );
   };
 
-  const setInitialStatesAfterNewSearch = (actualUrl) => {
-    setIndexOfFromInUrl(0);
-    setIndexOfToInUrl(10);
+  const initNewSearch = () => {
+    setShowResultsFrom(0);
+    setShowResultsTo(RESULTS_PER_SEARCH);
     setRecipes([]);
-    setQueryString(actualUrl);
   };
 
-  const setIndexOfUrlForInfiniteScrolling = () => {
-    setIndexOfFromInUrl((index) => index + RESULTS_PER_SEARCH);
-    setIndexOfToInUrl((index) => index + RESULTS_PER_SEARCH);
+  const prepareNextPage = () => {
+    setShowResultsFrom((index) => index + RESULTS_PER_SEARCH);
+    setShowResultsTo((index) => index + RESULTS_PER_SEARCH);
   };
 
   useEffect(() => {
@@ -66,11 +70,11 @@ export const RecipeProvider = (props) => {
   }, [recipes]);
 
   useEffect(() => {
-    if (queryString !== "") {
-      getData(queryString);
-      setIndexOfUrlForInfiniteScrolling();
+    if (searchURL !== "") {
+      getData(searchURL);
+      prepareNextPage();
     }
-  }, [queryString]);
+  }, [searchURL]);
 
   useEffect(() => {}, [loading]);
 
@@ -78,7 +82,7 @@ export const RecipeProvider = (props) => {
     <RecipeContext.Provider
       value={{
         search,
-        queryString,
+        queryString: searchURL,
         recipes,
         loading,
         setLoading,
