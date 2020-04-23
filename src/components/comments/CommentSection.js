@@ -16,7 +16,7 @@ const CommentSection = () => {
       <button onClick={addComment}>Add comment</button>
     </div>
   );
-  // Refactor is needed, code duplication
+
   if (isCommentCanBeShown) {
     content = (
       <div>

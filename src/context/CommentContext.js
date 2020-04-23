@@ -10,7 +10,7 @@ export const CommentProvider = (props) => {
   const [comments, setComments] = useState([]);
   const [isCommentCanBeShown, setIsCommentCanBeShown] = useState(false);
 
-  // selectedRecipeId-t URI-ra lecserélni (uri)
+  // TO-DO: selectedRecipeId must be replaced to uri
   const { selectedRecipe } = useContext(SelectedRecipeContext);
   const selectedRecipeId = selectedRecipe.label
     .toLowerCase()
@@ -18,30 +18,31 @@ export const CommentProvider = (props) => {
 
   const URL = `http://localhost:8080/recipe/${selectedRecipeId}/comments`;
 
+  const collectNewCommentRelatedData = () => {
+    const newComment = document.getElementById("new-comment").value;
+    const newCommentId = uuidv4();
+    const data = {
+      id: newCommentId,
+      content: newComment,
+      submissionTime: null,
+      recipeId: selectedRecipeId,
+    };
+    return data;
+  };
+
   const getComments = () => {
     setIsCommentCanBeShown(true);
     Axios.get(URL).then((resp) => setComments(resp.data));
   };
 
-  // paramétereket kiszervezni úgy mint URL-t
   const addComment = (event) => {
-    const newComment = document.getElementById("new-comment").value;
-    const newCommentId = uuidv4();
+    const data = collectNewCommentRelatedData();
     event.stopPropagation();
-    Axios.post(
-      URL,
-      {
-        id: newCommentId,
-        content: newComment,
-        submissionTime: null,
-        recipeId: selectedRecipeId,
+    Axios.post(URL, data, {
+      headers: {
+        "Content-Type": "application/json",
       },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    ).then((resp) => setComments(resp.data));
+    }).then((resp) => setComments(resp.data));
   };
 
   useEffect(() => {}, [comments]);
