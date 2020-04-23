@@ -14,7 +14,7 @@ const DetailedRecipe = styled.div`
 
   & *.main-row {
     padding: 20px 0 20px 0;
-    border-bottom: 1px dotted #005500;
+    border-bottom: 1px dotted ${(props) => props.theme.secondaryColor};
   }
 
   & *.main-row:last-child {
