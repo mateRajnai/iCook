@@ -4,7 +4,6 @@ import CommentListItem from "../comments/CommentListItem";
 
 const CommentList = () => {
   const { comments } = useContext(CommentContext);
-  console.log(comments);
   let content = null;
 
   if (comments.length === 0) {

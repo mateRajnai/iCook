@@ -5,7 +5,6 @@ const CommentListItem = (props) => {
 
   const comment = props.comment;
 
-  console.log(comment);
   content = (
     <div>
       <p>{comment.content}</p>

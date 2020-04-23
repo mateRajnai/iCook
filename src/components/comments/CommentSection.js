@@ -9,24 +9,23 @@ const CommentSection = () => {
   const { addComment } = useContext(CommentContext);
   const { isCommentCanBeShown } = useContext(CommentContext);
 
+  const buttons = (
+    <div>
+      <button onClick={getComments}>Show comments</button>
+      <input type="text" id="new-comment" />
+      <button onClick={addComment}>Add comment</button>
+    </div>
+  );
   // Refactor is needed, code duplication
   if (isCommentCanBeShown) {
     content = (
       <div>
-        <button onClick={getComments}>Show comments</button>
-        <input type="text" id="new-comment" />
-        <button onClick={addComment}>Add comment</button>
+        {buttons}
         <CommentList />
       </div>
     );
   } else {
-    content = (
-      <div>
-        <button onClick={getComments}>Show comments</button>
-        <input type="text" id="new-comment" />
-        <button onClick={addComment}>Add comment</button>
-      </div>
-    );
+    content = <div>{buttons}</div>;
   }
 
   return content;
