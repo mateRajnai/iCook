@@ -5,6 +5,8 @@ import RecipeLabels from "./RecipeLabels";
 import NutritionalValues from "./nutritionDisplay/NutritionalValues";
 import RecipeInfo from "./RecipeInfo";
 import { SelectedRecipeContext } from "../../context/SelectedRecipeContext";
+import CommentSection from "../comments/CommentSection";
+import { CommentProvider } from "../../context/CommentContext";
 import styled from "styled-components";
 
 const DetailedRecipe = styled.div`
@@ -38,6 +40,7 @@ const DetailedRecipe = styled.div`
 
 const RecipeDetails = (props) => {
   const { selectedRecipe } = useContext(SelectedRecipeContext);
+
   let content = null;
 
   if (selectedRecipe != null) {
@@ -67,8 +70,9 @@ const RecipeDetails = (props) => {
               </Row>
               <Row className="main-row" justify="center" id="comments">
                 <Col>
-                  <h2>Comments</h2>
-                  <p>Coming soon...</p>
+                  <CommentProvider>
+                    <CommentSection />
+                  </CommentProvider>
                 </Col>
               </Row>
             </Col>
