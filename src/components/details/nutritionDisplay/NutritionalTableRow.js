@@ -5,7 +5,7 @@ import styled from "styled-components";
 const NUTRIENT_DATA = 1;
 
 const NutritionInfo = styled.div`
-  border-bottom: 1px solid #050505;
+  border-bottom: 1px solid ${(props) => props.theme.secondaryColor};
   margin: 0 0 7px;
   h4 {
     margin: 0;
@@ -18,7 +18,6 @@ const NutritionalTableRow = (props) => {
   if (props.dailyNutrient === undefined) {
     dailyNutrient = "-";
   } else {
-    console.log(props.dailyNutrient[NUTRIENT_DATA]);
     dailyNutrient = parseFloat(props.dailyNutrient[NUTRIENT_DATA].quantity)
       .toFixed(4)
       .concat(" ", props.dailyNutrient[NUTRIENT_DATA].unit);
