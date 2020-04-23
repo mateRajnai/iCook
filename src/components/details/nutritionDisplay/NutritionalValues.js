@@ -22,9 +22,6 @@ const NutritionalValues = (props) => {
   const nutrients = Object.entries(selectedRecipe.totalNutrients);
   const dailyNutrients = Object.entries(selectedRecipe.totalDaily);
 
-  console.log(nutrients);
-  console.log(dailyNutrients);
-
   const toggleVisibility = () => {
     setHidden(!isHidden);
   };
