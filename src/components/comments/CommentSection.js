@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import CommentList from "../comments/CommentList";
 import { CommentContext } from "../../context/CommentContext";
+import { Input, Button } from "antd";
 
 const CommentSection = () => {
   let content = null;
@@ -12,15 +13,15 @@ const CommentSection = () => {
   if (isCommentCanBeShown) {
     content = (
       <div>
-        <input type="text" id="new-comment" />
-        <button onClick={addComment}>Add comment</button>
+        <Input type="text" id="new-comment" />
+        <Button onClick={addComment}>Add comment</Button>
         <CommentList />
       </div>
     );
   } else {
     content = (
       <div>
-        <button onClick={getComments}>Show comments</button>
+        <Button onClick={getComments}>Show comments</Button>
       </div>
     );
   }
