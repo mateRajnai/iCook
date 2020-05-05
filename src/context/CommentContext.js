@@ -19,7 +19,7 @@ export const CommentProvider = (props) => {
   const URL = `http://localhost:8080/recipe/${selectedRecipeId}/comments`;
 
   const collectNewCommentRelatedData = () => {
-    const newComment = document.getElementById("new-comment").value;
+    const newComment = document.getElementById("new-comment-textarea").value;
     const newCommentId = uuidv4();
     const data = {
       id: newCommentId,

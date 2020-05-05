@@ -15,6 +15,7 @@ const CommentList = () => {
   } else {
     content = (
       <div>
+        <p>{comments.length} comments</p>
         {comments.map((comment) => (
           <CommentListItem key={comment.id} comment={comment} />
         ))}
