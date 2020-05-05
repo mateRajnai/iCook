@@ -21,7 +21,6 @@ export const CommentProvider = (props) => {
     const newComment = document.getElementById("new-comment-textarea").value;
     const data = {
       content: newComment,
-      // submissionTime: null,
       recipeId: selectedRecipeId,
     };
     return data;
