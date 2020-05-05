@@ -35,6 +35,10 @@ export const CommentProvider = (props) => {
     Axios.get(URL).then((resp) => setComments(resp.data));
   };
 
+  const clearCommentAddingTextArea = () => {
+    document.getElementById("new-comment-textarea").value = "";
+  };
+
   const addComment = (event) => {
     const data = collectNewCommentRelatedData();
     event.stopPropagation();
@@ -42,7 +46,10 @@ export const CommentProvider = (props) => {
       headers: {
         "Content-Type": "application/json",
       },
-    }).then((resp) => setComments(resp.data));
+    }).then((resp) => {
+      setComments(resp.data);
+      clearCommentAddingTextArea();
+    });
   };
 
   useEffect(() => {}, [comments]);

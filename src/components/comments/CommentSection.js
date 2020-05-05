@@ -14,7 +14,7 @@ const CommentSection = () => {
   if (isCommentCanBeShown) {
     content = (
       <div>
-        <TextArea />
+        <TextArea id="new-comment-textarea" />
         <Button onClick={addComment} className="button">
           Add comment
         </Button>
