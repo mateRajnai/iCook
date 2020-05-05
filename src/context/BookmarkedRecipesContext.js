@@ -1,26 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
+import UrlBuilder from "./UrlBuilder";
 
 const BOOKMARKED_RECIPES_URL = "http://localhost:8080/favorites";
-const API_KEY = process.env.REACT_APP_API_KEY;
-const API_ID = process.env.REACT_APP_API_ID;
-const EDAMAM_BASE_URL = "https://api.edamam.com/search?";
+const urlBuilder = new UrlBuilder();
 
 export const BookmarkedRecipesContext = React.createContext();
 
 export const BookmarkedRecipesProvider = (props) => {
   const [bookmarkedRecipes, setBookmarkedRecipes] = useState([]);
   const [bookmarkedRecipeObjects, setBookmarkedRecipeObjects] = useState([]);
-  const [actualUrl, setActualUrl] = useState("");
-
-  const createActualUrl = (bookmarkedRecipes) => {
-    const queryString = bookmarkedRecipes
-      .map((recipe) => "r=" + recipe.recipeId)
-      .join("&");
-    setActualUrl(
-      EDAMAM_BASE_URL + queryString + `&app_id=${API_ID}&app_key=${API_KEY}`
-    );
-  };
 
   const findBookmarkedRecipeByRecipeId = (recipeId) => {
     return bookmarkedRecipes.find((recipe) => recipe.recipeId === recipeId);
@@ -95,17 +84,10 @@ export const BookmarkedRecipesProvider = (props) => {
   };
 
   useEffect(() => {
-    createActualUrl(bookmarkedRecipes);
-  }, [bookmarkedRecipes]);
-
-  useEffect(() => {
-    if (
-      actualUrl !==
-      EDAMAM_BASE_URL + `&app_id=${API_ID}&app_key=${API_KEY}`
-    ) {
-      getRecipeObjects(actualUrl);
+    if (bookmarkedRecipes.length > bookmarkedRecipeObjects.length) {
+      getRecipeObjects(urlBuilder.getBookmarked(bookmarkedRecipes));
     }
-  }, [actualUrl]);
+  });
 
   useEffect(() => {
     getData();
