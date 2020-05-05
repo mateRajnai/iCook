@@ -17,6 +17,11 @@ const CommentList = () => {
   const { comments } = useContext(CommentContext);
   let content = null;
 
+  let commentCounterText =
+    comments.length === 1
+      ? `There is ${comments.length} comment.`
+      : `There are ${comments.length} comments.`;
+
   if (comments.length === 0) {
     content = (
       <div>
@@ -27,7 +32,7 @@ const CommentList = () => {
     content = (
       <div id="comment-list">
         <Style>
-          <div id="comment-counter">There are {comments.length} comments.</div>
+          <div id="comment-counter">{commentCounterText}</div>
           {comments.map((comment) => (
             <CommentListItem key={comment.id} comment={comment} />
           ))}
