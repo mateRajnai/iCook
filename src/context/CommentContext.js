@@ -1,6 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { SelectedRecipeContext } from "./SelectedRecipeContext";
-import { v4 as uuidv4 } from "uuid";
 
 import Axios from "axios";
 
@@ -20,11 +19,9 @@ export const CommentProvider = (props) => {
 
   const collectNewCommentRelatedData = () => {
     const newComment = document.getElementById("new-comment-textarea").value;
-    const newCommentId = uuidv4();
     const data = {
-      id: newCommentId,
       content: newComment,
-      submissionTime: null,
+      // submissionTime: null,
       recipeId: selectedRecipeId,
     };
     return data;
