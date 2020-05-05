@@ -14,9 +14,26 @@ export const BookmarkedRecipesProvider = (props) => {
   const [actualUrl, setActualUrl] = useState("");
 
   const createActualUrl = (bookmarkedRecipes) => {
-    const queryString = bookmarkedRecipes.map((id) => "r=" + id).join("&");
+    const queryString = bookmarkedRecipes
+      .map((recipe) => "r=" + recipe.recipeId)
+      .join("&");
     setActualUrl(
       EDAMAM_BASE_URL + queryString + `&app_id=${API_ID}&app_key=${API_KEY}`
+    );
+  };
+
+  const findBookmarkedRecipeByRecipeId = (recipeId) => {
+    return bookmarkedRecipes.find((recipe) => recipe.recipeId === recipeId);
+  };
+
+  const filterOutDeletedBookmarkedRecipeByRecipeId = (recipeId) => {
+    setBookmarkedRecipes(
+      bookmarkedRecipes.filter((recipe) => recipe.recipeId !== recipeId)
+    );
+    setBookmarkedRecipeObjects(
+      bookmarkedRecipeObjects.filter(
+        (recipeObject) => escapeUriCharacters(recipeObject.uri) !== recipeId
+      )
     );
   };
 
@@ -30,14 +47,22 @@ export const BookmarkedRecipesProvider = (props) => {
     );
   };
 
-  const updateData = (data) => {
-    Axios.put(BOOKMARKED_RECIPES_URL, data, {
+  const deleteData = (data) => {
+    Axios.delete(BOOKMARKED_RECIPES_URL + "/" + data.id).then((resp) => {
+      if (resp.status === 200) {
+        filterOutDeletedBookmarkedRecipeByRecipeId(data.recipeId);
+      }
+    });
+  };
+
+  const saveData = (data) => {
+    Axios.post(BOOKMARKED_RECIPES_URL, data, {
       headers: {
         "Content-Type": "application/json",
       },
-    }).then((resp) => {
-      setBookmarkedRecipes(resp.data);
-    });
+    }).then((resp) =>
+      setBookmarkedRecipes((prevRecipes) => [...prevRecipes, resp.data])
+    );
   };
 
   const escapeUriCharacters = (uri) => {
@@ -45,7 +70,7 @@ export const BookmarkedRecipesProvider = (props) => {
   };
 
   const themeSetter = (uri) => {
-    if (bookmarkedRecipes.includes(escapeUriCharacters(uri))) {
+    if (findBookmarkedRecipeByRecipeId(escapeUriCharacters(uri)) != null) {
       return "bookmarked";
     }
     return "bookmarkless";
@@ -57,7 +82,16 @@ export const BookmarkedRecipesProvider = (props) => {
       "data-recipe-id"
     ).value;
     const escapedRecipeId = escapeUriCharacters(recipeId);
-    updateData(escapedRecipeId);
+    const bookmarkedRecipe = findBookmarkedRecipeByRecipeId(escapedRecipeId);
+
+    if (bookmarkedRecipe == null) {
+      const recipe = {
+        recipeId: escapedRecipeId,
+      };
+      saveData(recipe);
+    } else {
+      deleteData(bookmarkedRecipe);
+    }
   };
 
   useEffect(() => {
