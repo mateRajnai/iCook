@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import CommentList from "../comments/CommentList";
 import { CommentContext } from "../../context/CommentContext";
-import { Button, TextArea } from "antd";
+import { Button, TextArea, Input } from "antd";
 import styled from "styled-components";
 
 const Style = styled.div`
@@ -19,7 +19,7 @@ const CommentSection = () => {
   if (isCommentCanBeShown) {
     content = (
       <div>
-        <TextArea type="text" id="new-comment-textarea" />
+        <Input type="text" id="new-comment-textarea" />
         <Button onClick={addComment} className="button">
           Add comment
         </Button>
