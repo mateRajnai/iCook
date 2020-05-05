@@ -1,16 +1,11 @@
 import React, { useContext } from "react";
 import CommentList from "../comments/CommentList";
 import { CommentContext } from "../../context/CommentContext";
-import { Button, TextArea, Input } from "antd";
-import styled from "styled-components";
-
-const Style = styled.div`
-  & #new-comment-textarea {
-  }
-`;
+import { Button, Input } from "antd";
 
 const CommentSection = () => {
   let content = null;
+  const { TextArea } = Input;
 
   const { getComments } = useContext(CommentContext);
   const { addComment } = useContext(CommentContext);
@@ -19,7 +14,7 @@ const CommentSection = () => {
   if (isCommentCanBeShown) {
     content = (
       <div>
-        <Input type="text" id="new-comment-textarea" />
+        <TextArea />
         <Button onClick={addComment} className="button">
           Add comment
         </Button>

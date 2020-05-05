@@ -1,6 +1,17 @@
 import React, { useContext } from "react";
 import { CommentContext } from "../../context/CommentContext";
 import CommentListItem from "../comments/CommentListItem";
+import styled from "styled-components";
+
+const Style = styled.div`
+  & *#comment-counter {
+    text-align: left;
+  }
+  & *#comment-list {
+    align-content: left;
+    text-align: left;
+  }
+`;
 
 const CommentList = () => {
   const { comments } = useContext(CommentContext);
@@ -14,11 +25,13 @@ const CommentList = () => {
     );
   } else {
     content = (
-      <div>
-        <p>{comments.length} comments</p>
-        {comments.map((comment) => (
-          <CommentListItem key={comment.id} comment={comment} />
-        ))}
+      <div id="comment-list">
+        <Style>
+          <div id="comment-counter">There are {comments.length} comments.</div>
+          {comments.map((comment) => (
+            <CommentListItem key={comment.id} comment={comment} />
+          ))}
+        </Style>
       </div>
     );
   }
