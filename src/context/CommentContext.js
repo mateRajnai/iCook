@@ -11,6 +11,7 @@ export const CommentProvider = (props) => {
 
   // TO-DO: selectedRecipeId must be replaced to uri
   const { selectedRecipe } = useContext(SelectedRecipeContext);
+  console.log(selectedRecipe);
   const selectedRecipeId = selectedRecipe.label
     .toLowerCase()
     .replace(/ /g, "-");
@@ -43,7 +44,7 @@ export const CommentProvider = (props) => {
         "Content-Type": "application/json",
       },
     }).then((resp) => {
-      setComments(resp.data);
+      setComments((prevComments) => [...prevComments, resp.data]);
       clearCommentAddingTextArea();
     });
   };
