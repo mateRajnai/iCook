@@ -15,7 +15,6 @@ export const CommentProvider = (props) => {
 
   // TO-DO: selectedRecipeId must be replaced to uri
   const { selectedRecipe } = useContext(SelectedRecipeContext);
-  console.log(selectedRecipe);
   const selectedRecipeId = selectedRecipe.label
     .toLowerCase()
     .replace(/ /g, "-");
