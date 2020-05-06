@@ -1,22 +1,28 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
+import UrlBuilder from "./UrlBuilder";
 
 const BOOKMARKED_RECIPES_URL = "http://localhost:8080/favorites";
-const API_KEY = process.env.REACT_APP_API_KEY;
-const API_ID = process.env.REACT_APP_API_ID;
-const EDAMAM_BASE_URL = "https://api.edamam.com/search?";
+const urlBuilder = new UrlBuilder();
 
 export const BookmarkedRecipesContext = React.createContext();
 
 export const BookmarkedRecipesProvider = (props) => {
   const [bookmarkedRecipes, setBookmarkedRecipes] = useState([]);
   const [bookmarkedRecipeObjects, setBookmarkedRecipeObjects] = useState([]);
-  const [actualUrl, setActualUrl] = useState("");
 
-  const createActualUrl = (bookmarkedRecipes) => {
-    const queryString = bookmarkedRecipes.map((id) => "r=" + id).join("&");
-    setActualUrl(
-      EDAMAM_BASE_URL + queryString + `&app_id=${API_ID}&app_key=${API_KEY}`
+  const findBookmarkedRecipeByRecipeId = (recipeId) => {
+    return bookmarkedRecipes.find((recipe) => recipe.recipeId === recipeId);
+  };
+
+  const filterOutDeletedBookmarkedRecipeByRecipeId = (recipeId) => {
+    setBookmarkedRecipes(
+      bookmarkedRecipes.filter((recipe) => recipe.recipeId !== recipeId)
+    );
+    setBookmarkedRecipeObjects(
+      bookmarkedRecipeObjects.filter(
+        (recipeObject) => escapeUriCharacters(recipeObject.uri) !== recipeId
+      )
     );
   };
 
@@ -30,14 +36,22 @@ export const BookmarkedRecipesProvider = (props) => {
     );
   };
 
-  const updateData = (data) => {
-    Axios.put(BOOKMARKED_RECIPES_URL, data, {
+  const deleteData = (data) => {
+    Axios.delete(BOOKMARKED_RECIPES_URL + "/" + data.id).then((resp) => {
+      if (resp.status === 200) {
+        filterOutDeletedBookmarkedRecipeByRecipeId(data.recipeId);
+      }
+    });
+  };
+
+  const saveData = (data) => {
+    Axios.post(BOOKMARKED_RECIPES_URL, data, {
       headers: {
         "Content-Type": "application/json",
       },
-    }).then((resp) => {
-      setBookmarkedRecipes(resp.data);
-    });
+    }).then((resp) =>
+      setBookmarkedRecipes((prevRecipes) => [...prevRecipes, resp.data])
+    );
   };
 
   const escapeUriCharacters = (uri) => {
@@ -45,7 +59,7 @@ export const BookmarkedRecipesProvider = (props) => {
   };
 
   const themeSetter = (uri) => {
-    if (bookmarkedRecipes.includes(escapeUriCharacters(uri))) {
+    if (findBookmarkedRecipeByRecipeId(escapeUriCharacters(uri)) != null) {
       return "bookmarked";
     }
     return "bookmarkless";
@@ -57,21 +71,23 @@ export const BookmarkedRecipesProvider = (props) => {
       "data-recipe-id"
     ).value;
     const escapedRecipeId = escapeUriCharacters(recipeId);
-    updateData(escapedRecipeId);
+    const bookmarkedRecipe = findBookmarkedRecipeByRecipeId(escapedRecipeId);
+
+    if (bookmarkedRecipe == null) {
+      const recipe = {
+        recipeId: escapedRecipeId,
+      };
+      saveData(recipe);
+    } else {
+      deleteData(bookmarkedRecipe);
+    }
   };
 
   useEffect(() => {
-    createActualUrl(bookmarkedRecipes);
-  }, [bookmarkedRecipes]);
-
-  useEffect(() => {
-    if (
-      actualUrl !==
-      EDAMAM_BASE_URL + `&app_id=${API_ID}&app_key=${API_KEY}`
-    ) {
-      getRecipeObjects(actualUrl);
+    if (bookmarkedRecipes.length > bookmarkedRecipeObjects.length) {
+      getRecipeObjects(urlBuilder.getBookmarked(bookmarkedRecipes));
     }
-  }, [actualUrl]);
+  });
 
   useEffect(() => {
     getData();
