@@ -18,20 +18,19 @@ const Style = styled.div`
   }
 `;
 
-const CommentListItem = (props) => {
-  const comment = props.comment;
+const PersonalNoteListItem = (props) => {
+  const personalNote = props.personalNote;
   const data = [
     {
       // After implementing login, username should be added here
-      author: "User Name",
-      avatar:
-        "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-      content: <p>{comment.content}</p>,
+      content: <p>{personalNote.content}</p>,
       datetime: (
         <Tooltip
-          title={moment(comment.submissionTime).format("YYYY-MM-DD HH:mm:ss")}
+          title={moment(personalNote.submissionTime).format(
+            "YYYY-MM-DD HH:mm:ss"
+          )}
         >
-          <span>{moment(comment.submissionTime).fromNow()}</span>
+          <span>{moment(personalNote.submissionTime).fromNow()}</span>
         </Tooltip>
       ),
     },
@@ -43,17 +42,12 @@ const CommentListItem = (props) => {
     <div>
       <Style>
         <List
-          className="comment-list"
+          className="personal-note-list"
           itemLayout="horizontal"
           dataSource={data}
           renderItem={(item) => (
             <li>
-              <Comment
-                author={item.author}
-                avatar={item.avatar}
-                content={item.content}
-                datetime={item.datetime}
-              />
+              <Comment content={item.content} datetime={item.datetime} />
             </li>
           )}
         />
@@ -63,4 +57,4 @@ const CommentListItem = (props) => {
   return content;
 };
 
-export default CommentListItem;
+export default PersonalNoteListItem;

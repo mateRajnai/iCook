@@ -4,10 +4,15 @@ class UrlBuilder {
   RESULT_LIMIT = 10;
   searchQuery;
   filterQuery;
+  bookmarkQuery;
   from;
   to;
 
-  buildUrl() {
+  buildUrl(bookmark = false) {
+    if (bookmark) {
+      return `https://api.edamam.com/search?${this.bookmarkQuery}&app_id=${this.API_ID}&app_key=${this.API_KEY}`;
+    }
+
     return `https://api.edamam.com/search?q=${this.searchQuery}&app_id=${this.API_ID}&app_key=${this.API_KEY}&from=${this.from}&to=${this.to}${this.filterQuery}`;
   }
 
@@ -30,6 +35,13 @@ class UrlBuilder {
     this.from += this.RESULT_LIMIT;
     this.to += this.RESULT_LIMIT;
     return this.buildUrl();
+  }
+
+  getBookmarked(objects) {
+    this.bookmarkQuery = objects
+      .map((object) => "r=" + object.recipeId)
+      .join("&");
+    return this.buildUrl(true);
   }
 }
 

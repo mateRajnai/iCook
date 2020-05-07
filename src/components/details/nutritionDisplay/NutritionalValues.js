@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Row, Col } from "antd";
+import { Row, Col, Button } from "antd";
 import NutritionalTableRow, {
   NutritionalTableHeader,
 } from "./NutritionalTableRow";
@@ -34,7 +34,7 @@ const NutritionalValues = (props) => {
   if (isHidden) {
     return (
       <Col>
-        <button onClick={toggleVisibility}>Show nutritional values</button>
+        <Button onClick={toggleVisibility}>Show nutritional values</Button>
       </Col>
     );
   } else {
@@ -66,7 +66,7 @@ const NutritionalValues = (props) => {
             </Col>
           </Row>
           <Row id="hide-button" justify="center">
-            <button onClick={toggleVisibility}>Hide nutritional values</button>
+            <Button onClick={toggleVisibility}>Hide nutritional values</Button>
           </Row>
         </NutritionalTable>
       </Col>
