@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
 import PersonalNoteList from "../personalNote/PersonalNoteList";
 import { PersonalNoteContext } from "../../context/PersonalNoteContext";
+import { Button, Input } from "antd";
 
 const PersonalNoteSection = () => {
   let content = null;
+  const { TextArea } = Input;
 
   const { getPersonalNotes } = useContext(PersonalNoteContext);
   const { addPersonalNote } = useContext(PersonalNoteContext);
@@ -12,15 +14,19 @@ const PersonalNoteSection = () => {
   if (isPersonalNoteCanBeShown) {
     content = (
       <div>
-        <input type="text" id="new-personal-note" />
-        <button onClick={addPersonalNote}>Add personal note</button>
+        <TextArea id="new-personal-note-textarea" />
+        <Button onClick={addPersonalNote} className="button">
+          Add personal note
+        </Button>
         <PersonalNoteList />
       </div>
     );
   } else {
     content = (
       <div>
-        <button onClick={getPersonalNotes}>Show personal notes</button>
+        <Button onClick={getPersonalNotes} className="button">
+          Show personal notes
+        </Button>
       </div>
     );
   }

@@ -1,6 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { SelectedRecipeContext } from "./SelectedRecipeContext";
-import { v4 as uuidv4 } from "uuid";
 
 import Axios from "axios";
 
@@ -22,12 +21,11 @@ export const PersonalNoteProvider = (props) => {
   const URLForSave = `http://localhost:8080/recipe/${selectedRecipeId}/personal-note/save`;
 
   const collectNewPersonalNoteRelatedData = () => {
-    const newPersonalNote = document.getElementById("new-personal-note").value;
-    const newPersonalNoteId = uuidv4();
+    const newPersonalNote = document.getElementById(
+      "new-personal-note-textarea"
+    ).value;
     const data = {
-      id: newPersonalNoteId,
       content: newPersonalNote,
-      submissionTime: null,
       recipeId: selectedRecipeId,
     };
     return data;
@@ -38,6 +36,10 @@ export const PersonalNoteProvider = (props) => {
     Axios.get(URLForList).then((resp) => setPersonalNotes(resp.data));
   };
 
+  const clearPersonalNoteAddingTextArea = () => {
+    document.getElementById("new-personal-note-textarea").value = "";
+  };
+
   const addPersonalNote = (event) => {
     const data = collectNewPersonalNoteRelatedData();
     event.stopPropagation();
@@ -45,7 +47,13 @@ export const PersonalNoteProvider = (props) => {
       headers: {
         "Content-Type": "application/json",
       },
-    }).then((resp) => setPersonalNotes(resp.data));
+    }).then((resp) => {
+      setPersonalNotes((pervPersonalNotes) => [
+        resp.data,
+        ...pervPersonalNotes,
+      ]);
+      clearPersonalNoteAddingTextArea();
+    });
   };
 
   useEffect(() => {}, [personalNotes]);
