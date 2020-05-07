@@ -17,8 +17,7 @@ export const PersonalNoteProvider = (props) => {
     .toLowerCase()
     .replace(/ /g, "-");
 
-  const URLForList = `https://icook-api-server.herokuapp.com/recipe/${selectedRecipeId}/personal-note/list`;
-  const URLForSave = `https://icook-api-server.herokuapp.com/recipe/${selectedRecipeId}/personal-note/save`;
+  const URLForList = `https://icook-api-server.herokuapp.com/recipe/${selectedRecipeId}/personal-note`;
 
   const collectNewPersonalNoteRelatedData = () => {
     const newPersonalNote = document.getElementById(
@@ -43,7 +42,7 @@ export const PersonalNoteProvider = (props) => {
   const addPersonalNote = (event) => {
     const data = collectNewPersonalNoteRelatedData();
     event.stopPropagation();
-    Axios.post(URLForSave, data, {
+    Axios.post(URLForList, data, {
       headers: {
         "Content-Type": "application/json",
       },
