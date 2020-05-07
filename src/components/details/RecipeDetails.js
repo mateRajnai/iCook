@@ -7,6 +7,9 @@ import RecipeInfo from "./RecipeInfo";
 import { SelectedRecipeContext } from "../../context/SelectedRecipeContext";
 import CommentSection from "../comments/CommentSection";
 import { CommentProvider } from "../../context/CommentContext";
+import PersonalNoteSection from "../personalNote/PersonalNoteSection";
+import { PersonalNoteProvider } from "../../context/PersonalNoteContext";
+
 import styled from "styled-components";
 
 const DetailedRecipe = styled.div`
@@ -64,8 +67,9 @@ const RecipeDetails = (props) => {
               </Row>
               <Row className="main-row" justify="center" id="notes">
                 <Col>
-                  <h2>Personal notes</h2>
-                  <p>Coming soon...</p>
+                  <PersonalNoteProvider>
+                    <PersonalNoteSection />
+                  </PersonalNoteProvider>
                 </Col>
               </Row>
               <Row className="main-row" justify="center" id="comments">
