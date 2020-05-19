@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { SelectedRecipeContext } from "./SelectedRecipeContext";
+import Cookies from "js-cookie";
 
 import Axios from "axios";
 
@@ -32,7 +33,11 @@ export const PersonalNoteProvider = (props) => {
 
   const getPersonalNotes = () => {
     setIsPersonalNoteCanBeShown(true);
-    Axios.get(URLForList).then((resp) => setPersonalNotes(resp.data));
+    Axios.get(URLForList, {
+      headers: {
+        Authentication: `Bearer ${Cookies.get("jwt")}`,
+      },
+    }).then((resp) => setPersonalNotes(resp.data));
   };
 
   const clearPersonalNoteAddingTextArea = () => {
@@ -45,6 +50,7 @@ export const PersonalNoteProvider = (props) => {
     Axios.post(URLForList, data, {
       headers: {
         "Content-Type": "application/json",
+        Authentication: `Bearer ${Cookies.get("jwt")}`,
       },
     }).then((resp) => {
       setPersonalNotes((pervPersonalNotes) => [
