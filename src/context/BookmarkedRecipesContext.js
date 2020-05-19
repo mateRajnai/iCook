@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import UrlBuilder from "./UrlBuilder";
+import Cookies from "js-cookie";
 
 const BOOKMARKED_RECIPES_URL = "http://localhost:8080/favorites";
 const urlBuilder = new UrlBuilder();
@@ -27,17 +28,21 @@ export const BookmarkedRecipesProvider = (props) => {
   };
 
   const getRecipeObjects = (actualUrl) => {
-    Axios.get(actualUrl).then((resp) => setBookmarkedRecipeObjects(resp.data));
+    Axios.get(actualUrl, {
+      headers: { Authentication: `Bearer ${Cookies.get("jwt")}` },
+    }).then((resp) => setBookmarkedRecipeObjects(resp.data));
   };
 
   const getData = () => {
-    Axios.get(BOOKMARKED_RECIPES_URL).then((resp) =>
-      setBookmarkedRecipes(resp.data)
-    );
+    Axios.get(BOOKMARKED_RECIPES_URL, {
+      headers: { Authentication: `Bearer ${Cookies.get("jwt")}` },
+    }).then((resp) => setBookmarkedRecipes(resp.data));
   };
 
   const deleteData = (data) => {
-    Axios.delete(BOOKMARKED_RECIPES_URL + "/" + data.id).then((resp) => {
+    Axios.delete(BOOKMARKED_RECIPES_URL + "/" + data.id, {
+      headers: { Authentication: `Bearer ${Cookies.get("jwt")}` },
+    }).then((resp) => {
       if (resp.status === 200) {
         filterOutDeletedBookmarkedRecipeByRecipeId(data.recipeId);
       }
