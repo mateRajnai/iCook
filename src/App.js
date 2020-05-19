@@ -8,24 +8,27 @@ import { BookmarkedRecipesProvider } from "./context/BookmarkedRecipesContext";
 import { DrinkContextProvider } from "./context/DrinkContext";
 import { ThemeProvider } from "styled-components";
 import GreenTheme from "./style/GreenTheme";
+import { UserProvider } from "./context/UserContext";
 
 function App() {
   return (
-    <ThemeProvider theme={GreenTheme}>
-      <RecipeProvider>
-        <BookmarkedRecipesProvider>
-          <SelectedRecipeProvider>
-            <SearchProvider>
-              <DrinkContextProvider>
-                <div className="App">
-                  <Layout />
-                </div>
-              </DrinkContextProvider>
-            </SearchProvider>
-          </SelectedRecipeProvider>
-        </BookmarkedRecipesProvider>
-      </RecipeProvider>
-    </ThemeProvider>
+    <UserProvider>
+      <ThemeProvider theme={GreenTheme}>
+        <RecipeProvider>
+          <BookmarkedRecipesProvider>
+            <SelectedRecipeProvider>
+              <SearchProvider>
+                <DrinkContextProvider>
+                  <div className="App">
+                    <Layout />
+                  </div>
+                </DrinkContextProvider>
+              </SearchProvider>
+            </SelectedRecipeProvider>
+          </BookmarkedRecipesProvider>
+        </RecipeProvider>
+      </ThemeProvider>
+    </UserProvider>
   );
 }
 

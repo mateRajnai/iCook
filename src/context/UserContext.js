@@ -27,6 +27,7 @@ export const UserProvider = (props) => {
       value={{
         username,
         roles,
+        login,
       }}
     >
       {props.children}
