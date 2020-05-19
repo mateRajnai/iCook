@@ -28,6 +28,8 @@ export const UserProvider = (props) => {
         username,
         roles,
       }}
-    ></UserContext.Provider>
+    >
+      {props.children}
+    </UserContext.Provider>
   );
 };
