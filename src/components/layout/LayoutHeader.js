@@ -27,11 +27,11 @@ const LayoutHeader = (props) => {
         <Link to={"/bookmark"}>Bookmarks</Link>
         <Link to={"/random-drink"}>Get random drink</Link>
         <RightAlignedDiv>
-          <Button type="secondary" data-name="signup" onClick={showModal}>
-            Signup
-          </Button>
           <Button type="secondary" data-name="sign-in" onClick={showModal}>
-            Sign in
+            Sign-In
+          </Button>
+          <Button type="link" data-name="signup" onClick={showModal}>
+            Sign-Up
           </Button>
         </RightAlignedDiv>
       </Header>
