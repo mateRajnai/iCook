@@ -21,15 +21,16 @@ export const SignupModalProvider = (props) => {
       },
     })
       .then((resp) => {
-        setVisible(false);
         setConfirmLoading(false);
+        setAction("");
+        setVisible(false);
       })
       .catch(() => {
         setConfirmLoading(false);
       });
   };
 
-  const showModal = async (e) => {
+  const showModal = (e) => {
     const action = e.target.dataset.name;
     setAction(action);
   };

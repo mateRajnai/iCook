@@ -53,7 +53,7 @@ const SignupForm = () => {
         <TabPane tab="SIGN-UP" key="1">
           <Form form={form} layout="vertical" name="form_in_modal">
             <Form.Item
-              name="username"
+              name="userName"
               label="Username"
               rules={[
                 {
@@ -131,19 +131,17 @@ const SignupForm = () => {
             </Form.Item>
             <Form.Item label="Address">
               <Input.Group compact>
-                <Form.Item
-                  name={["address", "zip code"]}
-                  noStyle
-                  rules={[{ required: true, message: "Province is required" }]}
-                >
-                  <Input style={{ width: "50%" }} placeholder="Input street" />
+                <Form.Item name={["address", "country"]} noStyle>
+                  <Input placeholder="Country" />
                 </Form.Item>
-                <Form.Item
-                  name={["address", "street"]}
-                  noStyle
-                  rules={[{ required: true, message: "Street is required" }]}
-                >
-                  <Input style={{ width: "50%" }} placeholder="Input street" />
+                <Form.Item name={["address", "zipCode"]} noStyle>
+                  <Input style={{ width: "30%" }} placeholder="Zip code" />
+                </Form.Item>
+                <Form.Item name={["address", "city"]} noStyle>
+                  <Input style={{ width: "70%" }} placeholder="City" />
+                </Form.Item>
+                <Form.Item name={["address", "address"]} noStyle>
+                  <Input placeholder="Address" />
                 </Form.Item>
               </Input.Group>
             </Form.Item>
