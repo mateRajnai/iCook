@@ -46,9 +46,12 @@ export const SignupModalProvider = (props) => {
         setUsername(resp.username);
         setRoles(resp.roles);
         Cookies.set("jwt", resp.token);
+        setAction("");
+        setVisible(false);
+        setConfirmLoading(false);
       })
-      .catch(function (error) {
-        console.log(error);
+      .catch(function () {
+        setConfirmLoading(false);
       });
   };
 
