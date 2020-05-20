@@ -2,7 +2,9 @@ import React, { useContext } from "react";
 import { useState, useEffect } from "react";
 import Axios from "axios";
 import { UserContext } from "./UserContext";
+import Cookies from "js-cookie";
 
+const LOGIN_URL = "http://localhost:8080/login";
 const SIGNUP_URL = "http://localhost:8080/signup";
 
 export const SignupModalContext = React.createContext();
@@ -12,7 +14,8 @@ export const SignupModalProvider = (props) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [action, setAction] = useState("");
 
-  const { login } = useContext(UserContext);
+  const { setUsername } = useContext(UserContext);
+  const { setRoles } = useContext(UserContext);
 
   const signup = (data) => {
     Axios.post(SIGNUP_URL, data, {
@@ -26,6 +29,26 @@ export const SignupModalProvider = (props) => {
       })
       .catch(() => {
         setConfirmLoading(false);
+      });
+  };
+
+  const login = (inputs) => {
+    const data = {
+      username: inputs.username_login,
+      password: inputs.password_login,
+    };
+    Axios.post(LOGIN_URL, data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((resp) => {
+        setUsername(resp.username);
+        setRoles(resp.roles);
+        Cookies.set("jwt", resp.token);
+      })
+      .catch(function (error) {
+        console.log(error);
       });
   };
 
