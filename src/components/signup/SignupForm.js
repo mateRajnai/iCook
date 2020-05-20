@@ -134,14 +134,14 @@ const SignupForm = () => {
                 <Form.Item
                   name={["address", "zip code"]}
                   noStyle
-                  rules={[{ required: true, message: "Province is required" }]}
+                  rules={[{ required: false, message: "Province is required" }]}
                 >
                   <Input style={{ width: "50%" }} placeholder="Input street" />
                 </Form.Item>
                 <Form.Item
                   name={["address", "street"]}
                   noStyle
-                  rules={[{ required: true, message: "Street is required" }]}
+                  rules={[{ required: false, message: "Street is required" }]}
                 >
                   <Input style={{ width: "50%" }} placeholder="Input street" />
                 </Form.Item>
