@@ -18,8 +18,9 @@ const RecipeFilter = (props) => {
   const { checkboxTypeFilters, setCheckboxTypeFilters } = useContext(
     SearchContext
   );
+  const { checkIfAnyApplied } = useContext(SearchContext);
   return (
-    <Collapse>
+    <Collapse defaultActiveKey={checkIfAnyApplied() ? "0" : "1"}>
       <Panel
         header="Detailed search options"
         key="1"

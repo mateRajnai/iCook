@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import { SignupModalContext } from "../../context/SignupModalContext";
+import { SignModalContext } from "../../context/SignModalContext";
 import { Modal, Form, Input, Tabs } from "antd";
 
 const { TabPane } = Tabs;
 
-const SignupForm = () => {
+const SignForm = () => {
   const {
     visible,
     confirmLoading,
@@ -12,7 +12,7 @@ const SignupForm = () => {
     handleCancel,
     action,
     setAction,
-  } = useContext(SignupModalContext);
+  } = useContext(SignModalContext);
   const [form] = Form.useForm();
 
   const onOk = () => {
@@ -180,4 +180,4 @@ const SignupForm = () => {
   );
 };
 
-export default SignupForm;
+export default SignForm;

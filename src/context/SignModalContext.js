@@ -7,9 +7,9 @@ import Cookies from "js-cookie";
 const LOGIN_URL = "http://localhost:8080/login";
 const SIGNUP_URL = "http://localhost:8080/signup";
 
-export const SignupModalContext = React.createContext();
+export const SignModalContext = React.createContext();
 
-export const SignupModalProvider = (props) => {
+export const SignModalProvider = (props) => {
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [action, setAction] = useState("");
@@ -83,7 +83,7 @@ export const SignupModalProvider = (props) => {
   }, [action, confirmLoading, visible]);
 
   return (
-    <SignupModalContext.Provider
+    <SignModalContext.Provider
       value={{
         action,
         setAction,
@@ -97,6 +97,6 @@ export const SignupModalProvider = (props) => {
       }}
     >
       {props.children}
-    </SignupModalContext.Provider>
+    </SignModalContext.Provider>
   );
 };

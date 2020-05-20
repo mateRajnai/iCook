@@ -10,17 +10,17 @@ import MainContent from "../../style/MainContent";
 import RecipeDetails from "../details/RecipeDetails";
 import DrinkRandomizer from "../drink/DrinkRandomizer";
 import BookmarkList from "../bookmark/BookmarkList";
-import { SignupModalProvider } from "../../context/SignupModalContext";
-import SignupForm from "../signup/SignupForm";
+import { SignModalProvider } from "../../context/SignModalContext";
+import SignForm from "../sign/SignForm";
 
 const Layout = (props) => {
   return (
     <BrowserRouter>
       <AntLayout className="layout">
-        <SignupModalProvider>
+        <SignModalProvider>
           <LayoutHeader />
-          <SignupForm />
-        </SignupModalProvider>
+          <SignForm />
+        </SignModalProvider>
         <MainContent>
           <Route
             path={["/search", "/"]}

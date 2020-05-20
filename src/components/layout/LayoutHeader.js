@@ -3,7 +3,7 @@ import { Layout, Button } from "antd";
 import { Link } from "react-router-dom";
 import StyledHeader from "../../style/StyledHeader";
 import styled from "styled-components";
-import { SignupModalContext } from "../../context/SignupModalContext";
+import { SignModalContext } from "../../context/SignModalContext";
 
 const { Header } = Layout;
 
@@ -15,7 +15,7 @@ const RightAlignedDiv = styled.div`
 `;
 
 const LayoutHeader = (props) => {
-  const { showModal } = useContext(SignupModalContext);
+  const { showModal } = useContext(SignModalContext);
 
   return (
     <StyledHeader>

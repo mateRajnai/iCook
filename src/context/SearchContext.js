@@ -184,6 +184,20 @@ export const SearchProvider = (props) => {
     return filterQuery;
   };
 
+  const checkIfAnyApplied = () => {
+    const single = singleInputTypeFilters.find(
+      (filter) => filter.queryString !== ""
+    );
+    const minMax = minMaxInputTypeFilters.find(
+      (filter) => filter.queryString !== ""
+    );
+    const checked = checkboxTypeFilters.find(
+      (filter) => filter.queryString !== ""
+    );
+    console.log(single === minMax && single === checked);
+    return single === minMax && single === checked;
+  };
+
   return (
     <SearchContext.Provider
       value={{
@@ -196,6 +210,7 @@ export const SearchProvider = (props) => {
         checkboxTypeFilters,
         setCheckboxTypeFilters,
         prepareFilterQuery,
+        checkIfAnyApplied,
       }}
     >
       {props.children}

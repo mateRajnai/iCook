@@ -37,8 +37,8 @@ const MinMaxInputTypeFilter = (props) => {
   };
 
   return (
-    <Collapse defaultActiveKey="0">
-      <Panel header={props.filter.name} key={props.filter.name}>
+    <Collapse defaultActiveKey={props.filter.queryString === "" ? "0" : "1"}>
+      <Panel header={props.filter.name} key="1">
         <Input.Group>
           <Row gutter={24}>
             <Col span={14}>
