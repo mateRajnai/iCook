@@ -29,9 +29,8 @@ export const SignupModalProvider = (props) => {
       });
   };
 
-  const showModal = (e) => {
+  const showModal = async (e) => {
     const action = e.target.dataset.name;
-    setVisible(true);
     setAction(action);
   };
 
@@ -47,14 +46,20 @@ export const SignupModalProvider = (props) => {
   const handleCancel = () => {
     console.log("Clicked cancel button");
     setVisible(false);
+    setAction("");
   };
 
-  useEffect(() => {}, [visible]);
+  useEffect(() => {
+    if (action !== "") {
+      setVisible(true);
+    }
+  }, [action, visible]);
 
   return (
     <SignupModalContext.Provider
       value={{
         action,
+        setAction,
         visible,
         setVisible,
         confirmLoading,
