@@ -10,10 +10,6 @@ export const CommentProvider = (props) => {
   const [comments, setComments] = useState([]);
   const [isCommentCanBeShown, setIsCommentCanBeShown] = useState(false);
 
-  const escapeUriCharacters = (uri) => {
-    return uri.replace(/\//g, "%2F").replace(/:/g, "%3A").replace(/#/g, "%23");
-  };
-
   // TO-DO: selectedRecipeId must be replaced to uri
   const { selectedRecipe } = useContext(SelectedRecipeContext);
   const selectedRecipeId = selectedRecipe.label
