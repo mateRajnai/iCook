@@ -10,16 +10,25 @@ export const UserProvider = (props) => {
   const [username, setUsername] = useState();
   const [roles, setRoles] = useState([]);
 
-  const login = (data) => {
+  const login = (inputs) => {
+    const data = {
+      username: inputs.username_login,
+      password: inputs.password_login,
+    };
     Axios.post(LOGIN_URL, data, {
       headers: {
         "Content-Type": "application/json",
       },
-    }).then((resp) => {
-      setUsername(data.username);
-      setRoles(data.roles);
-      Cookies.set("jwt", data.token);
-    });
+    })
+      .then((resp) => {
+        console.log("Answer is arrived");
+        setUsername(resp.username);
+        setRoles(resp.roles);
+        Cookies.set("jwt", resp.token);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   return (
