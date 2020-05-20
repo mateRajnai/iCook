@@ -149,7 +149,34 @@ const SignupForm = () => {
             </Form.Item>
           </Form>
         </TabPane>
-        <TabPane tab="SIGN-IN" key="2"></TabPane>
+        <TabPane tab="SIGN-IN" key="2">
+          <Form form={form} layout="vertical" name="form_in_modal">
+            <Form.Item
+              name="username_login"
+              label="Username"
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter your username!",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name="password_login"
+              label="Password"
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter your password!",
+                },
+              ]}
+            >
+              <Input.Password />
+            </Form.Item>
+          </Form>
+        </TabPane>
       </Tabs>
     </Modal>
   );
