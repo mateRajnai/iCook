@@ -10,7 +10,6 @@ export const CommentProvider = (props) => {
   const [comments, setComments] = useState([]);
   const [isCommentCanBeShown, setIsCommentCanBeShown] = useState(false);
 
-  // TO-DO: selectedRecipeId must be replaced to uri
   const { selectedRecipe } = useContext(SelectedRecipeContext);
   const selectedRecipeId = selectedRecipe.label
     .toLowerCase()
