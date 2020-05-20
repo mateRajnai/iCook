@@ -51,7 +51,7 @@ const SignForm = () => {
         forceRender={true}
       >
         <TabPane tab="SIGN-UP" key="1">
-          <Form form={form} layout="vertical" name="form_in_modal">
+          <Form form={form} layout="vertical" name="signup_form">
             <Form.Item
               name="userName"
               label="Username"
@@ -148,13 +148,13 @@ const SignForm = () => {
           </Form>
         </TabPane>
         <TabPane tab="SIGN-IN" key="2">
-          <Form form={form} layout="vertical" name="form_in_modal">
+          <Form form={form} layout="vertical" name="sigin_form">
             <Form.Item
               name="username_login"
               label="Username"
               rules={[
                 {
-                  required: action === "sign-in" ? true : false,
+                  required: action === "signin" ? true : false,
                   message: "Please enter your username!",
                 },
               ]}
@@ -166,7 +166,7 @@ const SignForm = () => {
               label="Password"
               rules={[
                 {
-                  required: action === "sign-in" ? true : false,
+                  required: action === "signin" ? true : false,
                   message: "Please enter your password!",
                 },
               ]}

@@ -27,7 +27,7 @@ const LayoutHeader = (props) => {
         <Link to={"/bookmark"}>Bookmarks</Link>
         <Link to={"/random-drink"}>Get random drink</Link>
         <RightAlignedDiv>
-          <Button type="secondary" data-name="sign-in" onClick={showModal}>
+          <Button type="secondary" data-name="signin" onClick={showModal}>
             Sign-In
           </Button>
           <Button type="link" data-name="signup" onClick={showModal}>
