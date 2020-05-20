@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState, useEffect } from "react";
 import Axios from "axios";
+import { UserContext } from "./UserContext";
 
 const SIGNUP_URL = "http://localhost:8080/signup";
 
@@ -10,6 +11,8 @@ export const SignupModalProvider = (props) => {
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [action, setAction] = useState("");
+
+  const { login } = useContext(UserContext);
 
   const signup = (data) => {
     Axios.post(SIGNUP_URL, data, {
@@ -34,7 +37,11 @@ export const SignupModalProvider = (props) => {
 
   const handleOk = (data) => {
     setConfirmLoading(true);
-    signup(data);
+    if (action === "signup") {
+      signup(data);
+    } else {
+      login(data);
+    }
   };
 
   const handleCancel = () => {

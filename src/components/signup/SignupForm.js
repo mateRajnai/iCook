@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { SignupModalContext } from "../../context/SignupModalContext";
-import { Modal, Form, Input } from "antd";
+import { Modal, Form, Input, Tabs } from "antd";
+
+const { TabPane } = Tabs;
 
 const SignupForm = () => {
   const { visible, confirmLoading, handleOk, handleCancel } = useContext(
@@ -22,31 +24,35 @@ const SignupForm = () => {
 
   return (
     <Modal
-      title="Sign-up - let's cook together"
       visible={visible}
       onOk={onOk}
-      okText="Sign-up"
+      okText="Submit"
       cancelText="Cancel"
       confirmLoading={confirmLoading}
       onCancel={handleCancel}
     >
-      <Form form={form} layout="vertical" name="form_in_modal">
-        <Form.Item
-          name="title"
-          label="Title"
-          rules={[
-            {
-              required: true,
-              message: "Please input the title of collection!",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item name="description" label="Description">
-          <Input type="textarea" />
-        </Form.Item>
-      </Form>
+      <Tabs defaultActiveKey="1">
+        <TabPane tab="SIGN-UP" key="1">
+          <Form form={form} layout="vertical" name="form_in_modal">
+            <Form.Item
+              name="title"
+              label="Title"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input the title of collection!",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item name="description" label="Description">
+              <Input type="textarea" />
+            </Form.Item>
+          </Form>
+        </TabPane>
+        <TabPane tab="SIGN-IN" key="2"></TabPane>
+      </Tabs>
     </Modal>
   );
 };
