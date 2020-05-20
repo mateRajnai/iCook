@@ -1,11 +1,8 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { SelectedRecipeContext } from "./SelectedRecipeContext";
 import Cookies from "js-cookie";
-
 import Axios from "axios";
-
 export const CommentContext = createContext();
-
 export const CommentProvider = (props) => {
   const [comments, setComments] = useState([]);
   const [isCommentCanBeShown, setIsCommentCanBeShown] = useState(false);
