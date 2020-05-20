@@ -30,6 +30,9 @@ const LayoutHeader = (props) => {
           <Button type="secondary" data-name="signup" onClick={showModal}>
             Signup
           </Button>
+          <Button type="secondary" data-name="sign-in" onClick={showModal}>
+            Sign in
+          </Button>
         </RightAlignedDiv>
       </Header>
     </StyledHeader>
