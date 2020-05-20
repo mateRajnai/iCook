@@ -51,10 +51,10 @@ export const SignupModalProvider = (props) => {
   };
 
   useEffect(() => {
-    if (action !== "") {
+    if (action !== "" && !confirmLoading) {
       setVisible(true);
     }
-  }, [action, visible]);
+  }, [action, confirmLoading, visible]);
 
   return (
     <SignupModalContext.Provider
