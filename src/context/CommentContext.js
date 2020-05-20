@@ -1,20 +1,12 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { SelectedRecipeContext } from "./SelectedRecipeContext";
 import Cookies from "js-cookie";
-
 import Axios from "axios";
-
 export const CommentContext = createContext();
-
 export const CommentProvider = (props) => {
   const [comments, setComments] = useState([]);
   const [isCommentCanBeShown, setIsCommentCanBeShown] = useState(false);
 
-  const escapeUriCharacters = (uri) => {
-    return uri.replace(/\//g, "%2F").replace(/:/g, "%3A").replace(/#/g, "%23");
-  };
-
-  // TO-DO: selectedRecipeId must be replaced to uri
   const { selectedRecipe } = useContext(SelectedRecipeContext);
   const selectedRecipeId = selectedRecipe.label
     .toLowerCase()

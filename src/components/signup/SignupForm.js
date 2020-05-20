@@ -57,7 +57,7 @@ const SignupForm = () => {
               label="Username"
               rules={[
                 {
-                  required: true,
+                  required: action === "signup" ? true : false,
                   message: "Please enter your username!",
                 },
               ]}
@@ -69,7 +69,7 @@ const SignupForm = () => {
               label="First name"
               rules={[
                 {
-                  required: true,
+                  required: action === "signup" ? true : false,
                   message: "Please enter your first name!",
                 },
               ]}
@@ -85,7 +85,7 @@ const SignupForm = () => {
                   message: "The input is not valid E-mail!",
                 },
                 {
-                  required: true,
+                  required: action === "signup" ? true : false,
                   message: "Please input your E-mail!",
                 },
               ]}
@@ -97,7 +97,7 @@ const SignupForm = () => {
               label="Password"
               rules={[
                 {
-                  required: true,
+                  required: action === "signup" ? true : false,
                   message: "Please input your password!",
                 },
               ]}
@@ -112,7 +112,7 @@ const SignupForm = () => {
               hasFeedback
               rules={[
                 {
-                  required: true,
+                  required: action === "signup" ? true : false,
                   message: "Please confirm your password!",
                 },
                 ({ getFieldValue }) => ({
@@ -147,7 +147,34 @@ const SignupForm = () => {
             </Form.Item>
           </Form>
         </TabPane>
-        <TabPane tab="SIGN-IN" key="2"></TabPane>
+        <TabPane tab="SIGN-IN" key="2">
+          <Form form={form} layout="vertical" name="form_in_modal">
+            <Form.Item
+              name="username_login"
+              label="Username"
+              rules={[
+                {
+                  required: action === "sign-in" ? true : false,
+                  message: "Please enter your username!",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name="password_login"
+              label="Password"
+              rules={[
+                {
+                  required: action === "sign-in" ? true : false,
+                  message: "Please enter your password!",
+                },
+              ]}
+            >
+              <Input.Password />
+            </Form.Item>
+          </Form>
+        </TabPane>
       </Tabs>
     </Modal>
   );
