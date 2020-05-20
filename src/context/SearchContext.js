@@ -194,7 +194,6 @@ export const SearchProvider = (props) => {
     const checked = checkboxTypeFilters.find(
       (filter) => filter.queryString !== ""
     );
-    console.log(single === minMax && single === checked);
     return single === minMax && single === checked;
   };
 
