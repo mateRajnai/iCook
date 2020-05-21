@@ -114,8 +114,10 @@ export const BookmarkedRecipesProvider = (props) => {
   });
 
   useEffect(() => {
-    getData();
-  }, []);
+    if (isLoggedIn) {
+      getData();
+    }
+  }, [isLoggedIn]);
 
   return (
     <BookmarkedRecipesContext.Provider
