@@ -17,7 +17,7 @@ const RightAlignedDiv = styled.div`
 const activeStyle = { color: "lightblue" };
 
 const LayoutHeader = (props) => {
-  const { showModal } = useContext(SignModalContext);
+  const { showModal, isLoggedIn } = useContext(SignModalContext);
 
   return (
     <StyledHeader>
@@ -34,19 +34,26 @@ const LayoutHeader = (props) => {
         <NavLink exact={true} activeStyle={activeStyle} to={"/random-drink"}>
           Get random drink
         </NavLink>
-        <RightAlignedDiv>
-          <Button type="secondary" data-name="signin" onClick={showModal}>
-            Sign-In
-          </Button>
-          <Button
-            type="link"
-            data-name="signup"
-            style={activeStyle}
-            onClick={showModal}
-          >
-            Sign-Up
-          </Button>
-        </RightAlignedDiv>
+        {/* TO-DO: Not nice, refactor, but how? => code review */}
+        {!isLoggedIn ? (
+          <RightAlignedDiv>
+            <Button type="secondary" data-name="signin" onClick={showModal}>
+              Sign-In
+            </Button>
+            <Button
+              type="link"
+              data-name="signup"
+              style={activeStyle}
+              onClick={showModal}
+            >
+              Sign-Up
+            </Button>
+          </RightAlignedDiv>
+        ) : (
+          <RightAlignedDiv>
+            <Button>Logout</Button>
+          </RightAlignedDiv>
+        )}
       </Header>
     </StyledHeader>
   );

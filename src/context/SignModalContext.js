@@ -13,7 +13,7 @@ export const SignModalProvider = (props) => {
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [action, setAction] = useState("");
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { setUsername } = useContext(UserContext);
   const { setRoles } = useContext(UserContext);
 
@@ -50,6 +50,7 @@ export const SignModalProvider = (props) => {
         setAction("");
         setVisible(false);
         setConfirmLoading(false);
+        setIsLoggedIn(true);
       })
       .catch(function () {
         setConfirmLoading(false);
@@ -94,6 +95,7 @@ export const SignModalProvider = (props) => {
         showModal,
         handleOk,
         handleCancel,
+        isLoggedIn,
       }}
     >
       {props.children}
