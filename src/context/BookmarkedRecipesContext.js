@@ -53,6 +53,7 @@ export const BookmarkedRecipesProvider = (props) => {
     Axios.post(BOOKMARKED_RECIPES_URL, data, {
       headers: {
         "Content-Type": "application/json",
+        Authentication: `Bearer ${Cookies.get("jwt")}`,
       },
     }).then((resp) =>
       setBookmarkedRecipes((prevRecipes) => [...prevRecipes, resp.data])

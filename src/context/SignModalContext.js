@@ -44,9 +44,9 @@ export const SignModalProvider = (props) => {
       },
     })
       .then((resp) => {
-        setUsername(resp.username);
-        setRoles(resp.roles);
-        Cookies.set("jwt", resp.token);
+        setUsername(resp.data.username);
+        setRoles(resp.data.roles);
+        Cookies.set("jwt", resp.data.token);
         setAction("");
         setVisible(false);
         setConfirmLoading(false);
