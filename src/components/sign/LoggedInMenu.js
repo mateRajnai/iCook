@@ -11,7 +11,7 @@ const LoggedInMenu = () => {
   const menu = (
     <Menu>
       <Menu.Item key="0">
-        <h3>Profile</h3>
+        <Button>Profile</Button>
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item key="1">
