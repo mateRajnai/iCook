@@ -13,7 +13,10 @@ export const SignModalProvider = (props) => {
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [action, setAction] = useState("");
-  const { setUsername, setRoles, setIsLoggedIn } = useContext(UserContext);
+
+  const { setId, setUsername, setRoles, setIsLoggedIn } = useContext(
+    UserContext
+  );
 
   const signup = (data) => {
     Axios.post(SIGNUP_URL, data, {
@@ -44,6 +47,7 @@ export const SignModalProvider = (props) => {
       .then((resp) => {
         setUsername(resp.data.username);
         setRoles(resp.data.roles);
+        setId(resp.data.id);
         Cookies.set("jwt", resp.data.token);
         setAction("");
         setVisible(false);

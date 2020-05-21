@@ -14,6 +14,8 @@ export const BookmarkedRecipesProvider = (props) => {
   const [bookmarkedRecipeObjects, setBookmarkedRecipeObjects] = useState([]);
   const { isLoggedIn } = useContext(UserContext);
 
+  const { user } = useContext(UserContext);
+
   const findBookmarkedRecipeByRecipeId = (recipeId) => {
     return bookmarkedRecipes.find((recipe) => recipe.recipeId === recipeId);
   };
@@ -41,12 +43,14 @@ export const BookmarkedRecipesProvider = (props) => {
   };
 
   const getData = () => {
-    Axios.get(BOOKMARKED_RECIPES_URL, {
-      headers: {
-        "Access-Control-Allow-Headers": "Authorization",
-        Authorization: `Bearer ${Cookies.get("jwt")}`,
-      },
-    }).then((resp) => setBookmarkedRecipes(resp.data));
+    if (user != null) {
+      Axios.get(BOOKMARKED_RECIPES_URL, {
+        headers: {
+          "Access-Control-Allow-Headers": "Authorization",
+          Authorization: `Bearer ${Cookies.get("jwt")}`,
+        },
+      }).then((resp) => setBookmarkedRecipes(resp.data));
+    }
   };
 
   const deleteData = (data) => {
@@ -117,7 +121,7 @@ export const BookmarkedRecipesProvider = (props) => {
     if (isLoggedIn) {
       getData();
     }
-  }, [isLoggedIn]);
+  });
 
   return (
     <BookmarkedRecipesContext.Provider
