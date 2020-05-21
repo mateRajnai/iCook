@@ -38,7 +38,8 @@ export const CommentProvider = (props) => {
     Axios.post(URL, data, {
       headers: {
         "Content-Type": "application/json",
-        Authentication: `Bearer ${Cookies.get("jwt")}`,
+        "Access-Control-Allow-Headers": "Authorization",
+        Authorization: `Bearer ${Cookies.get("jwt")}`,
       },
     }).then((resp) => {
       setComments((prevComments) => [resp.data, ...prevComments]);

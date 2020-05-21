@@ -29,19 +29,28 @@ export const BookmarkedRecipesProvider = (props) => {
 
   const getRecipeObjects = (actualUrl) => {
     Axios.get(actualUrl, {
-      headers: { Authentication: `Bearer ${Cookies.get("jwt")}` },
+      headers: {
+        "Access-Control-Allow-Headers": "Authorization",
+        Authorization: `Bearer ${Cookies.get("jwt")}`,
+      },
     }).then((resp) => setBookmarkedRecipeObjects(resp.data));
   };
 
   const getData = () => {
     Axios.get(BOOKMARKED_RECIPES_URL, {
-      headers: { Authentication: `Bearer ${Cookies.get("jwt")}` },
+      headers: {
+        "Access-Control-Allow-Headers": "Authorization",
+        Authorization: `Bearer ${Cookies.get("jwt")}`,
+      },
     }).then((resp) => setBookmarkedRecipes(resp.data));
   };
 
   const deleteData = (data) => {
     Axios.delete(BOOKMARKED_RECIPES_URL + "/" + data.id, {
-      headers: { Authentication: `Bearer ${Cookies.get("jwt")}` },
+      headers: {
+        "Access-Control-Allow-Headers": "Authorization",
+        Authorization: `Bearer ${Cookies.get("jwt")}`,
+      },
     }).then((resp) => {
       if (resp.status === 200) {
         filterOutDeletedBookmarkedRecipeByRecipeId(data.recipeId);
@@ -53,7 +62,8 @@ export const BookmarkedRecipesProvider = (props) => {
     Axios.post(BOOKMARKED_RECIPES_URL, data, {
       headers: {
         "Content-Type": "application/json",
-        Authentication: `Bearer ${Cookies.get("jwt")}`,
+        "Access-Control-Allow-Headers": "Authorization",
+        Authorization: `Bearer ${Cookies.get("jwt")}`,
       },
     }).then((resp) =>
       setBookmarkedRecipes((prevRecipes) => [...prevRecipes, resp.data])
