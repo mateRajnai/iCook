@@ -21,9 +21,6 @@ const LoggedInMenu = () => {
   );
   return (
     <Dropdown overlay={menu} trigger={["click"]}>
-      {/* <a className="profile-picture-default-png.png" onClick={(e) => e.preventDefault()}>
-        Click me <DownOutlined />
-      </a> */}
       <StyledImage
         className="profile-menu"
         alt="Profile Menu"
