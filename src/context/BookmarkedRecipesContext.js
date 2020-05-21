@@ -74,7 +74,7 @@ export const BookmarkedRecipesProvider = (props) => {
         setBookmarkedRecipes((prevRecipes) => [...prevRecipes, resp.data])
       );
     } else {
-      alert("Please sign in to use this feature!");
+      alert("Please sign in to save recipes as favorites!");
     }
   };
 
