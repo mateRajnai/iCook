@@ -11,6 +11,7 @@ import RecipeDetails from "../details/RecipeDetails";
 import DrinkRandomizer from "../drink/DrinkRandomizer";
 import BookmarkList from "../bookmark/BookmarkList";
 import { SignModalProvider } from "../../context/SignModalContext";
+import { LogoutProvider } from "../../context/LogoutContext";
 import SignForm from "../sign/SignForm";
 
 const Layout = (props) => {
@@ -18,8 +19,10 @@ const Layout = (props) => {
     <BrowserRouter>
       <AntLayout className="layout">
         <SignModalProvider>
-          <LayoutHeader />
-          <SignForm />
+          <LogoutProvider>
+            <LayoutHeader />
+            <SignForm />
+          </LogoutProvider>
         </SignModalProvider>
         <MainContent>
           <Route
