@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Axios from "axios";
 import UrlBuilder from "./UrlBuilder";
 import Cookies from "js-cookie";
+import { UserContext } from "./UserContext";
 
 const BOOKMARKED_RECIPES_URL = "http://localhost:8080/favorites";
 const urlBuilder = new UrlBuilder();
@@ -11,6 +12,8 @@ export const BookmarkedRecipesContext = React.createContext();
 export const BookmarkedRecipesProvider = (props) => {
   const [bookmarkedRecipes, setBookmarkedRecipes] = useState([]);
   const [bookmarkedRecipeObjects, setBookmarkedRecipeObjects] = useState([]);
+
+  const { user } = useContext(UserContext);
 
   const findBookmarkedRecipeByRecipeId = (recipeId) => {
     return bookmarkedRecipes.find((recipe) => recipe.recipeId === recipeId);
@@ -34,9 +37,11 @@ export const BookmarkedRecipesProvider = (props) => {
   };
 
   const getData = () => {
-    Axios.get(BOOKMARKED_RECIPES_URL, {
-      headers: { Authentication: `Bearer ${Cookies.get("jwt")}` },
-    }).then((resp) => setBookmarkedRecipes(resp.data));
+    if (user != null) {
+      Axios.get(BOOKMARKED_RECIPES_URL, {
+        headers: { Authentication: `Bearer ${Cookies.get("jwt")}` },
+      }).then((resp) => setBookmarkedRecipes(resp.data));
+    }
   };
 
   const deleteData = (data) => {
@@ -97,7 +102,7 @@ export const BookmarkedRecipesProvider = (props) => {
 
   useEffect(() => {
     getData();
-  }, []);
+  });
 
   return (
     <BookmarkedRecipesContext.Provider
