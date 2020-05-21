@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Menu, Dropdown, Button } from "antd";
 import styled from "styled-components";
+import { LogoutContext } from "../../context/LogoutContext";
 
 const StyledImage = styled.img`
   width: 50px;
@@ -8,6 +9,8 @@ const StyledImage = styled.img`
 `;
 
 const LoggedInMenu = () => {
+  const { logout } = useContext(LogoutContext);
+
   const menu = (
     <Menu>
       {/* <Menu.Item key="0">
@@ -15,7 +18,7 @@ const LoggedInMenu = () => {
       </Menu.Item>
       <Menu.Divider /> */}
       <Menu.Item key="1">
-        <Button>Logout</Button>
+        <Button onClick={logout}>Logout</Button>
       </Menu.Item>
     </Menu>
   );
