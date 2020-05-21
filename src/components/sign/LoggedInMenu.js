@@ -1,6 +1,11 @@
 import React from "react";
 import { Menu, Dropdown, Button } from "antd";
-import { DownOutlined } from "@ant-design/icons";
+import styled from "styled-components";
+
+const StyledImage = styled.img`
+  width: 50px;
+  height: 50px;
+`;
 
 const LoggedInMenu = () => {
   const menu = (
@@ -16,9 +21,14 @@ const LoggedInMenu = () => {
   );
   return (
     <Dropdown overlay={menu} trigger={["click"]}>
-      <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
+      {/* <a className="profile-picture-default-png.png" onClick={(e) => e.preventDefault()}>
         Click me <DownOutlined />
-      </a>
+      </a> */}
+      <StyledImage
+        className="profile-menu"
+        alt="Profile Menu"
+        src="/profile-picture-default.png"
+      />
     </Dropdown>
   );
 };
