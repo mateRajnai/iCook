@@ -19,14 +19,16 @@ export const LogoutProvider = (props) => {
         "Access-Control-Allow-Headers": "Authorization",
         Authorization: `Bearer ${Cookies.get(JWT_COOKIE)}`,
       },
-    }).then((resp) => {
-      if (resp.status === "200") {
+    })
+      .then((resp) => {
+        console.log(resp.status);
+
         Cookies.remove(JWT_COOKIE);
-      } else {
+        setConfirmLoading(false);
+      })
+      .catch(() => {
         console.log("Error while logging out.");
-      }
-      setConfirmLoading(false);
-    });
+      });
   };
 
   return (
