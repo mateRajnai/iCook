@@ -14,7 +14,7 @@ export const SignModalProvider = (props) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [action, setAction] = useState("");
 
-  const { setUsername } = useContext(UserContext);
+  const { setUsername, setId } = useContext(UserContext);
   const { setRoles } = useContext(UserContext);
 
   const signup = (data) => {
@@ -46,6 +46,7 @@ export const SignModalProvider = (props) => {
       .then((resp) => {
         setUsername(resp.data.username);
         setRoles(resp.data.roles);
+        setId(resp.data.id);
         Cookies.set("jwt", resp.data.token);
         setAction("");
         setVisible(false);
