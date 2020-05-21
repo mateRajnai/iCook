@@ -1,0 +1,36 @@
+import React, { useContext } from "react";
+import { Menu, Dropdown, Button } from "antd";
+import styled from "styled-components";
+import { LogoutContext } from "../../context/LogoutContext";
+
+const StyledImage = styled.img`
+  width: 50px;
+  height: 50px;
+`;
+
+const LoggedInMenu = () => {
+  const { logout } = useContext(LogoutContext);
+
+  const menu = (
+    <Menu>
+      {/* <Menu.Item key="0">
+        <Button>Profile</Button>
+      </Menu.Item>
+      <Menu.Divider /> */}
+      <Menu.Item key="1">
+        <Button onClick={logout}>Logout</Button>
+      </Menu.Item>
+    </Menu>
+  );
+  return (
+    <Dropdown overlay={menu} trigger={["click"]}>
+      <StyledImage
+        className="profile-menu"
+        alt="Profile Menu"
+        src="/profile-picture-default.png"
+      />
+    </Dropdown>
+  );
+};
+
+export default LoggedInMenu;

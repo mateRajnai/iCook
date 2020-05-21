@@ -4,6 +4,7 @@ export const UserProvider = (props) => {
   const [username, setUsername] = useState();
   const [roles, setRoles] = useState([]);
   const [id, setId] = useState();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <UserContext.Provider
@@ -14,6 +15,8 @@ export const UserProvider = (props) => {
         setUsername,
         setRoles,
         setId,
+        isLoggedIn,
+        setIsLoggedIn,
       }}
     >
       {props.children}
