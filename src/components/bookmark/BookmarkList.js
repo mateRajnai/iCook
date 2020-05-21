@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import RecipeListItem from "../recipeList/RecipeListItem";
 import { BookmarkedRecipesContext } from "../../context/BookmarkedRecipesContext";
+import { UserContext } from "../../context/UserContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { Row, Layout, Typography } from "antd";
@@ -16,6 +17,7 @@ const RowWithMargin = styled(Row)`
 const BookmarkList = () => {
   const { bookmarkedRecipes } = useContext(BookmarkedRecipesContext);
   const { bookmarkedRecipeObjects } = useContext(BookmarkedRecipesContext);
+  const { isLoggedIn } = useContext(UserContext);
 
   let content = null;
 
@@ -26,6 +28,25 @@ const BookmarkList = () => {
           <RecipeListItem key={recipe.uri} recipe={recipe} />
         ))}
       </Content>
+    );
+    //
+  } else if (!isLoggedIn) {
+    content = (
+      <React.Fragment>
+        <RowWithMargin justify="center">
+          <FontAwesomeIcon
+            icon={faExclamationCircle}
+            spin
+            size="8x"
+            style={{ color: "orange" }}
+          ></FontAwesomeIcon>
+        </RowWithMargin>
+        <RowWithMargin justify="center">
+          <Title level={4}>
+            Log in first, then you can see your favorites.
+          </Title>
+        </RowWithMargin>
+      </React.Fragment>
     );
   } else {
     content = (
