@@ -63,15 +63,19 @@ export const BookmarkedRecipesProvider = (props) => {
   };
 
   const saveData = (data) => {
-    Axios.post(BOOKMARKED_RECIPES_URL, data, {
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Headers": "Authorization",
-        Authorization: `Bearer ${Cookies.get("jwt")}`,
-      },
-    }).then((resp) =>
-      setBookmarkedRecipes((prevRecipes) => [...prevRecipes, resp.data])
-    );
+    if (isLoggedIn) {
+      Axios.post(BOOKMARKED_RECIPES_URL, data, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Headers": "Authorization",
+          Authorization: `Bearer ${Cookies.get("jwt")}`,
+        },
+      }).then((resp) =>
+        setBookmarkedRecipes((prevRecipes) => [...prevRecipes, resp.data])
+      );
+    } else {
+      alert("Please sign in to use this feature!");
+    }
   };
 
   const escapeUriCharacters = (uri) => {
