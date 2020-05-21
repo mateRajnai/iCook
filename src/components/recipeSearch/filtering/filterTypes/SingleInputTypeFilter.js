@@ -17,7 +17,7 @@ const SingleInputTypeFilter = (props) => {
   };
 
   return (
-    <Collapse defaultActiveKey="0">
+    <Collapse defaultActiveKey={props.filter.queryString === "" ? "0" : "1"}>
       <Panel header={props.filter.name} key="1">
         <Input
           placeholder="Value"

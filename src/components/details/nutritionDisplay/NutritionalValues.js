@@ -5,6 +5,7 @@ import NutritionalTableRow, {
 } from "./NutritionalTableRow";
 import styled from "styled-components";
 import { SelectedRecipeContext } from "../../../context/SelectedRecipeContext";
+import { UserContext } from "../../../context/UserContext";
 
 const NUTRIENT_DATA = 1;
 
@@ -21,9 +22,14 @@ const NutritionalValues = (props) => {
   const { selectedRecipe } = useContext(SelectedRecipeContext);
   const nutrients = Object.entries(selectedRecipe.totalNutrients);
   const dailyNutrients = Object.entries(selectedRecipe.totalDaily);
+  const { isLoggedIn } = useContext(UserContext);
 
   const toggleVisibility = () => {
-    setHidden(!isHidden);
+    if (isLoggedIn) {
+      setHidden(!isHidden);
+    } else {
+      alert("Please sign in to see the nutritional values!");
+    }
   };
 
   const getDailyNutrient = (nutrient) => {
