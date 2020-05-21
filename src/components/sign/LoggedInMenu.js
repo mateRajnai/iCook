@@ -10,10 +10,10 @@ const StyledImage = styled.img`
 const LoggedInMenu = () => {
   const menu = (
     <Menu>
-      <Menu.Item key="0">
+      {/* <Menu.Item key="0">
         <Button>Profile</Button>
       </Menu.Item>
-      <Menu.Divider />
+      <Menu.Divider /> */}
       <Menu.Item key="1">
         <Button>Logout</Button>
       </Menu.Item>
