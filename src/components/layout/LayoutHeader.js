@@ -5,6 +5,7 @@ import StyledHeader from "../../style/StyledHeader";
 import styled from "styled-components";
 import { SignModalContext } from "../../context/SignModalContext";
 import Axios from "axios";
+import Cookies from "js-cookie";
 
 const { Header } = Layout;
 const LOGOUT_URL = `http://localhost:8080/logout`;
@@ -20,7 +21,12 @@ const activeStyle = { color: "lightblue" };
 
 const logout = () => {
   console.log("logout clicked");
-  Axios.get(LOGOUT_URL).then((resp) => {
+  Axios.post(LOGOUT_URL, {
+    headers: {
+      "Access-Control-Allow-Headers": "Authorization",
+      Authorization: `Bearer ${Cookies.get("jwt")}`,
+    },
+  }).then((resp) => {
     console.log(resp.data);
   });
 };
