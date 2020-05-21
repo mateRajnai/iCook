@@ -22,13 +22,12 @@ export const LogoutProvider = (props) => {
     })
       .then((resp) => {
         console.log(resp.status);
-
         Cookies.remove(JWT_COOKIE);
-        setConfirmLoading(false);
       })
       .catch(() => {
         console.log("Error while logging out.");
       });
+    setConfirmLoading(false);
   };
 
   return (
