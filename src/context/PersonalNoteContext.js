@@ -35,7 +35,8 @@ export const PersonalNoteProvider = (props) => {
     setIsPersonalNoteCanBeShown(true);
     Axios.get(URLForList, {
       headers: {
-        Authentication: `Bearer ${Cookies.get("jwt")}`,
+        "Access-Control-Allow-Headers": "Authorization",
+        Authorization: `Bearer ${Cookies.get("jwt")}`,
       },
     }).then((resp) => setPersonalNotes(resp.data));
   };
@@ -50,7 +51,8 @@ export const PersonalNoteProvider = (props) => {
     Axios.post(URLForList, data, {
       headers: {
         "Content-Type": "application/json",
-        Authentication: `Bearer ${Cookies.get("jwt")}`,
+        "Access-Control-Allow-Headers": "Authorization",
+        Authorization: `Bearer ${Cookies.get("jwt")}`,
       },
     }).then((resp) => {
       setPersonalNotes((pervPersonalNotes) => [
