@@ -43,7 +43,7 @@ const BookmarkList = () => {
         </RowWithMargin>
         <RowWithMargin justify="center">
           <Title level={4}>
-            Log in first, then you can see your favorites.
+            Please log in first to see your favorite recipes.
           </Title>
         </RowWithMargin>
       </React.Fragment>
