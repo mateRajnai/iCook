@@ -21,7 +21,7 @@ const activeStyle = { color: "lightblue" };
 
 const logout = () => {
   console.log("logout clicked");
-  Axios.post(LOGOUT_URL, {
+  Axios.get(LOGOUT_URL, {
     headers: {
       "Access-Control-Allow-Headers": "Authorization",
       Authorization: `Bearer ${Cookies.get("jwt")}`,
