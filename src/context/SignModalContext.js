@@ -13,8 +13,7 @@ export const SignModalProvider = (props) => {
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [action, setAction] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const { setUsername, setRoles } = useContext(UserContext);
+  const { setUsername, setRoles, setIsLoggedIn } = useContext(UserContext);
 
   const signup = (data) => {
     Axios.post(SIGNUP_URL, data, {
@@ -94,7 +93,6 @@ export const SignModalProvider = (props) => {
         showModal,
         handleOk,
         handleCancel,
-        isLoggedIn,
       }}
     >
       {props.children}

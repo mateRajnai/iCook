@@ -4,6 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import StyledHeader from "../../style/StyledHeader";
 import styled from "styled-components";
 import { SignModalContext } from "../../context/SignModalContext";
+import { UserContext } from "../../context/UserContext";
 
 const { Header } = Layout;
 
@@ -17,7 +18,8 @@ const RightAlignedDiv = styled.div`
 const activeStyle = { color: "lightblue" };
 
 const LayoutHeader = (props) => {
-  const { showModal, isLoggedIn } = useContext(SignModalContext);
+  const { showModal } = useContext(SignModalContext);
+  const { isLoggedIn } = useContext(UserContext);
 
   return (
     <StyledHeader>
