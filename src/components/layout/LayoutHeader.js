@@ -5,6 +5,7 @@ import StyledHeader from "../../style/StyledHeader";
 import styled from "styled-components";
 import { SignModalContext } from "../../context/SignModalContext";
 import { UserContext } from "../../context/UserContext";
+import LoggedInMenu from "../sign/LoggedInMenu";
 
 const { Header } = Layout;
 
@@ -53,7 +54,7 @@ const LayoutHeader = (props) => {
           </RightAlignedDiv>
         ) : (
           <RightAlignedDiv>
-            <Button>Logout</Button>
+            <LoggedInMenu></LoggedInMenu>
           </RightAlignedDiv>
         )}
       </Header>
