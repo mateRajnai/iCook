@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Axios from "axios";
 import UrlBuilder from "./UrlBuilder";
 import Cookies from "js-cookie";
+import { UserContext } from "../context/UserContext";
 
 const BOOKMARKED_RECIPES_URL = "http://localhost:8080/favorites";
 const urlBuilder = new UrlBuilder();
@@ -11,6 +12,7 @@ export const BookmarkedRecipesContext = React.createContext();
 export const BookmarkedRecipesProvider = (props) => {
   const [bookmarkedRecipes, setBookmarkedRecipes] = useState([]);
   const [bookmarkedRecipeObjects, setBookmarkedRecipeObjects] = useState([]);
+  const { isLoggedIn } = useContext(UserContext);
 
   const findBookmarkedRecipeByRecipeId = (recipeId) => {
     return bookmarkedRecipes.find((recipe) => recipe.recipeId === recipeId);
@@ -28,12 +30,14 @@ export const BookmarkedRecipesProvider = (props) => {
   };
 
   const getRecipeObjects = (actualUrl) => {
-    Axios.get(actualUrl, {
-      headers: {
-        "Access-Control-Allow-Headers": "Authorization",
-        Authorization: `Bearer ${Cookies.get("jwt")}`,
-      },
-    }).then((resp) => setBookmarkedRecipeObjects(resp.data));
+    if (isLoggedIn) {
+      Axios.get(actualUrl, {
+        headers: {
+          "Access-Control-Allow-Headers": "Authorization",
+          Authorization: `Bearer ${Cookies.get("jwt")}`,
+        },
+      }).then((resp) => setBookmarkedRecipeObjects(resp.data));
+    }
   };
 
   const getData = () => {
@@ -59,15 +63,19 @@ export const BookmarkedRecipesProvider = (props) => {
   };
 
   const saveData = (data) => {
-    Axios.post(BOOKMARKED_RECIPES_URL, data, {
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Headers": "Authorization",
-        Authorization: `Bearer ${Cookies.get("jwt")}`,
-      },
-    }).then((resp) =>
-      setBookmarkedRecipes((prevRecipes) => [...prevRecipes, resp.data])
-    );
+    if (isLoggedIn) {
+      Axios.post(BOOKMARKED_RECIPES_URL, data, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Headers": "Authorization",
+          Authorization: `Bearer ${Cookies.get("jwt")}`,
+        },
+      }).then((resp) =>
+        setBookmarkedRecipes((prevRecipes) => [...prevRecipes, resp.data])
+      );
+    } else {
+      alert("Please sign in to save recipes as favorites!");
+    }
   };
 
   const escapeUriCharacters = (uri) => {
@@ -106,8 +114,10 @@ export const BookmarkedRecipesProvider = (props) => {
   });
 
   useEffect(() => {
-    getData();
-  }, []);
+    if (isLoggedIn) {
+      getData();
+    }
+  }, [isLoggedIn]);
 
   return (
     <BookmarkedRecipesContext.Provider
