@@ -1,5 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { SelectedRecipeContext } from "./SelectedRecipeContext";
+import Cookies from "js-cookie";
+import { UserContext } from "../context/UserContext";
 
 import Axios from "axios";
 
@@ -11,7 +13,7 @@ export const PersonalNoteProvider = (props) => {
     false
   );
 
-  // TO-DO: selectedRecipeId must be replaced to uri
+  const { isLoggedIn } = useContext(UserContext);
   const { selectedRecipe } = useContext(SelectedRecipeContext);
   const selectedRecipeId = selectedRecipe.label
     .toLowerCase()
@@ -31,8 +33,17 @@ export const PersonalNoteProvider = (props) => {
   };
 
   const getPersonalNotes = () => {
-    setIsPersonalNoteCanBeShown(true);
-    Axios.get(URLForList).then((resp) => setPersonalNotes(resp.data));
+    if (isLoggedIn) {
+      setIsPersonalNoteCanBeShown(true);
+      Axios.get(URLForList, {
+        headers: {
+          "Access-Control-Allow-Headers": "Authorization",
+          Authorization: `Bearer ${Cookies.get("jwt")}`,
+        },
+      }).then((resp) => setPersonalNotes(resp.data));
+    } else {
+      alert("Please sign in to see your personal notes!");
+    }
   };
 
   const clearPersonalNoteAddingTextArea = () => {
@@ -45,6 +56,8 @@ export const PersonalNoteProvider = (props) => {
     Axios.post(URLForList, data, {
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Headers": "Authorization",
+        Authorization: `Bearer ${Cookies.get("jwt")}`,
       },
     }).then((resp) => {
       setPersonalNotes((pervPersonalNotes) => [

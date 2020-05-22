@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import CommentList from "../comments/CommentList";
 import { CommentContext } from "../../context/CommentContext";
 import { Button, Input } from "antd";
+import { UserContext } from "../../context/UserContext";
 
 const CommentSection = () => {
   let content = null;
@@ -10,8 +11,23 @@ const CommentSection = () => {
   const { getComments } = useContext(CommentContext);
   const { addComment } = useContext(CommentContext);
   const { isCommentCanBeShown } = useContext(CommentContext);
+  const { isLoggedIn } = useContext(UserContext);
 
-  if (isCommentCanBeShown) {
+  if (!isCommentCanBeShown) {
+    content = (
+      <div>
+        <Button onClick={getComments} className="button">
+          Show comments
+        </Button>
+      </div>
+    );
+  } else if (!isLoggedIn) {
+    content = (
+      <div>
+        <CommentList />
+      </div>
+    );
+  } else {
     content = (
       <div>
         <TextArea id="new-comment-textarea" />
@@ -19,14 +35,6 @@ const CommentSection = () => {
           Add comment
         </Button>
         <CommentList />
-      </div>
-    );
-  } else {
-    content = (
-      <div>
-        <Button onClick={getComments} className="button">
-          Show comments
-        </Button>
       </div>
     );
   }

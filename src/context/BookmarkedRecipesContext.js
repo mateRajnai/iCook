@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Axios from "axios";
 import UrlBuilder from "./UrlBuilder";
+import Cookies from "js-cookie";
+import { UserContext } from "../context/UserContext";
 
 const BOOKMARKED_RECIPES_URL = "http://localhost:8080/favorites";
 const urlBuilder = new UrlBuilder();
@@ -10,6 +12,7 @@ export const BookmarkedRecipesContext = React.createContext();
 export const BookmarkedRecipesProvider = (props) => {
   const [bookmarkedRecipes, setBookmarkedRecipes] = useState([]);
   const [bookmarkedRecipeObjects, setBookmarkedRecipeObjects] = useState([]);
+  const { isLoggedIn } = useContext(UserContext);
 
   const findBookmarkedRecipeByRecipeId = (recipeId) => {
     return bookmarkedRecipes.find((recipe) => recipe.recipeId === recipeId);
@@ -27,31 +30,54 @@ export const BookmarkedRecipesProvider = (props) => {
   };
 
   const getRecipeObjects = (actualUrl) => {
-    Axios.get(actualUrl).then((resp) => setBookmarkedRecipeObjects(resp.data));
+    if (isLoggedIn) {
+      Axios.get(actualUrl, {
+        headers: {
+          "Access-Control-Allow-Headers": "Authorization",
+          Authorization: `Bearer ${Cookies.get("jwt")}`,
+        },
+      }).then((resp) => setBookmarkedRecipeObjects(resp.data));
+    }
   };
 
   const getData = () => {
-    Axios.get(BOOKMARKED_RECIPES_URL).then((resp) =>
-      setBookmarkedRecipes(resp.data)
-    );
+    Axios.get(BOOKMARKED_RECIPES_URL, {
+      headers: {
+        "Access-Control-Allow-Headers": "Authorization",
+        Authorization: `Bearer ${Cookies.get("jwt")}`,
+      },
+    }).then((resp) => setBookmarkedRecipes(resp.data));
   };
 
   const deleteData = (data) => {
-    Axios.delete(BOOKMARKED_RECIPES_URL + "/" + data.id).then((resp) => {
-      if (resp.status === 200) {
-        filterOutDeletedBookmarkedRecipeByRecipeId(data.recipeId);
-      }
-    });
+    if (isLoggedIn) {
+      Axios.delete(BOOKMARKED_RECIPES_URL + "/" + data.id, {
+        headers: {
+          "Access-Control-Allow-Headers": "Authorization",
+          Authorization: `Bearer ${Cookies.get("jwt")}`,
+        },
+      }).then((resp) => {
+        if (resp.status === 200) {
+          filterOutDeletedBookmarkedRecipeByRecipeId(data.recipeId);
+        }
+      });
+    }
   };
 
   const saveData = (data) => {
-    Axios.post(BOOKMARKED_RECIPES_URL, data, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((resp) =>
-      setBookmarkedRecipes((prevRecipes) => [...prevRecipes, resp.data])
-    );
+    if (isLoggedIn) {
+      Axios.post(BOOKMARKED_RECIPES_URL, data, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Headers": "Authorization",
+          Authorization: `Bearer ${Cookies.get("jwt")}`,
+        },
+      }).then((resp) =>
+        setBookmarkedRecipes((prevRecipes) => [...prevRecipes, resp.data])
+      );
+    } else {
+      alert("Please sign in to save recipes as favorites!");
+    }
   };
 
   const escapeUriCharacters = (uri) => {
@@ -90,8 +116,10 @@ export const BookmarkedRecipesProvider = (props) => {
   });
 
   useEffect(() => {
-    getData();
-  }, []);
+    if (isLoggedIn) {
+      getData();
+    }
+  }, [isLoggedIn]);
 
   return (
     <BookmarkedRecipesContext.Provider

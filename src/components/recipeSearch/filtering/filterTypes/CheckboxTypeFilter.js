@@ -16,7 +16,9 @@ const CheckboxTypeFilter = (props) => {
   };
 
   return (
-    <Collapse defaultActiveKey="0">
+    <Collapse
+      defaultActiveKey={props.filter.checkedOptions.length === 0 ? "0" : "1"}
+    >
       <Panel
         header={props.filter.name}
         key="1"
