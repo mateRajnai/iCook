@@ -64,7 +64,7 @@ export const BookmarkedRecipesProvider = (props) => {
     }
   };
 
-  const saveData = (data) => {
+  const saveData = (data, recipe) => {
     if (isLoggedIn) {
       Axios.post(BOOKMARKED_RECIPES_URL, data, {
         headers: {
@@ -72,9 +72,13 @@ export const BookmarkedRecipesProvider = (props) => {
           "Access-Control-Allow-Headers": "Authorization",
           Authorization: `Bearer ${Cookies.get("jwt")}`,
         },
-      }).then((resp) =>
-        setBookmarkedRecipes((prevRecipes) => [...prevRecipes, resp.data])
-      );
+      }).then((resp) => {
+        setBookmarkedRecipeObjects((prevRecipeObjects) => [
+          ...prevRecipeObjects,
+          recipe,
+        ]);
+        setBookmarkedRecipes((prevRecipes) => [...prevRecipes, resp.data]);
+      });
     } else {
       alert("Please sign in to save recipes as favorites!");
     }
@@ -96,6 +100,9 @@ export const BookmarkedRecipesProvider = (props) => {
     const recipeId = event.currentTarget.attributes.getNamedItem(
       "data-recipe-id"
     ).value;
+    const recipeObject = event.currentTarget.attributes.getNamedItem(
+      "data-recipe-object"
+    ).value;
     const escapedRecipeId = escapeUriCharacters(recipeId);
     const bookmarkedRecipe = findBookmarkedRecipeByRecipeId(escapedRecipeId);
 
@@ -103,7 +110,7 @@ export const BookmarkedRecipesProvider = (props) => {
       const recipe = {
         recipeId: escapedRecipeId,
       };
-      saveData(recipe);
+      saveData(recipe, recipeObject);
     } else {
       deleteData(bookmarkedRecipe);
     }

@@ -78,6 +78,7 @@ const RecipeListItem = (props) => {
                       onClick={addToBookmarks}
                       id="bookmark"
                       data-recipe-id={recipe.uri}
+                      data-recipe-object={recipe}
                       icon={faBookmark}
                       isbookmarked={themeSetter(recipe.uri)}
                       size={"5x"}
