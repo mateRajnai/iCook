@@ -17,6 +17,7 @@ const RecipeInfo = (props) => {
             onClick={addToBookmarks}
             id="bookmark"
             data-recipe-id={selectedRecipe.uri}
+            data-recipe-object={selectedRecipe}
             icon={faBookmark}
             isbookmarked={themeSetter(selectedRecipe.uri)}
             size={"2x"}
