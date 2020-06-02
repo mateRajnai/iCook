@@ -6,6 +6,7 @@ import NutritionalTableRow, {
 import styled from "styled-components";
 import { SelectedRecipeContext } from "../../../context/SelectedRecipeContext";
 import { UserContext } from "../../../context/UserContext";
+import { notification } from "antd";
 
 const NUTRIENT_DATA = 1;
 
@@ -28,7 +29,12 @@ const NutritionalValues = (props) => {
     if (isLoggedIn) {
       setHidden(!isHidden);
     } else {
-      alert("Please sign in to see the nutritional values!");
+      notification.open({
+        message: "Please sign in!",
+        description: "Guests are not allowed to bookmark recpies!",
+        placement: "topRight",
+        top: 50,
+      });
     }
   };
 
