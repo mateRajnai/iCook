@@ -45,7 +45,7 @@ export const PersonalNoteProvider = (props) => {
     } else {
       notification.open({
         message: "Please sign in!",
-        description: "Guests are not allowed to bookmark recpies!",
+        description: "Guests are not allowed to add personal notes to recipes!",
         placement: "topRight",
         top: 50,
       });

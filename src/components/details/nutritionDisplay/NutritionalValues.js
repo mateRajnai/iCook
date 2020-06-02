@@ -31,7 +31,7 @@ const NutritionalValues = (props) => {
     } else {
       notification.open({
         message: "Please sign in!",
-        description: "Guests are not allowed to bookmark recpies!",
+        description: "Guests are not allowed to see nutrition values!",
         placement: "topRight",
         top: 50,
       });
