@@ -3,6 +3,7 @@ import Axios from "axios";
 import UrlBuilder from "./UrlBuilder";
 import Cookies from "js-cookie";
 import { UserContext } from "../context/UserContext";
+import { notification } from "antd";
 
 const BOOKMARKED_RECIPES_URL = "http://localhost:8080/favorites";
 const urlBuilder = new UrlBuilder();
@@ -80,7 +81,12 @@ export const BookmarkedRecipesProvider = (props) => {
         setBookmarkedRecipes((prevRecipes) => [...prevRecipes, resp.data]);
       });
     } else {
-      alert("Please sign in to save recipes as favorites!");
+      notification.open({
+        message: "Please sign in!",
+        description: "Guests are not allowed to bookmark recpies!",
+        placement: "topRight",
+        top: 50,
+      });
     }
   };
 
@@ -95,15 +101,9 @@ export const BookmarkedRecipesProvider = (props) => {
     return "bookmarkless";
   };
 
-  const addToBookmarks = (event) => {
+  const addToBookmarks = (event, recipeObject) => {
     event.stopPropagation();
-    const recipeId = event.currentTarget.attributes.getNamedItem(
-      "data-recipe-id"
-    ).value;
-    const recipeObject = event.currentTarget.attributes.getNamedItem(
-      "data-recipe-object"
-    ).value;
-    const escapedRecipeId = escapeUriCharacters(recipeId);
+    const escapedRecipeId = escapeUriCharacters(recipeObject.uri);
     const bookmarkedRecipe = findBookmarkedRecipeByRecipeId(escapedRecipeId);
 
     if (bookmarkedRecipe == null) {
