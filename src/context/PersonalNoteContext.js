@@ -2,6 +2,7 @@ import React, { createContext, useState, useContext, useEffect } from "react";
 import { SelectedRecipeContext } from "./SelectedRecipeContext";
 import Cookies from "js-cookie";
 import { UserContext } from "../context/UserContext";
+import { notification } from "antd";
 
 import Axios from "axios";
 
@@ -42,7 +43,12 @@ export const PersonalNoteProvider = (props) => {
         },
       }).then((resp) => setPersonalNotes(resp.data));
     } else {
-      alert("Please sign in to see your personal notes!");
+      notification.open({
+        message: "Please sign in!",
+        description: "Guests are not allowed to add personal notes to recipes!",
+        placement: "topRight",
+        top: 50,
+      });
     }
   };
 
