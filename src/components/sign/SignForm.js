@@ -4,6 +4,9 @@ import { Modal, Form, Input, Tabs } from "antd";
 
 const { TabPane } = Tabs;
 
+const CHECK_USER_ENDPOINT = "/check_username";
+const CHECK_EMAIL_ENDPOINT = "/check_email";
+
 const SignForm = () => {
   const {
     visible,
@@ -12,6 +15,7 @@ const SignForm = () => {
     handleCancel,
     action,
     setAction,
+    checkUniqueField,
   } = useContext(SignModalContext);
   const [form] = Form.useForm();
 
@@ -55,11 +59,27 @@ const SignForm = () => {
             <Form.Item
               name="userName"
               label="Username"
+              validateTrigger="onBlur"
+              hasFeedback
               rules={[
                 {
                   required: action === "signup" ? true : false,
                   message: "Please enter your username!",
                 },
+                () => ({
+                  validator(rule, value) {
+                    return new Promise((resolve, reject) => {
+                      checkUniqueField(value, CHECK_USER_ENDPOINT)
+                        .then((occupied) => {
+                          if (occupied) {
+                            return reject("Username is already occupied!");
+                          }
+                          return resolve();
+                        })
+                        .catch(() => resolve());
+                    });
+                  },
+                }),
               ]}
             >
               <Input />
@@ -79,6 +99,8 @@ const SignForm = () => {
             <Form.Item
               name="email"
               label="E-mail"
+              validateTrigger="onBlur"
+              hasFeedback
               rules={[
                 {
                   type: "email",
@@ -88,6 +110,22 @@ const SignForm = () => {
                   required: action === "signup" ? true : false,
                   message: "Please input your E-mail!",
                 },
+                () => ({
+                  validator(rule, value) {
+                    return new Promise((resolve, reject) => {
+                      checkUniqueField(value, CHECK_EMAIL_ENDPOINT)
+                        .then((occupied) => {
+                          if (occupied) {
+                            return reject(
+                              "Entered email address is already registered!"
+                            );
+                          }
+                          return resolve();
+                        })
+                        .catch(() => resolve());
+                    });
+                  },
+                }),
               ]}
             >
               <Input />
