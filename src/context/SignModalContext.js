@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { useState, useEffect } from "react";
 import Axios from "axios";
 import { UserContext } from "./UserContext";
-import Cookies from "js-cookie";
 
 const LOGIN_URL = "http://localhost:8080/login";
 const SIGNUP_URL = "http://localhost:8080/signup";
@@ -23,6 +22,7 @@ export const SignModalProvider = (props) => {
       headers: {
         "Content-Type": "application/json",
       },
+      withCredentials: true,
     })
       .then((resp) => {
         setConfirmLoading(false);
@@ -43,12 +43,12 @@ export const SignModalProvider = (props) => {
       headers: {
         "Content-Type": "application/json",
       },
+      withCredentials: true,
     })
       .then((resp) => {
         setUsername(resp.data.username);
         setRoles(resp.data.roles);
         setId(resp.data.id);
-        Cookies.set("jwt", resp.data.token);
         setAction("");
         setVisible(false);
         setConfirmLoading(false);

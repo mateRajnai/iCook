@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import Axios from "axios";
 import UrlBuilder from "./UrlBuilder";
-import Cookies from "js-cookie";
 import { UserContext } from "../context/UserContext";
 import { notification } from "antd";
 
@@ -32,31 +31,22 @@ export const BookmarkedRecipesProvider = (props) => {
 
   const getRecipeObjects = (actualUrl) => {
     if (isLoggedIn) {
-      Axios.get(actualUrl, {
-        headers: {
-          "Access-Control-Allow-Headers": "Authorization",
-          Authorization: `Bearer ${Cookies.get("jwt")}`,
-        },
-      }).then((resp) => setBookmarkedRecipeObjects(resp.data));
+      Axios.get(actualUrl).then((resp) =>
+        setBookmarkedRecipeObjects(resp.data)
+      );
     }
   };
 
   const getData = () => {
     Axios.get(BOOKMARKED_RECIPES_URL, {
-      headers: {
-        "Access-Control-Allow-Headers": "Authorization",
-        Authorization: `Bearer ${Cookies.get("jwt")}`,
-      },
+      withCredentials: true,
     }).then((resp) => setBookmarkedRecipes(resp.data));
   };
 
   const deleteData = (data) => {
     if (isLoggedIn) {
       Axios.delete(BOOKMARKED_RECIPES_URL + "/" + data.id, {
-        headers: {
-          "Access-Control-Allow-Headers": "Authorization",
-          Authorization: `Bearer ${Cookies.get("jwt")}`,
-        },
+        withCredentials: true,
       }).then((resp) => {
         if (resp.status === 200) {
           filterOutDeletedBookmarkedRecipeByRecipeId(data.recipeId);
@@ -70,9 +60,8 @@ export const BookmarkedRecipesProvider = (props) => {
       Axios.post(BOOKMARKED_RECIPES_URL, data, {
         headers: {
           "Content-Type": "application/json",
-          "Access-Control-Allow-Headers": "Authorization",
-          Authorization: `Bearer ${Cookies.get("jwt")}`,
         },
+        withCredentials: true,
       }).then((resp) => {
         setBookmarkedRecipeObjects((prevRecipeObjects) => [
           ...prevRecipeObjects,

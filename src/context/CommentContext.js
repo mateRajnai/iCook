@@ -1,6 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { SelectedRecipeContext } from "./SelectedRecipeContext";
-import Cookies from "js-cookie";
 import Axios from "axios";
 export const CommentContext = createContext();
 export const CommentProvider = (props) => {
@@ -25,7 +24,9 @@ export const CommentProvider = (props) => {
 
   const getComments = () => {
     setIsCommentCanBeShown(true);
-    Axios.get(URL).then((resp) => setComments(resp.data));
+    Axios.get(URL, {
+      withCredentials: true,
+    }).then((resp) => setComments(resp.data));
   };
 
   const clearCommentAddingTextArea = () => {
@@ -38,9 +39,8 @@ export const CommentProvider = (props) => {
     Axios.post(URL, data, {
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Headers": "Authorization",
-        Authorization: `Bearer ${Cookies.get("jwt")}`,
       },
+      withCredentials: true,
     }).then((resp) => {
       setComments((prevComments) => [resp.data, ...prevComments]);
       clearCommentAddingTextArea();

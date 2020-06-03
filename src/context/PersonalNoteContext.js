@@ -1,6 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { SelectedRecipeContext } from "./SelectedRecipeContext";
-import Cookies from "js-cookie";
 import { UserContext } from "../context/UserContext";
 import { notification } from "antd";
 
@@ -37,10 +36,7 @@ export const PersonalNoteProvider = (props) => {
     if (isLoggedIn) {
       setIsPersonalNoteCanBeShown(true);
       Axios.get(URLForList, {
-        headers: {
-          "Access-Control-Allow-Headers": "Authorization",
-          Authorization: `Bearer ${Cookies.get("jwt")}`,
-        },
+        withCredentials: true,
       }).then((resp) => setPersonalNotes(resp.data));
     } else {
       notification.open({
@@ -60,11 +56,7 @@ export const PersonalNoteProvider = (props) => {
     const data = collectNewPersonalNoteRelatedData();
     event.stopPropagation();
     Axios.post(URLForList, data, {
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Headers": "Authorization",
-        Authorization: `Bearer ${Cookies.get("jwt")}`,
-      },
+      withCredentials: true,
     }).then((resp) => {
       setPersonalNotes((pervPersonalNotes) => [
         resp.data,
