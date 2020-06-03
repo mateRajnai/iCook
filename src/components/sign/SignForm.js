@@ -129,22 +129,6 @@ const SignForm = () => {
             >
               <Input.Password />
             </Form.Item>
-            <Form.Item label="Address">
-              <Input.Group compact>
-                <Form.Item name={["address", "country"]} noStyle>
-                  <Input placeholder="Country" />
-                </Form.Item>
-                <Form.Item name={["address", "zipCode"]} noStyle>
-                  <Input style={{ width: "30%" }} placeholder="Zip code" />
-                </Form.Item>
-                <Form.Item name={["address", "city"]} noStyle>
-                  <Input style={{ width: "70%" }} placeholder="City" />
-                </Form.Item>
-                <Form.Item name={["address", "address"]} noStyle>
-                  <Input placeholder="Address" />
-                </Form.Item>
-              </Input.Group>
-            </Form.Item>
           </Form>
         </TabPane>
         <TabPane tab="SIGN-IN" key="2">
