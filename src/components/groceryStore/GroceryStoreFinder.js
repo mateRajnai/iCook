@@ -21,7 +21,7 @@ const GroceryStoreFinder = () => {
 
   let content = null;
 
-  if (isLoggedIn) {
+  if (!isLoggedIn) {
     content = (
       <div>
         <Button onClick={display}>Search for grocery stores nearby</Button>
