@@ -25,9 +25,13 @@ export const SignModalProvider = (props) => {
       withCredentials: true,
     })
       .then((resp) => {
+        setUsername(resp.data.username);
+        setRoles(resp.data.roles);
+        setId(resp.data.id);
         setConfirmLoading(false);
         setAction("");
         setVisible(false);
+        setIsLoggedIn(true);
       })
       .catch(() => {
         setConfirmLoading(false);
