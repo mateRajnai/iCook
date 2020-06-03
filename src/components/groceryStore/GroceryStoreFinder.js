@@ -1,16 +1,11 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import { Button } from "antd";
-import { NearbyStoresContext } from "../../context/NearbyStoresContext";
 
 const GroceryStoreFinder = () => {
-  const { latitude, longitude } = useContext(NearbyStoresContext);
-
   const display = () => {
     console.log("coordinates");
     console.log(window.geolocation);
   };
-
-  useEffect(() => {}, [latitude, longitude]);
 
   return (
     <div>
