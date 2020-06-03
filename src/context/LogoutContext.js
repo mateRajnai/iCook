@@ -1,12 +1,10 @@
 import React, { useContext } from "react";
 import { useState } from "react";
 import Axios from "axios";
-import Cookies from "js-cookie";
 import { UserContext } from "./UserContext";
 import { useHistory } from "react-router-dom";
 
 const LOGOUT_URL = `http://localhost:8080/logout`;
-const JWT_COOKIE = `jwt`;
 
 export const LogoutContext = React.createContext();
 
@@ -19,14 +17,10 @@ export const LogoutProvider = (props) => {
     setConfirmLoading(true);
     console.log("logout clicked");
     Axios.get(LOGOUT_URL, {
-      headers: {
-        "Access-Control-Allow-Headers": "Authorization",
-        Authorization: `Bearer ${Cookies.get(JWT_COOKIE)}`,
-      },
+      withCredentials: true,
     })
       .then((resp) => {
         console.log(resp.status);
-        Cookies.remove(JWT_COOKIE);
         setIsLoggedIn(false);
         history.push("/");
         window.location.reload(true);
