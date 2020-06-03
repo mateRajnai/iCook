@@ -7,6 +7,8 @@ import { SignModalContext } from "../../context/SignModalContext";
 import { UserContext } from "../../context/UserContext";
 import LoggedInMenu from "../sign/LoggedInMenu";
 
+import { NearbyStoresContext } from "../../context/NearbyStoresContext";
+
 const { Header } = Layout;
 
 const StyledImage = styled.img`
@@ -21,6 +23,8 @@ const activeStyle = { color: "lightblue" };
 const LayoutHeader = (props) => {
   const { showModal } = useContext(SignModalContext);
   const { isLoggedIn } = useContext(UserContext);
+
+  const { getGeolocation } = useContext(NearbyStoresContext);
 
   return (
     <StyledHeader>
@@ -37,8 +41,12 @@ const LayoutHeader = (props) => {
         <NavLink exact={true} activeStyle={activeStyle} to={"/random-drink"}>
           Get random drink
         </NavLink>
-
-        <NavLink exact={true} activeStyle={activeStyle} to={"/grocery-stores"}>
+        <NavLink
+          exact={true}
+          activeStyle={activeStyle}
+          to={"/grocery-stores"}
+          onClick={getGeolocation}
+        >
           Find grocery stores nearby
         </NavLink>
         {/* TO-DO: Not nice, refactor, but how? => code review */}
