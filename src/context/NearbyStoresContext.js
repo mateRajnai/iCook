@@ -1,12 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 
 export const NearbyStoresContext = React.createContext();
 
 export const NearbyStoresProvider = (props) => {
-  const [isGeolocRetrievalAllowed, setIsGeolocRetrievalAllowed] = useState(
-    false
-  );
-
   const getGeolocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(savePosition);
@@ -26,8 +22,6 @@ export const NearbyStoresProvider = (props) => {
   return (
     <NearbyStoresContext.Provider
       value={{
-        isGeolocRetrievalAllowed,
-        setIsGeolocRetrievalAllowed,
         getGeolocation,
       }}
     >
