@@ -37,6 +37,7 @@ const LayoutHeader = (props) => {
         <NavLink exact={true} activeStyle={activeStyle} to={"/random-drink"}>
           Get random drink
         </NavLink>
+
         <NavLink exact={true} activeStyle={activeStyle} to={"/grocery-stores"}>
           Find grocery stores nearby
         </NavLink>
