@@ -24,7 +24,9 @@ export const CommentProvider = (props) => {
 
   const getComments = () => {
     setIsCommentCanBeShown(true);
-    Axios.get(URL).then((resp) => setComments(resp.data));
+    Axios.get(URL, {
+      withCredentials: true,
+    }).then((resp) => setComments(resp.data));
   };
 
   const clearCommentAddingTextArea = () => {
@@ -38,6 +40,7 @@ export const CommentProvider = (props) => {
       headers: {
         "Content-Type": "application/json",
       },
+      withCredentials: true,
     }).then((resp) => {
       setComments((prevComments) => [resp.data, ...prevComments]);
       clearCommentAddingTextArea();
