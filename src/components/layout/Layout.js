@@ -13,6 +13,7 @@ import BookmarkList from "../bookmark/BookmarkList";
 import { SignModalProvider } from "../../context/SignModalContext";
 import { LogoutProvider } from "../../context/LogoutContext";
 import SignForm from "../sign/SignForm";
+import GroceryStoreFinder from "../groceryStore/GroceryStoreFinder";
 
 const Layout = (props) => {
   return (
@@ -33,6 +34,7 @@ const Layout = (props) => {
           <Route path={"/recipe/:id"} component={RecipeDetails} />
           <Route path={"/random-drink"} component={DrinkRandomizer} />
           <Route path={"/bookmark"} component={BookmarkList} />
+          <Route path={"/grocery-stores"} component={GroceryStoreFinder} />
         </MainContent>
         <LayoutFooter />
       </AntLayout>
