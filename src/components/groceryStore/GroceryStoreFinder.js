@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { Button, Popconfirm, message } from "antd";
+import { NearbyStoresContext } from "../../context/NearbyStoresContext";
 
 const GroceryStoreFinder = () => {
-  const [isGeoLocRetrievalAllowed, setIsGeoLocRetrievalAllowed] = useState(
-    false
+  const { isGeolocRetrievalAllowed, setIsGeolocRetrievalAllowed } = useContext(
+    NearbyStoresContext
   );
 
   const confirm = (e) => {
     console.log(e);
     message.success("You can search for grocery stores nearby from now on.");
-    setIsGeoLocRetrievalAllowed(true);
+    setIsGeolocRetrievalAllowed(true);
   };
 
   const cancel = (e) => {
@@ -21,7 +22,7 @@ const GroceryStoreFinder = () => {
 
   return (
     <div>
-      {!isGeoLocRetrievalAllowed ? (
+      {!isGeolocRetrievalAllowed ? (
         <React.Fragment>
           <Popconfirm
             title="iCook.com wants to use your device's location to find grocery stores nearby"
