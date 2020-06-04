@@ -33,7 +33,7 @@ export const SignModalProvider = (props) => {
         setAction("");
         setVisible(false);
         setIsLoggedIn(true);
-        message.success("Registration is successful.", 4);
+        message.success("Registration is successful. You are logged in.", 4);
       })
       .catch(() => {
         setConfirmLoading(false);
