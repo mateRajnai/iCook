@@ -38,6 +38,15 @@ export const SignModalProvider = (props) => {
       });
   };
 
+  const checkUniqueField = (data, endpoint) => {
+    return Axios.post(SIGNUP_URL + endpoint, data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    }).then((resp) => resp.data);
+  };
+
   const login = (inputs) => {
     const data = {
       username: inputs.username_login,
@@ -101,6 +110,7 @@ export const SignModalProvider = (props) => {
         showModal,
         handleOk,
         handleCancel,
+        checkUniqueField,
       }}
     >
       {props.children}
