@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { useState, useEffect } from "react";
 import Axios from "axios";
 import { UserContext } from "./UserContext";
+import { message } from "antd";
 
 const LOGIN_URL = "http://localhost:8080/login";
 const SIGNUP_URL = "http://localhost:8080/signup";
@@ -32,9 +33,11 @@ export const SignModalProvider = (props) => {
         setAction("");
         setVisible(false);
         setIsLoggedIn(true);
+        message.success("Registration is successful.", 4);
       })
       .catch(() => {
         setConfirmLoading(false);
+        message.error("Error occured during registration.", 4);
       });
   };
 
@@ -57,9 +60,11 @@ export const SignModalProvider = (props) => {
         setVisible(false);
         setConfirmLoading(false);
         setIsLoggedIn(true);
+        message.success("Login is successful.", 4);
       })
       .catch(function () {
         setConfirmLoading(false);
+        message.error("Error occured during login.", 4);
       });
   };
 
