@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { SignModalContext } from "../../context/SignModalContext";
 import { Modal, Form, Input, Tabs } from "antd";
+import { PasswordInput } from "antd-password-input-strength";
 
 const { TabPane } = Tabs;
 
@@ -141,7 +142,7 @@ const SignForm = () => {
               ]}
               hasFeedback
             >
-              <Input.Password />
+              <PasswordInput />
             </Form.Item>
             <Form.Item
               name="confirm"
