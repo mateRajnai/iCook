@@ -33,11 +33,11 @@ export const SignModalProvider = (props) => {
         setAction("");
         setVisible(false);
         setIsLoggedIn(true);
-        message.success("Registration is successful.", 4);
+        message.success("Registration is successful. You are logged in.", 4);
       })
       .catch(() => {
         setConfirmLoading(false);
-        message.error("Error occured during registration.", 4);
+        message.error("Error occurred during registration.", 4);
       });
   };
 
@@ -73,7 +73,7 @@ export const SignModalProvider = (props) => {
       })
       .catch(function () {
         setConfirmLoading(false);
-        message.error("Error occured during login.", 4);
+        message.error("Error occurred during login.", 4);
       });
   };
 
