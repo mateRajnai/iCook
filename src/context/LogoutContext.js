@@ -14,10 +14,10 @@ export const LogoutProvider = (props) => {
   const { setIsLoggedIn } = useContext(UserContext);
   const history = useHistory();
 
-  const logout = (e) => {
+  const logout = (data) => {
     setConfirmLoading(true);
     console.log("logout clicked");
-    Axios.post(LOGOUT_URL, {
+    Axios.post(LOGOUT_URL, data, {
       withCredentials: true,
     })
       .then((resp) => {
