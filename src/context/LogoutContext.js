@@ -3,6 +3,7 @@ import { useState } from "react";
 import Axios from "axios";
 import { UserContext } from "./UserContext";
 import { useHistory } from "react-router-dom";
+import { message } from "antd";
 
 const LOGOUT_URL = `http://localhost:8080/logout`;
 
@@ -16,7 +17,7 @@ export const LogoutProvider = (props) => {
   const logout = (e) => {
     setConfirmLoading(true);
     console.log("logout clicked");
-    Axios.get(LOGOUT_URL, {
+    Axios.post(LOGOUT_URL, {
       withCredentials: true,
     })
       .then((resp) => {
@@ -24,9 +25,10 @@ export const LogoutProvider = (props) => {
         setIsLoggedIn(false);
         history.push("/");
         window.location.reload(true);
+        message.success("Logout is successful.", 4);
       })
       .catch(() => {
-        console.log("Error while logging out.");
+        message.error("Error occured during logout.", 4);
       });
     setConfirmLoading(false);
   };
