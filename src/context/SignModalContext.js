@@ -4,8 +4,8 @@ import Axios from "axios";
 import { UserContext } from "./UserContext";
 import { message } from "antd";
 
-const LOGIN_URL = "http://localhost:8080/login";
-const SIGNUP_URL = "http://localhost:8080/signup";
+const LOGIN_URL = "https://icook-api-server.herokuapp.com/login";
+const SIGNUP_URL = "https://icook-api-server.herokuapp.com/signup";
 
 export const SignModalContext = React.createContext();
 

@@ -5,7 +5,7 @@ import { UserContext } from "./UserContext";
 import { useHistory } from "react-router-dom";
 import { message } from "antd";
 
-const LOGOUT_URL = `http://localhost:8080/logout`;
+const LOGOUT_URL = `https://icook-api-server.herokuapp.com/logout`;
 
 export const LogoutContext = React.createContext();
 
