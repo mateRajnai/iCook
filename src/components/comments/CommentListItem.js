@@ -23,7 +23,7 @@ const CommentListItem = (props) => {
   const data = [
     {
       // After implementing login, username should be added here
-      author: "User Name",
+      author: comment.user.userName + " commented",
       avatar:
         "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
       content: <p>{comment.content}</p>,

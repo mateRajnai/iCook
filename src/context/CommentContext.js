@@ -43,6 +43,7 @@ export const CommentProvider = (props) => {
       },
       withCredentials: true,
     }).then((resp) => {
+      console.log(resp);
       setComments((prevComments) => [resp.data, ...prevComments]);
       clearCommentAddingTextArea();
     });
