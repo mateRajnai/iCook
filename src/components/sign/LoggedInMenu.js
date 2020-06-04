@@ -7,6 +7,11 @@ import { UserContext } from "../../context/UserContext";
 const StyledImage = styled.img`
   width: 50px;
   height: 50px;
+  cursor: pointer;
+`;
+
+const StyledMenu = styled(Menu)`
+  position: fixed;
 `;
 
 const LoggedInMenu = () => {
@@ -14,7 +19,7 @@ const LoggedInMenu = () => {
   const { username } = useContext(UserContext);
 
   const menu = (
-    <Menu>
+    <StyledMenu>
       {/* <Menu.Item key="0">
         <Button>Profile</Button>
       </Menu.Item>
@@ -25,7 +30,7 @@ const LoggedInMenu = () => {
       <Menu.Item key="2">
         <Button onClick={logout}>Logout</Button>
       </Menu.Item>
-    </Menu>
+    </StyledMenu>
   );
   return (
     <Dropdown overlay={menu} trigger={["click"]}>
