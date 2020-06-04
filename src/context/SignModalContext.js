@@ -37,7 +37,7 @@ export const SignModalProvider = (props) => {
       })
       .catch(() => {
         setConfirmLoading(false);
-        message.error("Error occured during registration.", 4);
+        message.error("Error occurred during registration.", 4);
       });
   };
 
@@ -73,7 +73,7 @@ export const SignModalProvider = (props) => {
       })
       .catch(function () {
         setConfirmLoading(false);
-        message.error("Error occured during login.", 4);
+        message.error("Error occurred during login.", 4);
       });
   };
 
