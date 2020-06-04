@@ -75,9 +75,8 @@ const RecipeListItem = (props) => {
                 <Row justify="center">
                   <Col>
                     <BookmarkIcon
-                      onClick={addToBookmarks}
+                      onClick={(event) => addToBookmarks(event, recipe)}
                       id="bookmark"
-                      data-recipe-id={recipe.uri}
                       icon={faBookmark}
                       isbookmarked={themeSetter(recipe.uri)}
                       size={"5x"}

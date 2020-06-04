@@ -10,12 +10,20 @@ import MainContent from "../../style/MainContent";
 import RecipeDetails from "../details/RecipeDetails";
 import DrinkRandomizer from "../drink/DrinkRandomizer";
 import BookmarkList from "../bookmark/BookmarkList";
+import { SignModalProvider } from "../../context/SignModalContext";
+import { LogoutProvider } from "../../context/LogoutContext";
+import SignForm from "../sign/SignForm";
 
 const Layout = (props) => {
   return (
     <BrowserRouter>
       <AntLayout className="layout">
-        <LayoutHeader />
+        <SignModalProvider>
+          <LogoutProvider>
+            <LayoutHeader />
+            <SignForm />
+          </LogoutProvider>
+        </SignModalProvider>
         <MainContent>
           <Route
             path={["/search", "/"]}

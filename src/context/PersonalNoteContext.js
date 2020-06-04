@@ -1,5 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { SelectedRecipeContext } from "./SelectedRecipeContext";
+import { UserContext } from "../context/UserContext";
+import { notification } from "antd";
 
 import Axios from "axios";
 
@@ -11,7 +13,7 @@ export const PersonalNoteProvider = (props) => {
     false
   );
 
-  // TO-DO: selectedRecipeId must be replaced to uri
+  const { isLoggedIn } = useContext(UserContext);
   const { selectedRecipe } = useContext(SelectedRecipeContext);
   const selectedRecipeId = selectedRecipe.label
     .toLowerCase()
@@ -31,8 +33,19 @@ export const PersonalNoteProvider = (props) => {
   };
 
   const getPersonalNotes = () => {
-    setIsPersonalNoteCanBeShown(true);
-    Axios.get(URLForList).then((resp) => setPersonalNotes(resp.data));
+    if (isLoggedIn) {
+      setIsPersonalNoteCanBeShown(true);
+      Axios.get(URLForList, {
+        withCredentials: true,
+      }).then((resp) => setPersonalNotes(resp.data));
+    } else {
+      notification.open({
+        message: "Please sign in!",
+        description: "Guests are not allowed to add personal notes to recipes!",
+        placement: "topRight",
+        top: 50,
+      });
+    }
   };
 
   const clearPersonalNoteAddingTextArea = () => {
@@ -46,6 +59,7 @@ export const PersonalNoteProvider = (props) => {
       headers: {
         "Content-Type": "application/json",
       },
+      withCredentials: true,
     }).then((resp) => {
       setPersonalNotes((pervPersonalNotes) => [
         resp.data,

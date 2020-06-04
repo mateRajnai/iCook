@@ -1,19 +1,12 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { SelectedRecipeContext } from "./SelectedRecipeContext";
-
+import { UserContext } from "./UserContext";
 import Axios from "axios";
-
 export const CommentContext = createContext();
-
 export const CommentProvider = (props) => {
   const [comments, setComments] = useState([]);
   const [isCommentCanBeShown, setIsCommentCanBeShown] = useState(false);
-
-  const escapeUriCharacters = (uri) => {
-    return uri.replace(/\//g, "%2F").replace(/:/g, "%3A").replace(/#/g, "%23");
-  };
-
-  // TO-DO: selectedRecipeId must be replaced to uri
+  const { id: userId } = useContext(UserContext);
   const { selectedRecipe } = useContext(SelectedRecipeContext);
   const selectedRecipeId = selectedRecipe.label
     .toLowerCase()
@@ -32,7 +25,9 @@ export const CommentProvider = (props) => {
 
   const getComments = () => {
     setIsCommentCanBeShown(true);
-    Axios.get(URL).then((resp) => setComments(resp.data));
+    Axios.get(URL, {
+      withCredentials: true,
+    }).then((resp) => setComments(resp.data));
   };
 
   const clearCommentAddingTextArea = () => {
@@ -42,10 +37,11 @@ export const CommentProvider = (props) => {
   const addComment = (event) => {
     const data = collectNewCommentRelatedData();
     event.stopPropagation();
-    Axios.post(URL, data, {
+    Axios.post(URL + "/" + userId, data, {
       headers: {
         "Content-Type": "application/json",
       },
+      withCredentials: true,
     }).then((resp) => {
       setComments((prevComments) => [resp.data, ...prevComments]);
       clearCommentAddingTextArea();

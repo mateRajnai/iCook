@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Axios from "axios";
 import UrlBuilder from "./UrlBuilder";
+import { UserContext } from "../context/UserContext";
+import { notification } from "antd";
 
 const BOOKMARKED_RECIPES_URL =
   "https://icook-api-server.herokuapp.com/favorites";
@@ -12,6 +14,7 @@ export const BookmarkedRecipesContext = React.createContext();
 export const BookmarkedRecipesProvider = (props) => {
   const [bookmarkedRecipes, setBookmarkedRecipes] = useState([]);
   const [bookmarkedRecipeObjects, setBookmarkedRecipeObjects] = useState([]);
+  const { isLoggedIn } = useContext(UserContext);
 
   const findBookmarkedRecipeByRecipeId = (recipeId) => {
     return bookmarkedRecipes.find((recipe) => recipe.recipeId === recipeId);
@@ -29,31 +32,53 @@ export const BookmarkedRecipesProvider = (props) => {
   };
 
   const getRecipeObjects = (actualUrl) => {
-    Axios.get(actualUrl).then((resp) => setBookmarkedRecipeObjects(resp.data));
+    if (isLoggedIn) {
+      Axios.get(actualUrl).then((resp) =>
+        setBookmarkedRecipeObjects(resp.data)
+      );
+    }
   };
 
   const getData = () => {
-    Axios.get(BOOKMARKED_RECIPES_URL).then((resp) =>
-      setBookmarkedRecipes(resp.data)
-    );
+    Axios.get(BOOKMARKED_RECIPES_URL, {
+      withCredentials: true,
+    }).then((resp) => setBookmarkedRecipes(resp.data));
   };
 
   const deleteData = (data) => {
-    Axios.delete(BOOKMARKED_RECIPES_URL + "/" + data.id).then((resp) => {
-      if (resp.status === 200) {
-        filterOutDeletedBookmarkedRecipeByRecipeId(data.recipeId);
-      }
-    });
+    if (isLoggedIn) {
+      Axios.delete(BOOKMARKED_RECIPES_URL + "/" + data.id, {
+        withCredentials: true,
+      }).then((resp) => {
+        if (resp.status === 200) {
+          filterOutDeletedBookmarkedRecipeByRecipeId(data.recipeId);
+        }
+      });
+    }
   };
 
-  const saveData = (data) => {
-    Axios.post(BOOKMARKED_RECIPES_URL, data, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((resp) =>
-      setBookmarkedRecipes((prevRecipes) => [...prevRecipes, resp.data])
-    );
+  const saveData = (data, recipe) => {
+    if (isLoggedIn) {
+      Axios.post(BOOKMARKED_RECIPES_URL, data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      }).then((resp) => {
+        setBookmarkedRecipeObjects((prevRecipeObjects) => [
+          ...prevRecipeObjects,
+          recipe,
+        ]);
+        setBookmarkedRecipes((prevRecipes) => [...prevRecipes, resp.data]);
+      });
+    } else {
+      notification.open({
+        message: "Please sign in!",
+        description: "Guests are not allowed to bookmark recpies!",
+        placement: "topRight",
+        top: 50,
+      });
+    }
   };
 
   const escapeUriCharacters = (uri) => {
@@ -67,19 +92,16 @@ export const BookmarkedRecipesProvider = (props) => {
     return "bookmarkless";
   };
 
-  const addToBookmarks = (event) => {
+  const addToBookmarks = (event, recipeObject) => {
     event.stopPropagation();
-    const recipeId = event.currentTarget.attributes.getNamedItem(
-      "data-recipe-id"
-    ).value;
-    const escapedRecipeId = escapeUriCharacters(recipeId);
+    const escapedRecipeId = escapeUriCharacters(recipeObject.uri);
     const bookmarkedRecipe = findBookmarkedRecipeByRecipeId(escapedRecipeId);
 
     if (bookmarkedRecipe == null) {
       const recipe = {
         recipeId: escapedRecipeId,
       };
-      saveData(recipe);
+      saveData(recipe, recipeObject);
     } else {
       deleteData(bookmarkedRecipe);
     }
@@ -92,8 +114,10 @@ export const BookmarkedRecipesProvider = (props) => {
   });
 
   useEffect(() => {
-    getData();
-  }, []);
+    if (isLoggedIn) {
+      getData();
+    }
+  }, [isLoggedIn]);
 
   return (
     <BookmarkedRecipesContext.Provider

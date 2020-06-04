@@ -14,9 +14,8 @@ const RecipeInfo = (props) => {
       <Row justify="space-between" id="header">
         <Col span={2}>
           <BookmarkIcon
-            onClick={addToBookmarks}
+            onClick={(event) => addToBookmarks(event, selectedRecipe)}
             id="bookmark"
-            data-recipe-id={selectedRecipe.uri}
             icon={faBookmark}
             isbookmarked={themeSetter(selectedRecipe.uri)}
             size={"2x"}

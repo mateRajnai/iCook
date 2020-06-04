@@ -5,6 +5,8 @@ import NutritionalTableRow, {
 } from "./NutritionalTableRow";
 import styled from "styled-components";
 import { SelectedRecipeContext } from "../../../context/SelectedRecipeContext";
+import { UserContext } from "../../../context/UserContext";
+import { notification } from "antd";
 
 const NUTRIENT_DATA = 1;
 
@@ -21,9 +23,19 @@ const NutritionalValues = (props) => {
   const { selectedRecipe } = useContext(SelectedRecipeContext);
   const nutrients = Object.entries(selectedRecipe.totalNutrients);
   const dailyNutrients = Object.entries(selectedRecipe.totalDaily);
+  const { isLoggedIn } = useContext(UserContext);
 
   const toggleVisibility = () => {
-    setHidden(!isHidden);
+    if (isLoggedIn) {
+      setHidden(!isHidden);
+    } else {
+      notification.open({
+        message: "Please sign in!",
+        description: "Guests are not allowed to see nutrition values!",
+        placement: "topRight",
+        top: 50,
+      });
+    }
   };
 
   const getDailyNutrient = (nutrient) => {
