@@ -20,12 +20,12 @@ const LoggedInMenu = () => {
 
   const menu = (
     <StyledMenu>
-      {/* <Menu.Item key="0">
-        <Button>Profile</Button>
-      </Menu.Item>
-      <Menu.Divider /> */}
-      <Menu.Item key="1">
+      <Menu.Divider />
+      <Menu.Item key="0">
         <p>{username}</p>
+      </Menu.Item>
+      <Menu.Item key="1">
+        <Button>Profile</Button>
       </Menu.Item>
       <Menu.Item key="2">
         <Button onClick={logout}>Logout</Button>
