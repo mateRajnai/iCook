@@ -14,18 +14,16 @@ export const LogoutProvider = (props) => {
   const { setIsLoggedIn } = useContext(UserContext);
   const history = useHistory();
 
-  const logout = (data) => {
+  const logout = () => {
     setConfirmLoading(true);
-    console.log("logout clicked");
-    Axios.post(LOGOUT_URL, data, {
+    Axios.post(LOGOUT_URL, null, {
       withCredentials: true,
     })
       .then((resp) => {
-        console.log(resp.status);
+        message.success("Logout is successful.", 4);
         setIsLoggedIn(false);
         history.push("/");
         window.location.reload(true);
-        message.success("Logout is successful.", 4);
       })
       .catch(() => {
         message.error("Error occured during logout.", 4);

@@ -20,10 +20,13 @@ const LoggedInMenu = () => {
 
   const menu = (
     <StyledMenu>
+<<<<<<< Updated upstream
       <Menu.Divider />
       <Menu.Item key="0">
         <p>{username}</p>
       </Menu.Item>
+=======
+>>>>>>> Stashed changes
       <Menu.Item key="1">
         <Button>Profile</Button>
       </Menu.Item>
