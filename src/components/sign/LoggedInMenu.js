@@ -11,7 +11,7 @@ const StyledImage = styled.img`
 `;
 
 const StyledMenu = styled(Menu)`
-  position: fixed;
+  justify-items: center;
 `;
 
 const LoggedInMenu = () => {
@@ -20,7 +20,6 @@ const LoggedInMenu = () => {
 
   const menu = (
     <StyledMenu>
-      <Menu.Divider />
       <Menu.Item key="0">
         <p>{username}</p>
       </Menu.Item>
@@ -33,7 +32,14 @@ const LoggedInMenu = () => {
     </StyledMenu>
   );
   return (
-    <Dropdown overlay={menu} trigger={["click"]}>
+    <Dropdown
+      overlay={menu}
+      trigger={["click"]}
+      overlayStyle={{
+        position: "fixed",
+        minWidth: "100px",
+      }}
+    >
       <StyledImage
         className="profile-menu"
         alt="Profile Menu"
