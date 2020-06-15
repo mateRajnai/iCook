@@ -12,7 +12,7 @@ import DrinkRandomizer from "../drink/DrinkRandomizer";
 import BookmarkList from "../bookmark/BookmarkList";
 import { SignModalProvider } from "../../context/SignModalContext";
 import { LogoutProvider } from "../../context/LogoutContext";
-import SignForm from "../sign/SignForm";
+import SignForm from "../sign/SignModal";
 
 const Layout = (props) => {
   return (

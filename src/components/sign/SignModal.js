@@ -8,7 +8,7 @@ const { TabPane } = Tabs;
 const CHECK_USER_ENDPOINT = "/check_username";
 const CHECK_EMAIL_ENDPOINT = "/check_email";
 
-const SignForm = () => {
+const SignModal = () => {
   const {
     visible,
     confirmLoading,
@@ -203,4 +203,4 @@ const SignForm = () => {
   );
 };
 
-export default SignForm;
+export default SignModal;
