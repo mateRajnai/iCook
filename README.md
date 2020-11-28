@@ -39,9 +39,14 @@ To Visit App:
 
 `localhost:3000`
 
-  
+
+## Released version:
+You can try out the application: https://icook.netlify.app/
+
+
 ## You can take a look at the backend repository:
 https://github.com/mateRajnai/iCook-backend
+
 
 ## Copyright and license 
 Code and documentation copyright 2020 the iCook contributors. Code released under the Creative Commons (CC0 1.0 Universal) License.
