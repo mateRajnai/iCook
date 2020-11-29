@@ -22,26 +22,10 @@ There are some planned features:
   - Search recipes by tags  
   - Create your own recipes  
   - Search grocery stores by geolocation or address
-  
-
-## Installation and Setup Instructions
-Clone down this repository. You will need `node` and `npm` installed globally on your machine.  
-
-Installation:
-
-`npm install`  
-
-To Start Server:
-
-`npm start`  
-
-To Visit App:
-
-`localhost:3000`
 
 
 ## Released version:
-You can try out the application: https://icook.netlify.app/
+You can try out the application: https://icoook.netlify.app/
 
 
 ## You can take a look at the backend repository:
