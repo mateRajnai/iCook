@@ -19,7 +19,7 @@ export const PersonalNoteProvider = (props) => {
     .toLowerCase()
     .replace(/ /g, "-");
 
-  const URLForList = `https://icook-api-server.herokuapp.com/recipe/${selectedRecipeId}/personal-note`;
+  const URLForList = `https://icoook-api-server.herokuapp.com/recipe/${selectedRecipeId}/personal-note`;
 
   const collectNewPersonalNoteRelatedData = () => {
     const newPersonalNote = document.getElementById(

@@ -5,7 +5,7 @@ import { UserContext } from "../context/UserContext";
 import { notification } from "antd";
 
 const BOOKMARKED_RECIPES_URL =
-  "https://icook-api-server.herokuapp.com/favorites";
+  "https://icoook-api-server.herokuapp.com/favorites";
 
 const urlBuilder = new UrlBuilder();
 

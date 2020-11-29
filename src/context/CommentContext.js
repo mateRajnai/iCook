@@ -12,7 +12,7 @@ export const CommentProvider = (props) => {
     .toLowerCase()
     .replace(/ /g, "-");
 
-  const URL = `https:///icook-api-server.herokuapp.com/recipe/${selectedRecipeId}/comments`;
+  const URL = `https:///icoook.herokuapp.com/recipe/${selectedRecipeId}/comments`;
 
   const collectNewCommentRelatedData = () => {
     const newComment = document.getElementById("new-comment-textarea").value;
